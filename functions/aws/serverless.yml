@@ -1,0 +1,220 @@
+service: nuraweb-files
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+  stage: ${opt:stage, 'dev'}
+  timeout: 30 # Increase timeout to 30 seconds
+  
+  # Enable binary media types for API Gateway
+  apiGateway:
+    binaryMediaTypes:
+      - '*/*'
+      - 'multipart/form-data'
+      - 'image/*'
+      - 'video/*'
+      - 'audio/*'
+      - 'application/pdf'
+      - 'application/octet-stream'
+  
+  environment:
+    ALLOWED_ORIGIN: ${env:ALLOWED_ORIGIN}
+    JWT_SECRET: ${env:JWT_SECRET}
+    ADMIN_USERNAME: ${env:ADMIN_USERNAME}
+    ADMIN_PASSWORD: ${env:ADMIN_PASSWORD}
+    AWS_S3_BUCKET_NAME: ${env:AWS_S3_BUCKET_NAME}
+    MAX_FILE_SIZE: ${env:MAX_FILE_SIZE}
+    ALLOWED_FILE_TYPES: ${env:ALLOWED_FILE_TYPES}
+    # DynamoDB configuration
+    DYNAMODB_TABLE_NAME: ${env:DYNAMODB_TABLE_NAME, 'NuraWeb-Posts'}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+        - s3:PutObject
+        - s3:DeleteObject
+        - s3:ListBucket
+        - s3:HeadObject
+      Resource:
+        - "arn:aws:s3:::${env:AWS_S3_BUCKET_NAME}"
+        - "arn:aws:s3:::${env:AWS_S3_BUCKET_NAME}/*"
+    # DynamoDB permissions
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:BatchGetItem
+        - dynamodb:BatchWriteItem
+      Resource:
+        - "arn:aws:dynamodb:${self:provider.region}:*:table/${env:DYNAMODB_TABLE_NAME, 'NuraWeb-Posts'}"
+        - "arn:aws:dynamodb:${self:provider.region}:*:table/${env:DYNAMODB_TABLE_NAME, 'NuraWeb-Posts'}/index/*"
+
+functions:
+  auth-login:
+    handler: auth-login.handler
+    events:
+      - http:
+          path: auth/login
+          method: post
+          cors:
+            origin: ${env:ALLOWED_ORIGIN}
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+
+  auth-verify:
+    handler: auth-verify.handler
+    events:
+      - http:
+          path: auth/verify
+          method: get
+          cors:
+            origin: ${env:ALLOWED_ORIGIN}
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+
+  files-list:
+    handler: files-list.handler
+    events:
+      - http:
+          path: files
+          method: get
+          cors:
+            origin: ${env:ALLOWED_ORIGIN}
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+
+  files-upload:
+    handler: files-upload.handler
+    timeout: 30
+    events:
+      - http:
+          path: files/upload
+          method: post
+          cors:
+            origin: ${env:ALLOWED_ORIGIN}
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+
+  files-presigned-url:
+    handler: files-presigned-url.handler
+    timeout: 30
+    events:
+      - http:
+          path: files/presigned-url
+          method: post
+          cors:
+            origin: ${env:ALLOWED_ORIGIN}
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+
+  files-delete:
+    handler: files-delete.handler
+    events:
+      - http:
+          path: files/{id}
+          method: delete
+          cors:
+            origin: ${env:ALLOWED_ORIGIN}
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+
+  # Posts API Functions
+  posts-list:
+    handler: posts-list.handler
+    events:
+      - http:
+          path: posts
+          method: get
+          cors:
+            origin: ${env:ALLOWED_ORIGIN}
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+
+  posts-get:
+    handler: posts-get.handler
+    events:
+      - http:
+          path: posts/{id}
+          method: get
+          cors:
+            origin: ${env:ALLOWED_ORIGIN}
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+
+  posts-create:
+    handler: posts-create.handler
+    events:
+      - http:
+          path: posts
+          method: post
+          cors:
+            origin: ${env:ALLOWED_ORIGIN}
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+
+  posts-update:
+    handler: posts-update.handler
+    events:
+      - http:
+          path: posts/{id}
+          method: put
+          cors:
+            origin: ${env:ALLOWED_ORIGIN}
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+
+  posts-delete:
+    handler: posts-delete.handler
+    events:
+      - http:
+          path: posts/{id}
+          method: delete
+          cors:
+            origin: ${env:ALLOWED_ORIGIN}
+            headers:
+              - Content-Type
+              - Authorization
+            allowCredentials: false
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 3001
+    host: localhost
+    cors: true
+  dotenv:
+    exclude:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION
+
+# No additional AWS resources needed - using existing DynamoDB table
