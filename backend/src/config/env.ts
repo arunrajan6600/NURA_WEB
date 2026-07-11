@@ -9,6 +9,9 @@ const envSchema = z.object({
   PORT: z.coerce.number().default(3001),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   ALLOWED_ORIGIN: z.string().default('http://localhost:3000'),
+  JWT_SECRET: z.string().min(1),
+  ADMIN_USERNAME: z.string().min(1),
+  ADMIN_PASSWORD: z.string().min(1),
 });
 
 const parseEnv = () => {

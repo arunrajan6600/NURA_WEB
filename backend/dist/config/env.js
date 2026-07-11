@@ -13,6 +13,9 @@ const envSchema = zod_1.z.object({
     PORT: zod_1.z.coerce.number().default(3001),
     NODE_ENV: zod_1.z.enum(['development', 'production', 'test']).default('development'),
     ALLOWED_ORIGIN: zod_1.z.string().default('http://localhost:3000'),
+    JWT_SECRET: zod_1.z.string().min(1),
+    ADMIN_USERNAME: zod_1.z.string().min(1),
+    ADMIN_PASSWORD: zod_1.z.string().min(1),
 });
 const parseEnv = () => {
     const parsed = envSchema.safeParse(process.env);
