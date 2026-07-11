@@ -1,12 +1,10 @@
 "use client";
 
 import { Post } from "@/types/post";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { formatDistance } from "date-fns";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ExternalLink, Link as LinkIcon } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 interface LinkPostCardProps {
   post: Post;
@@ -44,69 +42,46 @@ export function LinkPostCard({
   const externalUrl = extractUrl(post);
 
   return (
-    <Card className="w-full transition-all duration-300 hover:shadow-lg dark:hover:shadow-primary/10 hover:scale-[1.002] transform-gpu border-l-4 border-l-purple-500 dark:border-l-purple-400">
-      <div className="block">
-        <CardContent className="px-4 py-4 md:px-6 md:py-5 flex flex-col h-full min-h-[160px]">
-          <div className="flex items-start justify-between gap-3 mb-3">
-            <div className="space-y-2 flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <LinkIcon className="h-4 w-4 text-purple-500 dark:text-purple-400" />
-                <Badge variant="secondary" className="text-xs bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
-                  External Link
-                </Badge>
-              </div>
-              <CardTitle className="transition-colors hover:text-primary text-lg font-bold leading-tight line-clamp-2">
-                {post.title}
-              </CardTitle>
-              <p className="text-sm text-muted-foreground font-medium">
-                {formattedDate}
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 flex-shrink-0">
-              {externalUrl && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="group font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
-                  asChild
-                >
-                  <a href={externalUrl} target="_blank" rel="noopener noreferrer">
-                    Visit link{" "}
-                    <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </a>
-                </Button>
-              )}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="group font-medium text-muted-foreground hover:text-foreground"
-                asChild
-              >
-                <Link href={`/post/${post.id}`}>
-                  View details{" "}
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-            </div>
-          </div>
+    <div className="flex flex-col gap-3 border border-border bg-card/70 px-4 py-4 transition-colors hover:border-primary/70 hover:bg-card sm:gap-4">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 min-w-0 space-y-1">
+          <h3 className="text-base font-medium uppercase leading-snug">
+            {post.title}
+          </h3>
+          <p className="font-mono text-xs uppercase text-muted-foreground">
+            {formattedDate}
+          </p>
+        </div>
 
-          {!isCompact && previewContent && (
-            <div className="mt-1">
-              <p className="text-muted-foreground line-clamp-3 leading-relaxed text-sm">
-                {previewContent}
-              </p>
-            </div>
-          )}
-
+        <div className="flex flex-col gap-1 flex-shrink-0">
           {externalUrl && (
-            <div className="mt-3 pt-3 border-t border-border">
-              <p className="text-xs text-muted-foreground truncate">
-                <span className="font-medium">Link:</span> {externalUrl}
-              </p>
-            </div>
+            <Button variant="ghost" size="sm" asChild>
+              <a href={externalUrl} target="_blank" rel="noopener noreferrer">
+                Visit link
+                <ExternalLink className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
           )}
-        </CardContent>
+          <Button variant="ghost" size="sm" asChild>
+            <Link href={`/post/${post.id}`}>
+              View details
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
       </div>
-    </Card>
+
+      {!isCompact && previewContent && (
+        <p className="text-muted-foreground line-clamp-3 leading-relaxed text-sm">
+          {previewContent}
+        </p>
+      )}
+
+      {externalUrl && (
+        <p className="border-t border-border pt-3 font-mono text-xs text-muted-foreground truncate">
+          <span className="uppercase">link:</span> {externalUrl}
+        </p>
+      )}
+    </div>
   );
 }

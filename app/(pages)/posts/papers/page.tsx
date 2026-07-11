@@ -1,5 +1,14 @@
 import { posts } from "@/data/posts";
 import { PostCard } from "@/components/post/post-card";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Articles & Papers | Arun Nura",
+  description: "Academic papers, publications, research reports, and presentation drafts by Arun Nura.",
+  alternates: {
+    canonical: "/posts/papers/",
+  },
+};
 
 export default function PapersPage() {
   const paperAndArticlePosts = posts.filter(

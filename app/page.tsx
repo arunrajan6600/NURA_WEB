@@ -1,8 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import MatrixGridBackground from "@/components/ui/matrix-grid-background";
+import { posts } from "@/data/posts";
 
 export default function Home() {
+  const projectCount = posts.filter(
+    (post) => post.status === "published" && post.type === "project"
+  ).length;
+  const writingCount = posts.filter(
+    (post) => post.status === "published" && post.type !== "project"
+  ).length;
 
   return (
     <>
@@ -15,10 +22,10 @@ export default function Home() {
 
       <div className="flex flex-col gap-20 md:gap-28">
         <section className="relative flex min-h-[72vh] flex-col items-center justify-center overflow-hidden py-14 text-center">
-          <div className="pointer-events-none absolute inset-x-0 top-8 mx-auto h-px max-w-xl bg-foreground/20" />
           <div className="mb-10 space-y-3 font-mono text-[11px] uppercase text-muted-foreground">
             <p>arun nura</p>
             <p>multi-disciplinary art practitioner</p>
+            <p className="opacity-75 tracking-wider font-light">[{projectCount} works / {writingCount} posts compiled]</p>
           </div>
 
           <div className="relative flex w-full max-w-3xl flex-col items-center">

@@ -399,6 +399,9 @@ async function buildPosts() {
     // Create build manifest
     createBuildManifest(versionTag, posts);
 
+    // Generate sitemap.xml dynamically from fetched posts
+    generateSitemap(posts);
+
     // Clean old backups
     cleanOldBackups();
 
@@ -421,16 +424,6 @@ async function buildPosts() {
     try {
       const existingPostsFile = path.join(DATA_DIR, "posts.ts");
       if (fs.existsSync(existingPostsFile)) {
-        // Keep the checked-in TypeScript source as-is when the API is offline.
-        // Formatters may make its object literals invalid JSON.
-        return {
-          success: true,
-          version: versionTag,
-          postsCount: null,
-          fallback: true,
-        };
-        console.log("📂 Found existing posts.ts file, using as fallback");
-
         // Read the existing file to extract posts data
         const existingContent = fs.readFileSync(existingPostsFile, "utf8");
         const match = existingContent.match(
@@ -438,35 +431,34 @@ async function buildPosts() {
         );
 
         if (match && match[1]) {
-          const existingPosts = JSON.parse(match[1]);
-          if (existingPosts.length > 0) {
-            console.log(
-              `✅ Using ${existingPosts.length} existing posts for build`
-            );
-
-            // Create build manifest with fallback data
-            createBuildManifest(versionTag, existingPosts);
-
-            return {
-              success: true,
-              version: versionTag,
-              postsCount: existingPosts.length,
-              fallback: true,
-            };
+          try {
+            const existingPosts = new Function("return " + match[1])();
+            generateSitemap(existingPosts);
+          } catch (e) {
+            console.warn("Could not parse existing posts.ts for sitemap:", e.message);
+            generateSitemap([]);
           }
+        } else {
+          generateSitemap([]);
         }
+
+        console.log("📂 Found existing posts.ts file, using as fallback");
+        return {
+          success: true,
+          version: versionTag,
+          postsCount: null,
+          fallback: true,
+        };
       }
 
-      // If no existing posts, create minimal fallback
+      // Create fallback posts if posts.ts doesn't exist at all
       console.log("🔧 Creating minimal posts file for build compatibility");
-
-      // Create a placeholder post to ensure build doesn't fail
       const fallbackPosts = [
         {
           id: "placeholder",
           title: "Placeholder Post",
           type: "blog",
-          status: "draft", // Keep as draft so it doesn't appear in production
+          status: "draft",
           featured: false,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
@@ -480,8 +472,10 @@ async function buildPosts() {
         },
       ];
 
+      // Create build manifest with fallback data
       writeVersionedPosts(fallbackPosts, versionTag);
       createBuildManifest(versionTag, fallbackPosts);
+      generateSitemap(fallbackPosts);
 
       console.log(
         "⚠️  Build completed with placeholder post data - API was unavailable"
@@ -497,6 +491,54 @@ async function buildPosts() {
       console.error("❌ Fallback also failed:", fallbackError.message);
       process.exit(1);
     }
+  }
+}
+
+// Generate sitemap.xml in the public folder dynamically
+function generateSitemap(posts) {
+  try {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://arunrajan6600.github.io/nuraweb";
+    const timestamp = new Date().toISOString();
+    
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+    xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+    
+    // Add base pages
+    const basePages = ["", "/works", "/posts", "/info"];
+    for (const page of basePages) {
+      xml += `  <url>\n`;
+      xml += `    <loc>${siteUrl}${page}/</loc>\n`;
+      xml += `    <lastmod>${timestamp}</lastmod>\n`;
+      xml += `    <changefreq>weekly</changefreq>\n`;
+      xml += `    <priority>${page === "" ? "1.0" : "0.8"}</priority>\n`;
+      xml += `  </url>\n`;
+    }
+    
+    // Add posts
+    if (Array.isArray(posts)) {
+      for (const post of posts) {
+        if (post.status === "published" && post.id !== "placeholder") {
+          xml += `  <url>\n`;
+          xml += `    <loc>${siteUrl}/post/${post.id}/</loc>\n`;
+          xml += `    <lastmod>${post.updatedAt || timestamp}</lastmod>\n`;
+          xml += `    <changefreq>monthly</changefreq>\n`;
+          xml += `    <priority>${post.type === "project" ? "0.9" : "0.7"}</priority>\n`;
+          xml += `  </url>\n`;
+        }
+      }
+    }
+    
+    xml += `</urlset>\n`;
+    
+    const publicDir = path.join(__dirname, "..", "public");
+    if (!fs.existsSync(publicDir)) {
+      fs.mkdirSync(publicDir, { recursive: true });
+    }
+    
+    fs.writeFileSync(path.join(publicDir, "sitemap.xml"), xml, "utf8");
+    console.log(`📡 Generated dynamic sitemap.xml in public directory with ${posts ? posts.length : 0} posts`);
+  } catch (error) {
+    console.error("⚠️  Warning: Failed to generate sitemap.xml:", error.message);
   }
 }
 

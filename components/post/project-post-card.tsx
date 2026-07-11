@@ -7,7 +7,7 @@ import { formatDistance } from "date-fns";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useMemo } from "react";
 
 interface ProjectPostCardProps {
   post: Post;
@@ -60,12 +60,14 @@ export function ProjectPostCard({
 }: ProjectPostCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isHovering = useRef(false);
-  const formattedDate = formatDistance(new Date(post.updatedAt), new Date(), {
-    addSuffix: true,
-  });
-  const previewContent = getPreviewContent(post);
   const isCompact = variant === "compact";
-  const tags = getWorkTags(post);
+
+  const formattedDate = useMemo(
+    () => formatDistance(new Date(post.updatedAt), new Date(), { addSuffix: true }),
+    [post.updatedAt]
+  );
+  const previewContent = useMemo(() => getPreviewContent(post), [post]);
+  const tags = useMemo(() => getWorkTags(post), [post]);
 
   useEffect(() => {
     const cardElement = cardRef.current;
@@ -204,7 +206,7 @@ export function ProjectPostCard({
       className="w-full transition-all duration-300 hover:border-primary/70 hover:bg-card"
     >
       <Link href={`/post/${post.id}`} className="block">
-        <CardContent className="flex min-h-[200px] flex-col px-4 py-3 md:px-5 md:py-4">
+        <CardContent className={`flex flex-col px-4 py-3 md:px-5 md:py-4 ${isCompact ? "" : "min-h-[200px]"}`}>
           <div className="flex items-start justify-between gap-3 mb-1">
             <div className="space-y-1 flex-1">
               <CardTitle className="text-xl font-medium leading-tight transition-colors hover:text-primary">

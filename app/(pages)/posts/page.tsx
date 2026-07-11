@@ -1,5 +1,14 @@
 import Link from "next/link";
 import { posts } from "@/data/posts";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Posts | Arun Nura",
+  description: "Writings, research papers, stories, and articles by Arun Nura.",
+  alternates: {
+    canonical: "/posts/",
+  },
+};
 
 const categories = [
   {

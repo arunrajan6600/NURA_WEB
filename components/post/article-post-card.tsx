@@ -16,17 +16,17 @@ export function ArticlePostCard({ post }: ArticlePostCardProps) {
   });
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 py-3">
+    <div className="flex flex-col gap-3 border border-border bg-card/70 px-4 py-4 transition-colors hover:border-primary/70 hover:bg-card sm:flex-row sm:items-center sm:justify-between sm:gap-4">
       <div className="flex-1 min-w-0">
-        <h3 className="text-lg font-semibold truncate">
+        <h3 className="text-base font-medium uppercase leading-snug truncate">
           {post.title}
         </h3>
-        <p className="text-sm text-muted-foreground">
+        <p className="mt-1 font-mono text-xs uppercase text-muted-foreground">
           {formattedDate}
         </p>
       </div>
 
-      <Link href={`/post/${post.id}`} className="sm:ml-4 self-start sm:self-center">
+      <Link href={`/post/${post.id}`} className="sm:ml-4 self-start sm:self-center flex-shrink-0">
         <Button variant="ghost" size="sm" className="w-full sm:w-auto">
           Read more
           <ArrowRight className="ml-2 h-4 w-4" />

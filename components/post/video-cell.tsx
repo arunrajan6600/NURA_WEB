@@ -1,21 +1,16 @@
 "use client";
 
 import { VideoContent } from "@/types/post";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 interface VideoCellProps {
   content: VideoContent;
 }
 
 export function VideoCell({ content }: VideoCellProps) {
-  const [aspectRatio, setAspectRatio] = useState<string>("16/9"); // Default aspect ratio
   const videoRef = useRef<HTMLIFrameElement | HTMLVideoElement>(null);
   const { url, title, provider = getVideoProvider(url) } = content || {};
-
-  useEffect(() => {
-    // Set aspect ratio based on provider (could be enhanced with actual video metadata)
-    setAspectRatio(provider === "vimeo" ? "16/9" : "16/9");
-  }, [provider]);
+  const aspectRatio = "16/9";
 
   // Ensure we have a valid URL
   if (!url) {
@@ -49,6 +44,7 @@ export function VideoCell({ content }: VideoCellProps) {
               className="absolute inset-0 h-full w-full border-0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              loading="lazy"
             />
           )
         )}

@@ -24,7 +24,33 @@ const robotoMono = Roboto_Mono({
 
 export const metadata: Metadata = {
   title: "Arun Nura | Multi-disciplinary Art Practitioner",
-  description: "Portfolio of Arun Nura, a multi-disciplinary art practitioner",
+  description: "Portfolio of Arun Nura, a multi-disciplinary art practitioner specializing in visual practices, experimental films, performance art and AI-code art.",
+  metadataBase: new URL("https://arunrajan6600.github.io/nuraweb"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Arun Nura | Multi-disciplinary Art Practitioner",
+    description: "Portfolio of Arun Nura, a multi-disciplinary art practitioner specializing in visual practices, experimental films, performance art and AI-code art.",
+    url: "https://arunrajan6600.github.io/nuraweb",
+    siteName: "Arun Nura Portfolio",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://arunrajan6600.github.io/arunnura/images/manKEY.png",
+        width: 1200,
+        height: 630,
+        alt: "Arun Nura - Multi-disciplinary Art Practitioner",
+      }
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Arun Nura | Multi-disciplinary Art Practitioner",
+    description: "Portfolio of Arun Nura, a multi-disciplinary art practitioner specializing in visual practices, experimental films, performance art and AI-code art.",
+    images: ["https://arunrajan6600.github.io/arunnura/images/manKEY.png"],
+  },
 };
 
 export default function RootLayout({
@@ -40,8 +66,11 @@ export default function RootLayout({
         <ThemeProvider>
           <AuthProvider>
             <div className="relative min-h-screen flex flex-col z-10">
+              <a href="#main-content" className="skip-to-content">
+                skip to content
+              </a>
               <Header />
-              <main className="relative z-10 flex-1 w-full">
+              <main id="main-content" className="relative z-10 flex-1 w-full">
                 <div className="container max-w-5xl mx-auto px-4 py-6 sm:px-6 md:py-10 lg:px-8">
                   {children}
                 </div>

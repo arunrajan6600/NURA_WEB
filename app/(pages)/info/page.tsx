@@ -1,9 +1,46 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About | Arun Nura",
+  description: "Biography, CV, contact info, and artistic statement of Arun Nura, a Kerala-based multidisciplinary art practitioner.",
+  alternates: {
+    canonical: "/info/",
+  },
+};
 
 export default function AboutPage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://arunrajan6600.github.io/nuraweb";
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Arun Nura",
+    "url": siteUrl,
+    "jobTitle": "Multidisciplinary Art Practitioner",
+    "knowsAbout": [
+      "Visual Practices",
+      "Experimental Films",
+      "Theatre Performances",
+      "Anthropological Studies",
+      "Performance Arts",
+      "AI-Code Art"
+    ],
+    "sameAs": [
+      "https://www.instagram.com/arun.nura/"
+    ],
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "Mechanical Engineering Graduate"
+    }
+  };
+
   return (
     <div className="flex flex-col gap-10 md:gap-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
       <section className="site-section">
         <div className="section-heading">
           <p>about</p>

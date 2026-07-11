@@ -2,6 +2,7 @@
 
 import { ChevronDown, Menu } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -25,12 +26,20 @@ const postLinks = [
 ];
 
 export function MobileNav() {
+  const pathname = usePathname() || "";
   const [isOpen, setIsOpen] = useState(false);
   const [isPostsOpen, setIsPostsOpen] = useState(false);
 
   const handleLinkClick = () => {
     setIsOpen(false);
     setIsPostsOpen(false);
+  };
+
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(href);
   };
 
   return (
@@ -47,18 +56,18 @@ export function MobileNav() {
           <div className="mb-8 border-b border-border pb-5 text-muted-foreground">
             index
           </div>
-          <Link href="/" onClick={handleLinkClick} className="mobile-nav-link">
+          <Link href="/" onClick={handleLinkClick} className={`mobile-nav-link ${isActive("/") ? "text-primary font-semibold" : ""}`}>
             Home
           </Link>
           <Link
             href="/works"
             onClick={handleLinkClick}
-            className="mobile-nav-link"
+            className={`mobile-nav-link ${isActive("/works") || isActive("/projects") ? "text-primary font-semibold" : ""}`}
           >
             Works
           </Link>
           <Collapsible open={isPostsOpen} onOpenChange={setIsPostsOpen}>
-            <CollapsibleTrigger className="mobile-nav-link flex w-full items-center justify-between">
+            <CollapsibleTrigger className={`mobile-nav-link flex w-full items-center justify-between ${isActive("/posts") ? "text-primary font-semibold" : ""}`}>
               Posts
               <ChevronDown
                 className={`h-4 w-4 transition-transform ${
@@ -72,7 +81,9 @@ export function MobileNav() {
                   key={link.href}
                   href={link.href}
                   onClick={handleLinkClick}
-                  className="border-l border-border px-3 py-2 text-muted-foreground hover:text-primary"
+                  className={`border-l border-border px-3 py-2 hover:text-primary ${
+                    pathname === link.href ? "text-primary font-semibold border-primary" : "text-muted-foreground"
+                  }`}
                 >
                   {link.label}
                 </Link>
@@ -82,7 +93,7 @@ export function MobileNav() {
           <Link
             href="/info"
             onClick={handleLinkClick}
-            className="mobile-nav-link"
+            className={`mobile-nav-link ${isActive("/info") ? "text-primary font-semibold" : ""}`}
           >
             About
           </Link>

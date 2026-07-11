@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 
 const postLinks = [
@@ -11,6 +12,7 @@ const postLinks = [
 ];
 
 export function MainNav() {
+  const pathname = usePathname() || "";
   const [isPostsOpen, setIsPostsOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -34,21 +36,33 @@ export function MainNav() {
     setIsPostsOpen(false);
   }, []);
 
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(href);
+  };
+
   return (
-    <nav className="font-mono text-xs uppercase">
+    <nav className="font-mono text-xs uppercase" aria-label="Main navigation">
       <div className="flex items-center gap-1">
-        <Link className="nav-link" href="/">
+        <Link className={`nav-link ${isActive("/") ? "border-border text-primary" : ""}`} href="/">
           Home
         </Link>
-        <Link className="nav-link" href="/works">
+        <Link className={`nav-link ${isActive("/works") || isActive("/projects") ? "border-border text-primary" : ""}`} href="/works">
           Works
         </Link>
-        <div onMouseEnter={openPosts} onMouseLeave={closePosts}>
-          <Link className="nav-link" href="/posts">
+        <div onMouseEnter={openPosts} onMouseLeave={closePosts} onFocus={openPosts} onBlur={closePosts}>
+          <Link
+            className={`nav-link ${isActive("/posts") ? "border-border text-primary" : ""}`}
+            href="/posts"
+            aria-haspopup="true"
+            aria-expanded={isPostsOpen}
+          >
             Posts
           </Link>
         </div>
-        <Link className="nav-link" href="/info">
+        <Link className={`nav-link ${isActive("/info") ? "border-border text-primary" : ""}`} href="/info">
           About
         </Link>
       </div>
@@ -58,13 +72,20 @@ export function MainNav() {
           className="fixed left-0 right-0 top-14 border-b border-border/80 bg-background/95 backdrop-blur"
           onMouseEnter={openPosts}
           onMouseLeave={closePosts}
+          role="menu"
+          aria-label="Posts sections"
         >
           <div className="mx-auto grid max-w-6xl gap-1 px-6 py-5 md:grid-cols-4">
             {postLinks.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="border border-border/70 px-4 py-3 text-foreground/80 transition-colors hover:border-primary hover:text-primary"
+                role="menuitem"
+                className={`border px-4 py-3 transition-colors hover:border-primary hover:text-primary ${
+                  pathname === link.href
+                    ? "border-primary text-primary"
+                    : "border-border/70 text-foreground/80"
+                }`}
                 onClick={closeNow}
               >
                 <span className="mr-3 text-muted-foreground">

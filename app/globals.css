@@ -131,7 +131,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring;
   }
   body {
     @apply bg-background text-foreground;
@@ -438,6 +438,15 @@
 
   .large-logo img {
     width: min(420px, 72vw);
+  }
+
+  .skip-to-content {
+    @apply absolute left-4 top-4 z-50 -translate-y-20 border border-border bg-background px-4 py-2 font-mono text-xs uppercase text-primary transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-primary;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--primary) !important;
+    outline-offset: 2px !important;
   }
 }
 

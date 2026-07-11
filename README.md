@@ -1,292 +1,278 @@
 # NuraWeb Portfolio
 
-A modern, content-driven portfolio and blog site built with Next.js 13+, TypeScript, Tailwind CSS, and Shadcn UI. Features a cell-based content system, visual editor, automated GitHub Pages deployment, and DynamoDB-powered backend.
+Personal portfolio of **Arun Nura**, a multidisciplinary art practitioner based in Kerala, India.
 
-## 📚 Documentation
+Built with **Next.js 15 (App Router)**, **TypeScript**, **Tailwind CSS v4**, **DynamoDB** (content), and **AWS Lambda** (serverless API). Deployed as a fully static site to **GitHub Pages**.
 
-Please visit our [Documentation](./docs/README.md) for:
+---
 
-- 🚀 [Getting Started Guide](./docs/getting-started/QUICK_START.md)
-- 📁 [File Upload System](./docs/features/FILE_SYSTEM.md)
+## Features
+
+- Cell-based post system (markdown, image, video, file cells)
+- Visual content editor with drag-and-drop at `/admin`
+- DynamoDB-powered backend via AWS Lambda
+- Works, Blog, Papers, Stories, and General categories
+- Related works & related writings discovery
+- Academic citation blocks (BibTeX, APA, MLA, Chicago)
+- JSON-LD structured data (Person, Article, CreativeWork)
+- Dynamic sitemap.xml generation at build time
+- Static export compatible with GitHub Pages
+- WebGL matrix grid shader background
+- Dark / Light theme support
+
+---
 
 ## Quick Start
 
-1. Clone the repository:
-
-   ```bash
-   git clone <your-repository-url>
-   cd nuraweb
-   ```
-
-2. Set up AWS DynamoDB and install dependencies:
-
-   ```bash
-   make db-setup
-   ```
-
-   Or manually:
-
-   ```bash
-   ./setup-dynamodb.sh
-   ```
-
-3. Start the development server:
-
-   ```bash
-   make dev
-   # or
-   npm run dev
-   ```
-
-4. Start the Lambda functions (in a new terminal):
-   ```bash
-   make lambda-dev
-   # or
-   cd functions/aws && npm run dev
-   ```
-
-For detailed setup instructions and documentation, please visit our [Getting Started Guide](./docs/getting-started/QUICK_START.md).
-
-Your site will be available at [http://localhost:3000](http://localhost:3000)
-
-## Database Configuration
-
-This project uses **Amazon DynamoDB** directly in AWS (no local setup required).
-
 ### Prerequisites
 
-- AWS CLI installed and configured
-- AWS credentials with DynamoDB permissions
-- Internet connection for AWS API calls
+- Node.js 20+
+- npm
+- AWS CLI (for API development only)
 
-### Database Commands
-
-```bash
-# Setup AWS DynamoDB (first time)
-make db-setup
-
-# Create DynamoDB table in AWS
-make db-create-table
-
-# Check table status
-make db-status
-```
-
-### Environment Variables
+### 1. Clone & Install
 
 ```bash
-# DynamoDB Configuration
-DYNAMODB_TABLE_NAME=NuraWeb-Posts
-AWS_REGION=ap-south-1
-
-# AWS Credentials (configured via aws configure)
-AWS_ACCESS_KEY_ID=your-access-key
-AWS_SECRET_ACCESS_KEY=your-secret-key
+git clone https://github.com/arunrajan6600/nuraweb.git
+cd nuraweb
+npm install
 ```
 
-## Content Management
+### 2. Configure Environment Variables
 
-### Managing Posts
+```bash
+cp .env.example .env.local
+```
 
-Posts are now stored in **DynamoDB** with automatic API synchronization. The system supports:
+Edit `.env.local`:
 
-- **Single Table Design**: Posts and post cells are stored in one DynamoDB table
-- **API-First**: All content management happens through REST API endpoints
-- **Admin Interface**: Built-in admin panel for managing posts (`/admin`)
-- **Versioned Deployments**: Automatic API sync during build process
+```env
+# Site configuration
+NEXT_PUBLIC_SITE_URL=https://arunrajan6600.github.io/nuraweb
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3001
+NEXT_PUBLIC_DEFAULT_THEME=dark
+NEXT_PUBLIC_BASE_PATH=/nuraweb
 
-### Post Structure
+# Admin API credentials (for prebuild posts fetch)
+API_BASE_URL=http://localhost:3001
+API_STAGE=dev
+ADMIN_USERNAME=your-admin-username
+ADMIN_PASSWORD=your-admin-password
+```
 
-Each post in DynamoDB has:
+### 3. Start Development
 
-- `id`: Unique ULID identifier
-- `type`: Post type ("project", "blog", "paper", "article", "story", "general")
-- `title`: Post title
-- `slug`: URL-friendly identifier
-- `status`: "draft" or "published"
-- `featured`: Boolean to show on home page
-- `thumbnail`: Optional image with URL and alt text
-- `excerpt`: Brief description
-- `cells`: Array of content cells with different types (markdown, image, video, etc.)
-- `created_at` / `updated_at`: ISO timestamps
-- `view_count`: Automatic view tracking
+**Frontend only** (uses existing `data/posts.ts`):
+```bash
+npm run dev:site
+```
 
-### Using the Visual Editor
+**Frontend + API** (requires AWS credentials):
+```bash
+# Terminal 1: API server
+npm run dev:api
 
-1. **Admin Login**: Navigate to `/admin` and log in
-2. **Manage Posts**: View all posts with CRUD operations
-3. **Visual Editor**: Click the eye icon to open the visual editor
-4. **Content Editing**:
-   - Add/edit markdown content
-   - Add images via URL
-   - Rearrange cells using drag-and-drop
-   - Preview content in real-time
-5. **Save Changes**: Changes are automatically saved to DynamoDB
+# Terminal 2: Frontend
+npm run dev:site
+```
 
-### API Endpoints
-
-- `GET /posts` - List published posts
-- `GET /posts/{id}` - Get specific post
-- `POST /posts` - Create new post (auth required)
-- `PUT /posts/{id}` - Update post (auth required)
-- `DELETE /posts/{id}` - Delete post (auth required)
-
-### Content Update SOP
-
-1. **Create/Edit Content:**
-
-   - Use the admin interface at `/admin`
-   - Click "Visual Editor" for rich content editing
-   - Save directly through the interface
-
-2. **Review Changes:**
-
-   - Content is immediately available for preview
-   - Check all pages: home, blog, projects
-   - Verify responsive layouts and themes
-
-3. **Deploy Changes:**
-   - Build system automatically syncs with API
-   - No manual `data/posts.ts` updates needed
-   - Versioned deployments track content changes
-
-## Deployment
-
-The site uses GitHub Actions for automated deployment to GitHub Pages.
-
-### First-Time Setup
-
-1. In your GitHub repository:
-
-   - Go to Settings > Pages
-   - Set Source to "GitHub Actions"
-
-2. Update environment variables:
-   - Set `NEXT_PUBLIC_BASE_PATH` in `.env`:
-     - For username.github.io: leave empty
-     - For other repos: set to "/repository-name"
-
-### Deployment Process
-
-1. **Automatic Deployment:**
-
-   - Push to main branch
-   - GitHub Actions will:
-     - Build the site
-     - Deploy to GitHub Pages
-     - Provide the URL in action output
-
-2. **Manual Deployment:**
-   ```bash
-   npm run build
-   ```
-   - Check `out` directory for built files
-
-### Checking Deployment
-
-1. Wait for GitHub Actions to complete
-2. Access your site at:
-   - `https://username.github.io` (for username.github.io)
-   - `https://username.github.io/repository-name` (for other repos)
+---
 
 ## Environment Variables
 
-```env
-# Theme (light/dark)
-NEXT_PUBLIC_DEFAULT_THEME="light"
+### Frontend (`.env.local`)
 
-# Base path for GitHub Pages
-NEXT_PUBLIC_BASE_PATH="/repository-name"
+| Variable | Description | Default |
+|:---|:---|:---|
+| `NEXT_PUBLIC_SITE_URL` | Full public URL (no trailing slash) | `https://arunrajan6600.github.io/nuraweb` |
+| `NEXT_PUBLIC_API_BASE_URL` | API base URL | `http://localhost:3001` |
+| `NEXT_PUBLIC_DEFAULT_THEME` | Site theme: `dark` or `light` | `dark` |
+| `NEXT_PUBLIC_BASE_PATH` | GitHub Pages base path | `/nuraweb` |
+
+### Build (CI / GitHub Actions)
+
+| Variable | Description |
+|:---|:---|
+| `API_BASE_URL` | API URL for prebuild posts fetch |
+| `API_STAGE` | API stage: `dev` or `prod` |
+| `ADMIN_USERNAME` | Admin credentials for posts fetch |
+| `ADMIN_PASSWORD` | Admin credentials for posts fetch |
+
+### Lambda API (`.env` in `functions/aws/`)
+
+| Variable | Description |
+|:---|:---|
+| `JWT_SECRET` | JWT signing secret |
+| `ADMIN_USERNAME` | Admin username for auth |
+| `ADMIN_PASSWORD` | Admin password for auth |
+| `AWS_S3_BUCKET_NAME` | S3 bucket for file uploads |
+| `DYNAMODB_TABLE_NAME` | DynamoDB table (default: `NuraWeb-Posts`) |
+| `ALLOWED_ORIGIN` | CORS allowed origin |
+| `MAX_FILE_SIZE` | Max upload size in bytes |
+| `ALLOWED_FILE_TYPES` | Comma-separated MIME types |
+
+---
+
+## Content Management
+
+All content is managed via the admin panel at `/admin`.
+
+### Post Types
+
+| Type | Route | Description |
+|:---|:---|:---|
+| `project` | `/works` | Artworks, installations, films |
+| `blog` | `/posts/blog` | Notes, field logs |
+| `paper` | `/posts/papers` | Academic papers |
+| `article` | `/posts/papers` | Articles and essays |
+| `story` | `/posts/stories` | Fiction and narratives |
+| `general` | `/posts/general` | Miscellaneous writings |
+
+### Editing Workflow
+
+1. Navigate to `/admin` and log in
+2. Click a post to open the **Visual Editor**
+3. Add, edit, or reorder content cells
+4. Click **Save** — changes sync to DynamoDB
+5. Trigger a GitHub Actions deployment to publish
+
+### Admin Features
+
+- Create, edit, delete posts
+- Publish / draft toggle
+- Featured, pinned, archived flags
+- Research metadata (for academic posts)
+- Project metadata (exhibition, credits, tools)
+- File manager at `/admin/files`
+
+---
+
+## Build & Deploy
+
+### Local Production Build
+
+```bash
+# Full build (fetches posts from API, generates sitemap, builds)
+npm run build
+
+# Build only (skip API fetch)
+npm run build:posts  # skip posts
+npm run build
 ```
+
+### GitHub Pages (Automatic)
+
+Push to `main` → GitHub Actions builds and deploys automatically.
+
+**Manual deploy:**
+1. Go to Actions → Deploy to GitHub Pages
+2. Click **Run workflow**
+3. Select environment (`prod`/`dev`) and theme
+
+### AWS Lambda API Deploy
+
+```bash
+# Deploy to production
+npm run deploy:api:prod
+
+# Deploy to dev
+npm run deploy:api:dev
+```
+
+**Production API:** `https://lynzm5kprh.execute-api.ap-south-1.amazonaws.com/prod`
+
+---
+
+## Project Structure
+
+```
+├── app/                    # Next.js App Router pages
+│   ├── layout.tsx          # Root layout, metadata, fonts
+│   ├── globals.css         # CSS variables & base styles
+│   └── (pages)/            # Route group
+│       ├── info/           # About page
+│       ├── works/          # Works/Projects index
+│       ├── posts/          # Posts category pages
+│       └── post/[id]/      # Individual post page
+├── components/
+│   ├── layout/             # Header, Footer, Nav
+│   ├── post/               # Post cards, cells, citation block
+│   ├── files/              # Admin file manager
+│   ├── auth/               # Authentication provider
+│   └── ui/                 # Shadcn + custom UI, WebGL shader
+├── data/
+│   └── posts.ts            # Auto-generated at build time
+├── functions/aws/          # Serverless Lambda functions
+│   ├── serverless.yml      # Infrastructure config
+│   ├── posts-*.js          # Post CRUD handlers
+│   ├── auth-*.js           # Authentication handlers
+│   └── files-*.js          # File management handlers
+├── scripts/
+│   ├── build-posts.js      # Posts API sync + sitemap generator
+│   └── deploy.js           # Deployment orchestrator
+├── types/
+│   └── post.ts             # TypeScript type definitions
+└── public/
+    ├── robots.txt
+    └── sitemap.xml         # Auto-generated at build time
+```
+
+---
+
+## Infrastructure
+
+### AWS Services
+
+| Service | Purpose |
+|:---|:---|
+| **DynamoDB** | Posts database (single-table design) |
+| **Lambda** | Serverless API handlers |
+| **API Gateway** | REST API routing |
+| **S3** | File/media storage |
+
+### Database Table: `NuraWeb-Posts`
+
+Primary key: `id` (ULID string)
+
+Key attributes: `title`, `type`, `status`, `featured`, `cells`, `created_at`, `updated_at`
+
+---
 
 ## Development Notes
 
-- Site uses environment-controlled theming
-- All images must use remote URLs (e.g., Unsplash)
-- Content is statically generated
-- Base path is required for correct asset loading
+- `data/posts.ts` is **auto-generated** — do not edit it manually
+- `public/sitemap.xml` is regenerated on every build
+- The WebGL shader in `components/ui/matrix-grid-background.tsx` is an artistic element — do not modify
+- Use `NEXT_PUBLIC_SITE_URL` for all absolute URL generation
+- JWT tokens are stored in `localStorage` (known technical debt — requires backend httpOnly cookie migration)
 
-## 🚀 Deployment
+---
 
-### Production Deployment
+## Troubleshooting
 
-The site automatically deploys to GitHub Pages when you push to the `main` branch.
+**API server not starting:**
+```bash
+cd functions/aws
+cat .env  # Check env vars exist
+npm install
+npm run dev
+```
 
-#### Serverless API Functions
+**Posts not updating after API edit:**
+```bash
+npm run build:posts  # Re-sync posts from API
+```
 
-The backend API functions are deployed to AWS Lambda:
+**Build fails with missing posts:**
+- The build falls back to the existing `data/posts.ts` if API is unreachable
+- This is expected behavior in offline mode
 
-**Production API Base URL:** `https://lynzm5kprh.execute-api.ap-south-1.amazonaws.com/prod`
-
-**Available Endpoints:**
-
-- `POST /auth/login` - Admin authentication
-- `GET /auth/verify` - JWT token verification
-- `GET /files` - List uploaded files
-- `POST /files/upload` - Upload new files
-- `DELETE /files/{id}` - Delete files
-
-#### Frontend Deployment
-
-1. **Automatic Deployment (Recommended):**
-
-   - Push to `main` branch
-   - GitHub Actions will automatically build and deploy
-
-2. **Manual Deployment:**
-
-   ```bash
-   # Build for production
-   npm run build
-
-   # Deploy to GitHub Pages (if configured)
-   npm run deploy
-   ```
-
-#### Environment Configuration
-
-- **Production:** Environment variables are set in GitHub Actions workflow
-- **Development:** Copy `.env.example` to `.env.local` and configure
-
-### Local Development with Production API
-
-To test the frontend with production APIs locally:
-
-1. Update `.env.local`:
-
-   ```bash
-   NEXT_PUBLIC_API_BASE_URL=https://lynzm5kprh.execute-api.ap-south-1.amazonaws.com/prod
-   ```
-
-2. Start development server:
-   ```bash
-   npm run dev
-   ```
-
-## 🔧 Troubleshooting
-
-1. **Images not loading:**
-
-   - Verify image URLs are HTTPS
-   - Check base path configuration
-
-2. **Styles not applying:**
-
-   - Clear browser cache
-   - Rebuild the project
-
-3. **Deployment issues:**
-   - Check GitHub Actions logs
-   - Verify repository settings
-   - Ensure base path is correct
-
-## Contributing
-
-1. Create a feature branch
-2. Make your changes
-3. Test thoroughly
-4. Submit a pull request
+---
 
 ## License
 
-MIT License - See LICENSE file for details
+MIT License — see [LICENSE](./LICENSE) for details.
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for development guidelines.

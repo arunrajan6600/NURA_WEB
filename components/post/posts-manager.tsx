@@ -108,7 +108,6 @@ export function PostsManager({
       if (authToken && isAdmin) {
         // Save to API
         await postsApi.updatePost(editingPostVisual.id, editingPostVisual);
-        toast.success("Post saved successfully!");
       }
 
       // Update the post in the list

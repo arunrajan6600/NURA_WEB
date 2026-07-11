@@ -1,13 +1,11 @@
 "use client";
 
 import { Post } from "@/types/post";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { ThumbnailCell } from "./thumbnail-cell";
 import { formatDistance } from "date-fns";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Newspaper, Clock } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { ArrowRight } from "lucide-react";
 
 interface NewsPostCardProps {
   post: Post;
@@ -34,56 +32,38 @@ export function NewsPostCard({
   const isCompact = variant === "compact";
 
   return (
-    <Card className="w-full transition-all duration-300 hover:shadow-lg dark:hover:shadow-primary/10 hover:scale-[1.002] transform-gpu border-l-4 border-l-red-500 dark:border-l-red-400">
-      <Link href={`/post/${post.id}`} className="block">
-        <CardContent className="px-4 py-4 md:px-6 md:py-5 flex flex-col h-full min-h-[180px]">
-          <div className="flex items-start justify-between gap-3 mb-3">
-            <div className="space-y-2 flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <Newspaper className="h-4 w-4 text-red-500 dark:text-red-400" />
-                <Badge variant="secondary" className="text-xs bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300">
-                  News Report
-                </Badge>
-                <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <Clock className="h-3 w-3" />
-                  <span>Breaking</span>
-                </div>
-              </div>
-              <CardTitle className="transition-colors hover:text-primary text-lg font-bold leading-tight line-clamp-2">
-                {post.title}
-              </CardTitle>
-              <p className="text-sm text-muted-foreground font-medium">
-                {formattedDate}
-              </p>
-            </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="group font-medium flex-shrink-0 text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-            >
-              Read news{" "}
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </div>
+    <div className="flex flex-col gap-3 border border-border bg-card/70 px-4 py-4 transition-colors hover:border-primary/70 hover:bg-card sm:gap-4">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 min-w-0 space-y-1">
+          <h3 className="text-base font-medium uppercase leading-snug">
+            {post.title}
+          </h3>
+          <p className="font-mono text-xs uppercase text-muted-foreground">
+            {formattedDate}
+          </p>
+        </div>
+        <Link href={`/post/${post.id}`} className="flex-shrink-0">
+          <Button variant="ghost" size="sm">
+            Read more
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Button>
+        </Link>
+      </div>
 
-          {post.thumbnail && (
-            <div className="mt-2 flex-shrink-0">
-              <ThumbnailCell
-                content={post.thumbnail}
-                className={isCompact ? "h-40" : "h-48 md:h-56"}
-              />
-            </div>
-          )}
+      {post.thumbnail && (
+        <div className="flex-shrink-0">
+          <ThumbnailCell
+            content={post.thumbnail}
+            className={isCompact ? "h-40" : "h-48 md:h-56"}
+          />
+        </div>
+      )}
 
-          {!isCompact && previewContent && (
-            <div className={post.thumbnail ? "mt-3" : "mt-1"}>
-              <p className="text-muted-foreground line-clamp-3 leading-relaxed text-sm">
-                {previewContent}
-              </p>
-            </div>
-          )}
-        </CardContent>
-      </Link>
-    </Card>
+      {!isCompact && previewContent && (
+        <p className="text-muted-foreground line-clamp-3 leading-relaxed text-sm">
+          {previewContent}
+        </p>
+      )}
+    </div>
   );
 }

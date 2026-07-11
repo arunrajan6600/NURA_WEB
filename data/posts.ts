@@ -10,8 +10,8 @@ export const posts: Post[] = [
     id: "MGPZ0GNQR2H1DHGMDC7",
     title: "test",
     slug: "test",
-    status: "published",
-    featured: true,
+    status: "draft",
+    featured: false,
     type: "project",
     thumbnail: {
       url: "https://nuraweb.s3.ap-south-1.amazonaws.com/070dada1-6421-4d09-b762-70703f20ded8.png",

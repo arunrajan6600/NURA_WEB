@@ -1,8 +1,18 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === "production";
+
+// basePath and assetPrefix are ONLY applied in production (GitHub Pages).
+// In local development they must be empty so that:
+//   - Routes resolve at http://localhost:3000/ (not /nuraweb/)
+//   - Static assets like /logo.svg are served correctly
+// In production, GitHub Actions injects NEXT_PUBLIC_BASE_PATH=/nuraweb
+// via the workflow environment — never via .env.local.
+const basePath = isProd ? (process.env.NEXT_PUBLIC_BASE_PATH || "") : "";
+
 const nextConfig: NextConfig = {
   // Only enable static export for production builds
-  ...(process.env.NODE_ENV === "production" && {
+  ...(isProd && {
     output: "export",
     trailingSlash: true,
     skipTrailingSlashRedirect: true,
@@ -22,8 +32,8 @@ const nextConfig: NextConfig = {
     ],
     unoptimized: true,
   },
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
-  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || "",
+  basePath: basePath,
+  assetPrefix: basePath,
 };
 
 export default nextConfig;

@@ -18,6 +18,7 @@ export default function MatrixGridBackground({
   enableCardBorderAnimation = true,
 }: MatrixGridBackgroundProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const lastMouseTime = useRef(0);
   const [hoveredCardBounds, setHoveredCardBounds] = useState<{
     left: number;
     top: number;
@@ -27,10 +28,31 @@ export default function MatrixGridBackground({
     height: number;
     cardId: string;
   } | null>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  // Check system prefers-reduced-motion media query
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const listener = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener("change", listener);
+    return () => {
+      mediaQuery.removeEventListener("change", listener);
+    };
+  }, []);
 
   // Listen for mouse movement
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      const now = performance.now();
+      if (now - lastMouseTime.current < 16) return; // throttle to ~60fps
+      lastMouseTime.current = now;
       setMousePosition({
         x: e.clientX,
         y: e.clientY,
@@ -89,9 +111,9 @@ export default function MatrixGridBackground({
         <MatrixShader
           mousePosition={mousePosition}
           hoveredCardBounds={hoveredCardBounds}
-          enableWaveAnimation={enableWaveAnimation}
-          enableMouseHoverAnimation={enableMouseHoverAnimation}
-          enableCardBorderAnimation={enableCardBorderAnimation}
+          enableWaveAnimation={prefersReducedMotion ? false : enableWaveAnimation}
+          enableMouseHoverAnimation={prefersReducedMotion ? false : enableMouseHoverAnimation}
+          enableCardBorderAnimation={prefersReducedMotion ? false : enableCardBorderAnimation}
         />
       </Canvas>
     </div>
@@ -130,6 +152,7 @@ function MatrixShader({
 
   // Update shader uniforms on each frame
   useFrame((_, delta) => {
+    if (typeof document !== "undefined" && document.hidden) return;
     if (!materialRef.current || !meshRef.current) return;
 
     time.current += delta;

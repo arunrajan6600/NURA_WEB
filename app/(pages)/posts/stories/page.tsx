@@ -1,5 +1,14 @@
 import { posts } from "@/data/posts";
 import { PostCard } from "@/components/post/post-card";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Stories | Arun Nura",
+  description: "Creative stories, fiction, and narrative prose by Arun Nura.",
+  alternates: {
+    canonical: "/posts/stories/",
+  },
+};
 
 export default function StoriesPage() {
   const storyPosts = posts.filter(
