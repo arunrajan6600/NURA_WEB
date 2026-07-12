@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { postsApi } from "@/lib/posts-api";
 import { toast } from "sonner";
+import { AdminLayout } from "@/components/layout/admin-layout";
 
 export default function AdminPostsPage() {
   const { token } = useAuth();
@@ -102,15 +103,16 @@ export default function AdminPostsPage() {
   return (
     <ProtectedRoute>
       <div className="container mx-auto p-6">
-        <div className="mb-8">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-4xl font-bold mb-2">Posts Administration</h1>
-              <p className="text-muted-foreground">
-                Manage your blog posts, projects, and content using AWS DynamoDB
-                and Lambda functions.
-              </p>
-            </div>
+        <AdminLayout>
+          <div className="mb-8">
+            <div className="flex justify-between items-center">
+              <div>
+                <h1 className="text-4xl font-bold mb-2">Posts Administration</h1>
+                <p className="text-muted-foreground">
+                  Manage blog posts, projects, and custom content using Prisma ORM
+                  and Express REST endpoints.
+                </p>
+              </div>
             <Button
               onClick={refreshStats}
               variant="outline"
@@ -184,63 +186,63 @@ export default function AdminPostsPage() {
           </Card>
         </div>
 
-        {/* System Status */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Cloud className="h-5 w-5" />
-                AWS Services Status
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm flex items-center gap-2">
-                    <Database className="h-4 w-4" />
-                    DynamoDB Table
-                  </span>
-                  <Badge
-                    variant={
-                      apiStatus === "online"
-                        ? "default"
+          {/* System Status */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Cloud className="h-5 w-5" />
+                  Prisma / Supabase Services Status
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm flex items-center gap-2">
+                      <Database className="h-4 w-4" />
+                      PostgreSQL Database
+                    </span>
+                    <Badge
+                      variant={
+                        apiStatus === "online"
+                          ? "default"
+                          : apiStatus === "offline"
+                          ? "destructive"
+                          : "secondary"
+                      }
+                    >
+                      {apiStatus === "online"
+                        ? "Connected"
                         : apiStatus === "offline"
-                        ? "destructive"
-                        : "secondary"
-                    }
-                  >
-                    {apiStatus === "online"
-                      ? "Connected"
-                      : apiStatus === "offline"
-                      ? "Offline"
-                      : "Checking..."}
-                  </Badge>
+                        ? "Offline"
+                        : "Checking..."}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm flex items-center gap-2">
+                      <Zap className="h-4 w-4" />
+                      Prisma Client Engine
+                    </span>
+                    <Badge
+                      variant={apiStatus === "online" ? "default" : "secondary"}
+                    >
+                      {apiStatus === "online" ? "Active" : "Unknown"}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm flex items-center gap-2">
+                      <Server className="h-4 w-4" />
+                      Express API Server
+                    </span>
+                    <Badge
+                      variant={apiStatus === "online" ? "default" : "secondary"}
+                    >
+                      {apiStatus === "online" ? "Online" : "Unknown"}
+                    </Badge>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm flex items-center gap-2">
-                    <Zap className="h-4 w-4" />
-                    Lambda Functions
-                  </span>
-                  <Badge
-                    variant={apiStatus === "online" ? "default" : "secondary"}
-                  >
-                    {apiStatus === "online" ? "Active" : "Unknown"}
-                  </Badge>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm flex items-center gap-2">
-                    <Server className="h-4 w-4" />
-                    API Gateway
-                  </span>
-                  <Badge
-                    variant={apiStatus === "online" ? "default" : "secondary"}
-                  >
-                    {apiStatus === "online" ? "Online" : "Unknown"}
-                  </Badge>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
           <Card>
             <CardHeader>
@@ -280,8 +282,9 @@ export default function AdminPostsPage() {
           </Card>
         </div>
 
-        {/* Posts Manager */}
-        <PostsManager authToken={token || undefined} isAdmin={true} />
+          {/* Posts Manager */}
+          <PostsManager authToken={token || undefined} isAdmin={true} />
+        </AdminLayout>
       </div>
     </ProtectedRoute>
   );

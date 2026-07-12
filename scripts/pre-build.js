@@ -12,7 +12,7 @@ function checkApiHealth() {
     const options = {
       hostname: url.hostname,
       port: url.port,
-      path: '/dev/posts',
+      path: '/health',
       method: 'GET',
       timeout: 5000
     };
@@ -63,11 +63,8 @@ async function waitForApi() {
 function showApiStartInstructions() {
   console.log('');
   console.log('� To start the API server manually:');
-  console.log('   cd functions/aws');
-  console.log('   export $(cat .env | grep -v "^#" | xargs) && npm run dev');
-  console.log('');
-  console.log('   Or use the npm script:');
-  console.log('   npm run dev:api');
+  console.log('   cd backend && npm run dev');
+  console.log('   (listens on port 3001 by default)');
   console.log('');
 }
 

@@ -1,4 +1,22 @@
-# AWS Lambda Deployment Guide
+> [!CAUTION]
+> ## ⚠️ LEGACY CODE — ROLLBACK TARGET ONLY
+>
+> **This directory (`functions/aws`) is the legacy AWS Lambda + S3 backend.**
+>
+> It has been superseded by the new Express + Supabase backend at `backend/`.
+>
+> **DO NOT deploy or modify this code for new features.**
+>
+> It is preserved exclusively as a production rollback target.
+> To rollback, change `NEXT_PUBLIC_API_BASE_URL` in `.env.local` back to the AWS API Gateway URL:
+> ```
+> NEXT_PUBLIC_API_BASE_URL=https://lynzm5kprh.execute-api.ap-south-1.amazonaws.com/prod
+> ```
+> This directory may be deleted once the new backend is fully verified in production.
+
+---
+
+# AWS Lambda Deployment Guide (LEGACY)
 
 This directory contains AWS Lambda functions for the NuraWeb Files feature.
 

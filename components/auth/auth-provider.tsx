@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, useCallback, ReactNode } from 'react';
+import { postsApi } from '@/lib/posts-api';
 
 interface User {
   username: string;
@@ -71,6 +72,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setIsLoading(false);
     }
   }, [verifyToken]);
+
+  useEffect(() => {
+    if (token) {
+      postsApi.setAuthToken(token);
+    } else {
+      postsApi.setAuthToken('');
+    }
+  }, [token]);
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {

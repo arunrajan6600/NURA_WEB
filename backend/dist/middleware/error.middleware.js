@@ -13,8 +13,26 @@ class AppError extends Error {
 }
 exports.AppError = AppError;
 const errorHandler = (err, req, res, _next) => {
-    const statusCode = err instanceof AppError ? err.statusCode : 500;
-    const message = err.message || 'Internal Server Error';
+    let statusCode = err instanceof AppError ? err.statusCode : 500;
+    let message = err.message || 'Internal Server Error';
+    // Map known database errors (Prisma errors) to user-friendly HTTP statuses
+    if (err && typeof err === 'object' && 'name' in err) {
+        if (err.name === 'PrismaClientKnownRequestError') {
+            const prismaError = err;
+            if (prismaError.code === 'P2002') {
+                statusCode = 409; // Conflict
+                const targets = prismaError.meta?.target;
+                const fields = Array.isArray(targets) ? targets.join(', ') : String(targets || '');
+                message = fields
+                    ? `A record with this unique value for field(s) (${fields}) already exists`
+                    : 'Unique constraint failed on the database.';
+            }
+            else if (prismaError.code === 'P2025') {
+                statusCode = 404; // Not Found
+                message = prismaError.meta?.cause || 'Requested database record not found.';
+            }
+        }
+    }
     // Log error (especially 500s)
     if (statusCode === 500) {
         console.error(`[ERROR] ${req.method} ${req.originalUrl}:`, err);

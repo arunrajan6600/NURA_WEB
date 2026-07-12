@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Toaster } from "sonner";
 
 const lato = Lato({
@@ -66,12 +68,14 @@ export default function RootLayout({
         <ThemeProvider>
           <AuthProvider>
             <div className="relative min-h-screen flex flex-col z-10">
+              <ScrollProgress />
               <a href="#main-content" className="skip-to-content">
                 skip to content
               </a>
               <Header />
               <main id="main-content" className="relative z-10 flex-1 w-full">
                 <div className="container max-w-5xl mx-auto px-4 py-6 sm:px-6 md:py-10 lg:px-8">
+                  <Breadcrumbs />
                   {children}
                 </div>
               </main>

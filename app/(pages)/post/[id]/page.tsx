@@ -5,10 +5,12 @@ import { PostCard } from "@/components/post/post-card";
 import { formatDistance } from "date-fns";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Clock } from "lucide-react";
 import { Metadata } from "next";
 import { Post } from "@/types/post";
 import { CitationBlock } from "@/components/post/citation-block";
+import { TableOfContents } from "@/components/post/table-of-contents";
+import { ShareSection } from "@/components/post/share-section";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -251,7 +253,21 @@ export default async function PostPage({ params }: Props) {
   const relatedWorks = getRelatedWorks(post, 2);
   const relatedWritings = getRelatedWritings(post, 2);
 
+  // Calculate reading time
+  const allText = post.cells
+    .map((c) => (typeof c.content === "string" ? c.content : JSON.stringify(c.content ?? "")))
+    .join(" ");
+  const wordCount = allText.split(/\s+/).filter(Boolean).length;
+  const readingMinutes = Math.max(1, Math.ceil(wordCount / 200));
+
+  // Extract markdown content for TOC
+  const markdownContent = post.cells
+    .filter((c) => c.type === "markdown")
+    .map((c) => (typeof c.content === "string" ? c.content : ""))
+    .join("\n\n");
+
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://arunrajan6600.github.io/nuraweb";
+  const postUrl = `${siteUrl}/post/${post.id}`;
   const schema = post.type === "project" 
     ? {
         "@context": "https://schema.org",
@@ -302,6 +318,15 @@ export default async function PostPage({ params }: Props) {
         </h1>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-mono uppercase">
           <span>Updated {formattedDate}</span>
+          {post.type !== "project" && (
+            <>
+              <span>/</span>
+              <span className="flex items-center gap-1">
+                <Clock className="h-3 w-3" />
+                {readingMinutes} min read
+              </span>
+            </>
+          )}
           {post.projectMetadata?.year && (
             <>
               <span>/</span>
@@ -436,11 +461,15 @@ export default async function PostPage({ params }: Props) {
         </div>
       )}
 
+      <TableOfContents content={markdownContent} />
+
       <div className="space-y-12">
         {post.cells.map((cell) => (
           <PostCell key={cell.id} cell={cell} />
         ))}
       </div>
+
+      <ShareSection title={post.title} url={postUrl} />
 
       {post.projectMetadata?.credits && (
         <div className="mt-16 border-t border-border pt-10 font-mono text-xs uppercase space-y-4">

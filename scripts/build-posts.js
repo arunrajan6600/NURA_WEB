@@ -7,7 +7,6 @@ const http = require("http");
 
 // Configuration
 const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:3001";
-const API_STAGE = process.env.API_STAGE || "dev"; // dev or prod
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const DATA_DIR = path.join(__dirname, "..", "data");
@@ -122,10 +121,10 @@ function sanitizeForTypeScript(posts) {
   }));
 }
 
-// Authenticate with production API if needed
+// Authenticate with API if credentials are provided
 async function authenticateAPI() {
-  if (API_STAGE === "dev" || !ADMIN_USERNAME || !ADMIN_PASSWORD) {
-    console.log("🔓 Using development API or no auth credentials provided");
+  if (!ADMIN_USERNAME || !ADMIN_PASSWORD) {
+    console.log("🔓 No auth credentials provided, skipping authentication");
     return null;
   }
 
@@ -172,16 +171,10 @@ async function fetchPostsFromAPI() {
     // Authenticate if using production API
     const authToken = await authenticateAPI();
 
-    // Build the correct URL based on environment
-    let url;
-    if (API_STAGE === "prod") {
-      url = `${API_BASE_URL}/posts`;
-    } else {
-      // Development API uses /dev/posts
-      url = `${API_BASE_URL}/dev/posts`;
-    }
+    // Express backend mounts all routes at root — no stage prefix
+    const url = `${API_BASE_URL}/posts`;
 
-    console.log(`🌐 API URL: ${url} (stage: ${API_STAGE})`);
+    console.log(`🌐 API URL: ${url}`);
 
     const headers = {
       "Content-Type": "application/json",
@@ -228,17 +221,9 @@ async function fetchPostsFromAPI() {
 
     if (error.code === "ECONNREFUSED") {
       console.error("");
-      console.error("💡 API server appears to be down. Please start it with:");
-      if (API_STAGE === "dev") {
-        console.error("   npm run dev:api");
-        console.error("   or");
-        console.error(
-          '   cd functions/aws && export $(cat .env | grep -v "^#" | xargs) && npm run dev'
-        );
-      } else {
-        console.error("   Check if production API is deployed and accessible");
-        console.error(`   URL: ${API_BASE_URL}/posts`);
-      }
+      console.error("💡 API server appears to be down. Please start the Express backend:");
+      console.error("   cd backend && npm run dev");
+      console.error(`   Expected: ${API_BASE_URL}/posts`);
       console.error("");
     }
 
@@ -249,15 +234,12 @@ async function fetchPostsFromAPI() {
 // Generate TypeScript file content
 function generatePostsFileContent(posts, versionTag) {
   const timestamp = new Date().toISOString();
-  const apiEndpoint =
-    API_STAGE === "prod"
-      ? `${API_BASE_URL}/posts`
-      : `${API_BASE_URL}/dev/posts`;
+  const apiEndpoint = `${API_BASE_URL}/posts`;
 
   return `// Auto-generated posts file
 // Version: ${versionTag}
 // Generated: ${timestamp}
-// Source: API (${apiEndpoint} - ${API_STAGE} environment)
+// Source: API (${apiEndpoint})
 
 import { Post } from "@/types/post";
 
@@ -267,7 +249,6 @@ export const postsMetadata = {
   version: "${versionTag}",
   generatedAt: "${timestamp}",
   source: "api",
-  environment: "${API_STAGE}",
   count: ${posts.length}
 };
 `;
@@ -304,10 +285,7 @@ function writeVersionedPosts(posts, versionTag) {
 
 // Create build manifest
 function createBuildManifest(versionTag, posts) {
-  const apiEndpoint =
-    API_STAGE === "prod"
-      ? `${API_BASE_URL}/posts`
-      : `${API_BASE_URL}/dev/posts`;
+  const apiEndpoint = `${API_BASE_URL}/posts`;
 
   const manifest = {
     version: versionTag,
@@ -315,7 +293,6 @@ function createBuildManifest(versionTag, posts) {
     postsCount: posts.length,
     buildType: "api-sync",
     apiEndpoint: apiEndpoint,
-    environment: API_STAGE,
     posts: posts.map((post) => ({
       id: post.id,
       title: post.title,

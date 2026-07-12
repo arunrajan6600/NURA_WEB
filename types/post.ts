@@ -49,8 +49,10 @@ export interface Post {
   id: string;
   createdAt: string;
   updatedAt: string;
+  publishedAt?: string | null;
   excerpt?: string;
   viewCount?: number;
+  likeCount?: number;
 }
 
 export interface Cell {

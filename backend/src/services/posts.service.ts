@@ -1,0 +1,144 @@
+import { postsRepository } from '../repositories/posts.repository';
+import { CreatePostInput, UpdatePostInput, PostFilters, PostApiResponse } from '../types/post.types';
+
+export class PostsService {
+  /**
+   * Lists all posts based on filtering options.
+   */
+  public async listPosts(filters: PostFilters): Promise<PostApiResponse[]> {
+    const posts = await postsRepository.findAll(filters);
+    return posts.map(post => this.transformPost(post));
+  }
+
+  /**
+   * Retrieves a single post by ID or Slug.
+   * Increments view count if the post is published.
+   */
+  public async getPost(identifier: string): Promise<PostApiResponse | null> {
+    let post = null;
+
+    // Check if identifier format looks like custom ULID/UUID ID (Alphanumeric/uppercase/timestamp)
+    if (/^[0-9A-Z]{10,30}$/i.test(identifier)) {
+      post = await postsRepository.findById(identifier);
+    } else {
+      post = await postsRepository.findBySlug(identifier);
+    }
+
+    if (!post) {
+      return null;
+    }
+
+    // Increment view count if published
+    if (post.status === 'published') {
+      await postsRepository.incrementViewCount(post.id);
+      post.viewCount += 1;
+    }
+
+    return this.transformPost(post);
+  }
+
+  /**
+   * Creates a post in the database.
+   */
+  public async createPost(data: CreatePostInput): Promise<PostApiResponse> {
+    const post = await postsRepository.create(data);
+    return this.transformPost(post);
+  }
+
+  /**
+   * Updates a post and its relationships.
+   */
+  public async updatePost(id: string, data: UpdatePostInput): Promise<PostApiResponse> {
+    const post = await postsRepository.update(id, data);
+    return this.transformPost(post);
+  }
+
+  /**
+   * Deletes a post from the database.
+   */
+  public async deletePost(id: string): Promise<{ id: string; title: string }> {
+    const deletedPost = await postsRepository.delete(id);
+    return {
+      id: deletedPost.id,
+      title: deletedPost.title,
+    };
+  }
+
+  /**
+   * Transforms raw Prisma database post models into the exact API contract shape.
+   */
+  private transformPost(post: any): PostApiResponse {
+    const cells = (post.cells || []).map((cell: any) => {
+      let content = cell.content;
+      if (typeof cell.content === 'string') {
+        try {
+          content = JSON.parse(cell.content);
+        } catch {
+          content = cell.content;
+        }
+      }
+      // Normalize legacy { text: '...' } format for markdown cells to plain strings
+      if (cell.type === 'markdown' && content !== null && typeof content === 'object' && typeof content.text === 'string') {
+        content = content.text;
+      }
+      return {
+        id: cell.id,
+        type: cell.type,
+        content,
+        order: cell.orderIndex,
+      };
+    });
+
+    return {
+      id: post.id,
+      title: post.title,
+      slug: post.slug,
+      status: post.status,
+      featured: post.featured,
+      type: post.type,
+      thumbnail: post.thumbnailUrl
+        ? {
+            url: post.thumbnailUrl,
+            alt: post.thumbnailAlt || '',
+          }
+        : undefined,
+      excerpt: post.excerpt,
+      createdAt: post.createdAt.toISOString(),
+      updatedAt: post.updatedAt.toISOString(),
+      publishedAt: post.publishedAt ? post.publishedAt.toISOString() : null,
+      viewCount: post.viewCount,
+      likeCount: post.likeCount,
+      cells,
+      ...(post.researchMetadata && {
+        researchMetadata: {
+          publicationYear: post.researchMetadata.publicationYear,
+          authors: post.researchMetadata.authors,
+          venue: post.researchMetadata.venue,
+          abstract: post.researchMetadata.abstract,
+          keywords: post.researchMetadata.keywords,
+          externalLinks: post.researchMetadata.externalLinks,
+          pdfAttachment: post.researchMetadata.pdfAttachment,
+          researchCategory: post.researchMetadata.researchCategory,
+        },
+      }),
+      ...(post.projectMetadata && {
+        projectMetadata: {
+          year: post.projectMetadata.year,
+          duration: post.projectMetadata.duration,
+          medium: post.projectMetadata.medium,
+          collaborators: post.projectMetadata.collaborators,
+          tools: post.projectMetadata.tools,
+          technologies: post.projectMetadata.technologies,
+          institution: post.projectMetadata.institution,
+          exhibition: post.projectMetadata.exhibition,
+          publication: post.projectMetadata.publication,
+          researchArea: post.projectMetadata.researchArea,
+          credits: post.projectMetadata.credits,
+          references: post.projectMetadata.references,
+        },
+      }),
+    };
+  }
+}
+
+export const postsService = new PostsService();

@@ -16,7 +16,7 @@ app.use((0, helmet_1.default)());
 // Configure CORS policy
 app.use((0, cors_1.default)({
     origin: env_1.env.ALLOWED_ORIGIN === '*' ? true : env_1.env.ALLOWED_ORIGIN,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: false
 }));

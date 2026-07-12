@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Markdown from "markdown-to-jsx";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { InfoIcon, AlertTriangleIcon, CheckCircle } from "lucide-react";
+import { ImageLightbox } from "@/components/ui/image-lightbox";
 
 interface MarkdownCellProps {
   content: string;
@@ -149,25 +150,36 @@ function CustomLink({
   );
 }
 
-// Custom image component
+// Custom image component with lightbox support
 function CustomImage({ alt, src }: { alt?: string; src?: string }) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
   if (!src) return null;
 
   return (
-    <div className="relative my-8 overflow-hidden rounded-lg">
-      {/* Note: For better performance, consider replacing this with next/image when possible */}
-      <img
-        src={src as string}
-        alt={alt || ""}
-        className="w-full h-auto rounded-md shadow-sm border border-border/50"
-        loading="lazy"
-      />
-      {alt && (
-        <p className="text-center text-xs text-muted-foreground mt-2 italic">
-          {alt}
-        </p>
+    <>
+      <span className="block relative my-8 overflow-hidden rounded-lg cursor-zoom-in group">
+        <img
+          src={src as string}
+          alt={alt || ""}
+          className="w-full h-auto rounded-md shadow-sm border border-border/50 transition-opacity duration-200 group-hover:opacity-90"
+          loading="lazy"
+          onClick={() => setLightboxOpen(true)}
+        />
+        {alt && (
+          <span className="block text-center text-xs text-muted-foreground mt-2 italic">
+            {alt}
+          </span>
+        )}
+      </span>
+      {lightboxOpen && (
+        <ImageLightbox
+          src={src as string}
+          alt={alt}
+          onClose={() => setLightboxOpen(false)}
+        />
       )}
-    </div>
+    </>
   );
 }
 

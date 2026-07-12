@@ -13,4 +13,16 @@ router.get('/health', (_req, res) => {
 // Auth endpoints
 router.use('/auth', authRoutes);
 
+// Posts endpoints
+import postsRoutes from './posts.routes';
+router.use('/posts', postsRoutes);
+
+// Files endpoints
+import filesRoutes from './files.routes';
+router.use('/files', filesRoutes);
+
+// Settings endpoints
+import settingsRoutes from './settings.routes';
+router.use('/settings', settingsRoutes);
+
 export default router;

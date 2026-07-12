@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Post {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  status        String   @default("draft") // "draft" | "published"
+  type          String   @default("blog")  // "project"|"blog"|"paper"|"article"|"story"|"general"
+  featured      Boolean  @default(false)
+  pinned        Boolean  @default(false)
+  archived      Boolean  @default(false)
+  excerpt       String?
+  thumbnailUrl  String?
+  thumbnailAlt  String?
+  authorId      String   @default("00000000-0000-0000-0000-000000000001")
+  viewCount     Int      @default(0)
+  likeCount     Int      @default(0)
+  publishedAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  cells            Cell[]
+  researchMetadata ResearchMetadata?
+  projectMetadata  ProjectMetadata?
+
+  @@index([status, createdAt(sort: Desc)])
+  @@index([slug])
+  @@index([type, status])
+  @@index([featured, status])
+}
+
+model Cell {
+  id         String @id @default(cuid())
+  postId     String
+  type       String // "markdown" | "image" | "video" | "file"
+  content    String // Stored as a raw JSON string to keep compatibility with S3 cell content structure
+  orderIndex Int
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId, orderIndex])
+}
+
+model ResearchMetadata {
+  id                String   @id @default(cuid())
+  postId            String   @unique
+  publicationYear   String?
+  authors           String?
+  venue             String?
+  abstract          String?
+  keywords          String[]
+  externalLinks     Json?
+  pdfAttachment     String?
+  researchCategory  String?
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model ProjectMetadata {
+  id            String   @id @default(cuid())
+  postId        String   @unique
+  year          String?
+  duration      String?
+  medium        String?
+  collaborators String?
+  tools         String[]
+  technologies  String[]
+  institution   String?
+  exhibition    String?
+  publication   String?
+  researchArea  String?
+  credits       Json?
+  references    Json?
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+}

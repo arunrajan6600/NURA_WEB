@@ -245,6 +245,27 @@ class PostsApi {
     });
   }
 
+  // Rename a file (requires authentication)
+  async renameFile(id: string, newName: string): Promise<PostsApiResponse> {
+    return this.makeRequest(`/files/${id}/rename`, {
+      method: "PATCH",
+      body: JSON.stringify({ newName }),
+    });
+  }
+
+  // Get site settings (public)
+  async getSettings(): Promise<PostsApiResponse<Record<string, string>>> {
+    return this.makeRequest("/settings");
+  }
+
+  // Update site settings (requires authentication)
+  async updateSettings(settingsData: Record<string, string>): Promise<PostsApiResponse<Record<string, string>>> {
+    return this.makeRequest("/settings", {
+      method: "PUT",
+      body: JSON.stringify(settingsData),
+    });
+  }
+
   // Convenience methods for common operations
   async getPublishedPosts(limit?: number): Promise<PostsApiResponse> {
     return this.listPosts({

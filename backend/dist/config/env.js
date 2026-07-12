@@ -16,6 +16,12 @@ const envSchema = zod_1.z.object({
     JWT_SECRET: zod_1.z.string().min(1),
     ADMIN_USERNAME: zod_1.z.string().min(1),
     ADMIN_PASSWORD: zod_1.z.string().min(1),
+    DATABASE_URL: zod_1.z.string().min(1),
+    DIRECT_URL: zod_1.z.string().optional(),
+    SUPABASE_URL: zod_1.z.string().optional(),
+    SUPABASE_ANON_KEY: zod_1.z.string().optional(),
+    SUPABASE_SERVICE_ROLE_KEY: zod_1.z.string().optional(),
+    SUPABASE_STORAGE_BUCKET: zod_1.z.string().default('nuraweb-files'),
 });
 const parseEnv = () => {
     const parsed = envSchema.safeParse(process.env);

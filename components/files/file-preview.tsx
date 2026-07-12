@@ -186,7 +186,7 @@ export function FilePreview({ file, open, onOpenChange }: FilePreviewProps) {
               </a>
             </Button>
             <Button variant="outline" asChild>
-              <a href={file.s3Url} download={file.originalName}>
+              <a href={file.s3Url && (file.s3Url.startsWith('http') || file.s3Url.startsWith('https')) ? (file.s3Url.includes('?') ? `${file.s3Url}&download=` : `${file.s3Url}?download=`) : file.s3Url} download={file.originalName}>
                 <Download className="h-4 w-4 mr-2" />
                 Download
               </a>
