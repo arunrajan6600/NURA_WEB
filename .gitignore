@@ -1,8 +1,13 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# =========================================================
+# NuraWeb Production .gitignore
+# =========================================================
 
-# dependencies
-/node_modules
-/.pnp
+# =========================================================
+# Dependencies
+# =========================================================
+node_modules/
+backend/node_modules/
+.pnp
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -10,50 +15,139 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
+# =========================================================
+# Next.js
+# =========================================================
+.next/
+out/
 
-# next.js
-/.next/
-/out/
+# =========================================================
+# Backend Build
+# =========================================================
+backend/dist/
+dist/
+build/
 
-# production
-/build
+# =========================================================
+# Coverage
+# =========================================================
+coverage/
+.nyc_output/
 
-# misc
-.DS_Store
-*.pem
+# =========================================================
+# Environment Files
+# =========================================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+.env.development
 
-# debug
+backend/.env
+backend/.env.local
+backend/.env.development
+backend/.env.production
+
+# Keep example files
+!.env.example
+!backend/.env.example
+
+# =========================================================
+# Vercel
+# =========================================================
+.vercel/
+
+# =========================================================
+# Serverless (Legacy AWS)
+# =========================================================
+.serverless/
+
+# =========================================================
+# Prisma
+# =========================================================
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+backend/prisma/*.db
+backend/prisma/*.db-journal
+
+# =========================================================
+# Logs
+# =========================================================
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# serverless
-.serverless/
-
-# typescript
+# =========================================================
+# TypeScript
+# =========================================================
 *.tsbuildinfo
 next-env.d.ts
 
-# versioned posts backups (keep only recent ones in git)
+# =========================================================
+# IDE
+# =========================================================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# =========================================================
+# OS Files
+# =========================================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# =========================================================
+# Python
+# =========================================================
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# =========================================================
+# Temporary Files
+# =========================================================
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# =========================================================
+# Certificates / Keys
+# =========================================================
+*.pem
+*.key
+*.crt
+*.p12
+
+# =========================================================
+# Generated Data
+# =========================================================
+data/build-manifest.json
+data/deployment-summary.json
+.version-lock
+
+# Versioned Posts Backups
 data/backups/v*.posts.ts
 data/backups/v*.build-manifest.json
 
-# deployment artifacts
-data/deployment-summary.json
-data/build-manifest.json
+# =========================================================
+# Local Runtime Files
+# =========================================================
+.wiqi/
 
-# version management
-.version-lock
-
-venv/
-node_modules/
-.wiqi
+# =========================================================
+# Miscellaneous
+# =========================================================
+.cache/
+.eslintcache
