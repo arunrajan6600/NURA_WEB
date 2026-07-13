@@ -41,7 +41,9 @@ class PostsApi {
   private token: string | null = null;
 
   constructor() {
-    this.baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+    this.baseUrl =
+      process.env.NEXT_PUBLIC_API_BASE_URL ||
+      "http://localhost:3001";
   }
 
   // Utility to fix escaped newlines in post content

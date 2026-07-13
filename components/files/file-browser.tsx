@@ -2,6 +2,10 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useAuth } from '@/components/auth/auth-provider';
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL ||
+  "http://localhost:3001";
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -59,7 +63,7 @@ export function FileBrowser() {
       setLoading(true);
       setError('');
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/files`, {
+      const response = await fetch(`${API_BASE_URL}/files`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -92,7 +96,7 @@ export function FileBrowser() {
 
   const handleFileDelete = async (fileId: string) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${fileId}`, {
+      const response = await fetch(`${API_BASE_URL}/files/${fileId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -5,8 +5,47 @@ const path = require("path");
 const https = require("https");
 const http = require("http");
 
+// Load environment variables from .env files manually if they exist
+function loadEnv() {
+  const envFiles = [".env.production", ".env.local", ".env"];
+  for (const file of envFiles) {
+    const envPath = path.join(__dirname, "..", file);
+    if (fs.existsSync(envPath)) {
+      try {
+        const content = fs.readFileSync(envPath, "utf-8");
+        content.split("\n").forEach((line) => {
+          const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+          if (match) {
+            const key = match[1];
+            let value = match[2] || "";
+            if (value.includes("#")) {
+              value = value.split("#")[0].trim();
+            }
+            if (value.startsWith('"') && value.endsWith('"')) {
+              value = value.slice(1, -1);
+            }
+            if (value.startsWith("'") && value.endsWith("'")) {
+              value = value.slice(1, -1);
+            }
+            if (!process.env[key]) {
+              process.env[key] = value.trim();
+            }
+          }
+        });
+      } catch (e) {
+        // Silently skip
+      }
+    }
+  }
+}
+
+loadEnv();
+
 // Configuration
-const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:3001";
+const API_BASE_URL =
+  process.env.API_BASE_URL ||
+  process.env.NEXT_PUBLIC_API_BASE_URL ||
+  "http://localhost:3001";
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const DATA_DIR = path.join(__dirname, "..", "data");

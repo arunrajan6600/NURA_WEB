@@ -3,6 +3,10 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { AuthProvider, useAuth } from "@/components/auth/auth-provider";
 import { ProtectedRoute } from "@/components/auth/protected-route";
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL ||
+  "http://localhost:3001";
 import { AdminLayout } from "@/components/layout/admin-layout";
 import { postsApi } from "@/lib/posts-api";
 import { Post } from "@/types/post";
@@ -72,7 +76,7 @@ function DashboardContent() {
       setPosts([...published, ...drafts] as Post[]);
 
       // Fetch files
-      const filesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/files`, {
+      const filesResponse = await fetch(`${API_BASE_URL}/files`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

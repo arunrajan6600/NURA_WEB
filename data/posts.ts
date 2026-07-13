@@ -1,7 +1,7 @@
 // Auto-generated posts file
-// Version: v20260713-160841
-// Generated: 2026-07-13T10:38:45.593Z
-// Source: API (http://localhost:3001/posts)
+// Version: v20260713-200956
+// Generated: 2026-07-13T14:39:58.165Z
+// Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
 
@@ -172,8 +172,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260713-160841",
-  generatedAt: "2026-07-13T10:38:45.593Z",
+  version: "v20260713-200956",
+  generatedAt: "2026-07-13T14:39:58.165Z",
   source: "api",
   count: 5
 };

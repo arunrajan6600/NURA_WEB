@@ -162,7 +162,9 @@ export function FileUpload({ onUploadComplete }: FileUploadProps) {
       item.id === queueItem.id ? { ...item, xhr } : item
     ));
 
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL!;
+    const apiBaseUrl =
+      process.env.NEXT_PUBLIC_API_BASE_URL ||
+      "http://localhost:3001";
 
     const uploadPromise = new Promise<FileRecord>((resolve, reject) => {
       xhr.upload.addEventListener('progress', (e) => {
