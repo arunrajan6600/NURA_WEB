@@ -1,6 +1,6 @@
 // Auto-generated posts file
-// Version: v20260712-114448
-// Generated: 2026-07-12T06:14:52.908Z
+// Version: v20260713-160841
+// Generated: 2026-07-13T10:38:45.593Z
 // Source: API (http://localhost:3001/posts)
 
 import { Post } from "@/types/post";
@@ -172,8 +172,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260712-114448",
-  generatedAt: "2026-07-12T06:14:52.908Z",
+  version: "v20260713-160841",
+  generatedAt: "2026-07-13T10:38:45.593Z",
   source: "api",
   count: 5
 };

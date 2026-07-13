@@ -5,12 +5,13 @@ import { PostCard } from "@/components/post/post-card";
 import { formatDistance } from "date-fns";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Clock } from "lucide-react";
+import { ArrowLeft, Clock, ImageIcon, Video } from "lucide-react";
 import { Metadata } from "next";
 import { Post } from "@/types/post";
 import { CitationBlock } from "@/components/post/citation-block";
 import { TableOfContents } from "@/components/post/table-of-contents";
 import { ShareSection } from "@/components/post/share-section";
+import { groupCells, getMediaCounts } from "@/lib/media-grouper";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -346,6 +347,27 @@ export default async function PostPage({ params }: Props) {
             </>
           )}
         </div>
+        {/* Media stats — shown when post contains images or videos */}
+        {(() => {
+          const { imagesCount, videosCount } = getMediaCounts(post.cells);
+          if (imagesCount === 0 && videosCount === 0) return null;
+          return (
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              {imagesCount > 0 && (
+                <span className="flex items-center gap-1.5 border border-border/60 bg-muted/30 px-2.5 py-1 font-mono text-[10px] uppercase text-muted-foreground rounded-sm">
+                  <ImageIcon className="h-2.5 w-2.5" />
+                  {imagesCount} {imagesCount === 1 ? "image" : "images"}
+                </span>
+              )}
+              {videosCount > 0 && (
+                <span className="flex items-center gap-1.5 border border-border/60 bg-muted/30 px-2.5 py-1 font-mono text-[10px] uppercase text-muted-foreground rounded-sm">
+                  <Video className="h-2.5 w-2.5" />
+                  {videosCount} {videosCount === 1 ? "video" : "videos"}
+                </span>
+              )}
+            </div>
+          );
+        })()}
       </div>
 
       {post.researchMetadata && (
@@ -464,7 +486,7 @@ export default async function PostPage({ params }: Props) {
       <TableOfContents content={markdownContent} />
 
       <div className="space-y-12">
-        {post.cells.map((cell) => (
+        {groupCells(post.cells).map((cell) => (
           <PostCell key={cell.id} cell={cell} />
         ))}
       </div>
