@@ -23,5 +23,9 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "data/backups/**"]
+  "exclude": [
+  "node_modules",
+  "backend/**/*",
+  "data/backups/**"
+]
 }
