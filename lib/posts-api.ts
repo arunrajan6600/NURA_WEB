@@ -1,4 +1,4 @@
-import { Post, Cell } from "@/types/post";
+import { Post, Cell, ProjectMetadata, ResearchMetadata } from "@/types/post";
 import { PostType } from "@/lib/constants";
 
 export interface PostsApiResponse<T = unknown> {
@@ -14,7 +14,11 @@ export interface CreatePostData {
   type?: PostType;
   status?: "draft" | "published";
   featured?: boolean;
+  pinned?: boolean;
+  archived?: boolean;
   excerpt?: string;
+  tags?: string[];
+  slug?: string;
   thumbnail?: {
     url: string;
     alt: string;
@@ -23,6 +27,8 @@ export interface CreatePostData {
     type: "markdown" | "image" | "video" | "file";
     content: unknown;
   }>;
+  projectMetadata?: ProjectMetadata;
+  researchMetadata?: ResearchMetadata;
 }
 
 export interface UpdatePostData extends Partial<CreatePostData> {
@@ -33,6 +39,7 @@ export interface PostFilters {
   status?: "draft" | "published";
   type?: PostType;
   featured?: boolean;
+  tags?: string[];
   limit?: number;
 }
 
@@ -166,6 +173,8 @@ class PostsApi {
     if (filters?.featured !== undefined)
       queryParams.set("featured", filters.featured.toString());
     if (filters?.limit) queryParams.set("limit", filters.limit.toString());
+    if (filters?.tags && filters.tags.length > 0)
+      queryParams.set("tags", filters.tags.join(","));
 
     const queryString = queryParams.toString();
     const endpoint = `/posts${queryString ? `?${queryString}` : ""}`;

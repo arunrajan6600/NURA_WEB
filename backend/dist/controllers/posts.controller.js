@@ -25,19 +25,40 @@ const researchMetadataSchema = zod_1.z.object({
     pdfAttachment: zod_1.z.string().optional(),
     researchCategory: zod_1.z.string().optional(),
 });
+const projectSectionSchema = zod_1.z.object({
+    id: zod_1.z.string(),
+    title: zod_1.z.string(),
+    content: zod_1.z.string(),
+    order: zod_1.z.number().int(),
+});
 const projectMetadataSchema = zod_1.z.object({
+    // Basic project info
+    subtitle: zod_1.z.string().optional(),
+    category: zod_1.z.string().optional(),
+    role: zod_1.z.string().optional(),
+    client: zod_1.z.string().optional(),
+    teamMembers: zod_1.z.string().optional(),
+    // Timeline
     year: zod_1.z.string().optional(),
     duration: zod_1.z.string().optional(),
+    // Links
+    repoLink: zod_1.z.string().optional(),
+    demoLink: zod_1.z.string().optional(),
+    docLink: zod_1.z.string().optional(),
+    // Media / exhibition
     medium: zod_1.z.string().optional(),
     collaborators: zod_1.z.string().optional(),
-    tools: zod_1.z.array(zod_1.z.string()).optional(),
-    technologies: zod_1.z.array(zod_1.z.string()).optional(),
     institution: zod_1.z.string().optional(),
     exhibition: zod_1.z.string().optional(),
     publication: zod_1.z.string().optional(),
     researchArea: zod_1.z.string().optional(),
+    // Arrays
+    tools: zod_1.z.array(zod_1.z.string()).optional(),
+    technologies: zod_1.z.array(zod_1.z.string()).optional(),
+    // Structured data
     credits: zod_1.z.any().optional(),
     references: zod_1.z.any().optional(),
+    sections: zod_1.z.array(projectSectionSchema).optional(),
 });
 const createPostSchema = zod_1.z.object({
     id: zod_1.z.string().optional(),
@@ -51,6 +72,7 @@ const createPostSchema = zod_1.z.object({
     excerpt: zod_1.z.string().nullable().optional(),
     thumbnail: thumbnailSchema.nullable().optional(),
     authorId: zod_1.z.string().optional(),
+    tags: zod_1.z.array(zod_1.z.string().trim()).optional().default([]),
     cells: zod_1.z.array(cellSchema).optional(),
     researchMetadata: researchMetadataSchema.optional(),
     projectMetadata: projectMetadataSchema.optional(),
@@ -60,6 +82,7 @@ const querySchema = zod_1.z.object({
     status: zod_1.z.enum(['draft', 'published']).optional(),
     type: zod_1.z.enum(['project', 'blog', 'paper', 'article', 'story', 'general']).optional(),
     featured: zod_1.z.enum(['true', 'false']).transform(v => v === 'true').optional(),
+    tags: zod_1.z.string().optional(), // comma-separated list
     limit: zod_1.z.coerce.number().int().positive().optional(),
 });
 class PostsController {
@@ -96,7 +119,17 @@ class PostsController {
                     queryData.status = 'published';
                 }
             }
-            const posts = await posts_service_1.postsService.listPosts(queryData);
+            // Parse comma-separated tags into array
+            const filters = {
+                status: queryData.status,
+                type: queryData.type,
+                featured: queryData.featured,
+                limit: queryData.limit,
+            };
+            if (queryData.tags) {
+                filters.tags = queryData.tags.split(',').map((t) => t.trim()).filter(Boolean);
+            }
+            const posts = await posts_service_1.postsService.listPosts(filters);
             res.status(200).json({
                 success: true,
                 data: posts,

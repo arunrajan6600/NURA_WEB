@@ -61,12 +61,18 @@ export function EditPost({ post }: EditPostProps) {
         postsApi.setAuthToken(token);
         const response = await postsApi.updatePost(postToSave.id, {
           title: postToSave.title,
+          slug: postToSave.slug,
           status: postToSave.status,
           featured: postToSave.featured,
+          pinned: postToSave.pinned,
+          archived: postToSave.archived,
           type: postToSave.type,
           excerpt: postToSave.excerpt,
           thumbnail: postToSave.thumbnail,
+          tags: postToSave.tags,
           cells: postToSave.cells,
+          researchMetadata: postToSave.researchMetadata as Record<string, unknown>,
+          projectMetadata: postToSave.projectMetadata as Record<string, unknown>,
         });
         if (response.success) {
           setIsDirty(false);

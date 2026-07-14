@@ -24,19 +24,41 @@ export interface ResearchMetadataInput {
   researchCategory?: string;
 }
 
+export interface ProjectSection {
+  id: string;
+  title: string;
+  content: string;
+  order: number;
+}
+
 export interface ProjectMetadataInput {
+  // Basic project info
+  subtitle?: string;
+  category?: string;
+  role?: string;
+  client?: string;
+  teamMembers?: string;
+  // Timeline
   year?: string;
   duration?: string;
+  // Links
+  repoLink?: string;
+  demoLink?: string;
+  docLink?: string;
+  // Media / exhibition
   medium?: string;
   collaborators?: string;
-  tools?: string[];
-  technologies?: string[];
   institution?: string;
   exhibition?: string;
   publication?: string;
   researchArea?: string;
+  // Arrays
+  tools?: string[];
+  technologies?: string[];
+  // Structured data
   credits?: any;
   references?: any;
+  sections?: ProjectSection[];
 }
 
 export interface CreatePostInput {
@@ -51,6 +73,7 @@ export interface CreatePostInput {
   excerpt?: string | null;
   thumbnail?: ThumbnailData | null;
   authorId?: string;
+  tags?: string[];
   cells?: PostCell[];
   researchMetadata?: ResearchMetadataInput;
   projectMetadata?: ProjectMetadataInput;
@@ -62,6 +85,7 @@ export interface PostFilters {
   status?: PostStatus;
   type?: PostType;
   featured?: boolean;
+  tags?: string[];
   limit?: number;
 }
 
@@ -82,6 +106,7 @@ export interface PostApiResponse {
   type: string;
   thumbnail?: ThumbnailData;
   excerpt: string | null;
+  tags: string[];
   createdAt: string;
   updatedAt: string;
   publishedAt: string | null;

@@ -103,6 +103,7 @@ export class PostsService {
           }
         : undefined,
       excerpt: post.excerpt,
+      tags: post.tags || [],
       createdAt: post.createdAt.toISOString(),
       updatedAt: post.updatedAt.toISOString(),
       publishedAt: post.publishedAt ? post.publishedAt.toISOString() : null,
@@ -123,8 +124,20 @@ export class PostsService {
       }),
       ...(post.projectMetadata && {
         projectMetadata: {
+          // Basic info
+          subtitle: post.projectMetadata.subtitle,
+          category: post.projectMetadata.category,
+          role: post.projectMetadata.role,
+          client: post.projectMetadata.client,
+          teamMembers: post.projectMetadata.teamMembers,
+          // Timeline
           year: post.projectMetadata.year,
           duration: post.projectMetadata.duration,
+          // Links
+          repoLink: post.projectMetadata.repoLink,
+          demoLink: post.projectMetadata.demoLink,
+          docLink: post.projectMetadata.docLink,
+          // Media / exhibition
           medium: post.projectMetadata.medium,
           collaborators: post.projectMetadata.collaborators,
           tools: post.projectMetadata.tools,
@@ -133,8 +146,10 @@ export class PostsService {
           exhibition: post.projectMetadata.exhibition,
           publication: post.projectMetadata.publication,
           researchArea: post.projectMetadata.researchArea,
+          // Structured data
           credits: post.projectMetadata.credits,
           references: post.projectMetadata.references,
+          sections: post.projectMetadata.sections,
         },
       }),
     };

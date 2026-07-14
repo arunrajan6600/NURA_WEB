@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { postsApi, PostsApiResponse } from "@/lib/posts-api";
 import { Post } from "@/types/post";
 import { POST_TYPES, POST_FILTER_TYPES, PostType } from "@/lib/constants";
@@ -26,10 +26,11 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Trash2, Edit, Eye, Plus, Filter } from "lucide-react";
+import { Trash2, Edit, Eye, Plus, Filter, Search } from "lucide-react";
 import { toast } from "sonner";
 import { PostCell } from "@/components/post/post-cell";
 import { VisualEditor } from "@/components/editor/visual-editor";
+import { TagEditor } from "@/components/editor/tag-editor";
 
 interface PostsManagerProps {
   authToken?: string;
@@ -63,8 +64,34 @@ export function PostsManager({
     status: "draft" as "published" | "draft",
     featured: false,
     excerpt: "",
+    tags: [] as string[],
     thumbnail: { url: "", alt: "" },
   });
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const allExistingTags = useMemo(() => {
+    const tagsSet = new Set<string>();
+    posts.forEach((p) => {
+      if (p.tags) p.tags.forEach((t) => tagsSet.add(t));
+    });
+    return Array.from(tagsSet);
+  }, [posts]);
+
+  const popularTags = useMemo(() => {
+    const counts: Record<string, number> = {};
+    posts.forEach((p) => {
+      if (p.tags) {
+        p.tags.forEach((t) => {
+          const l = t.toLowerCase();
+          counts[l] = (counts[l] || 0) + 1;
+        });
+      }
+    });
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([tag]) => tag)
+      .slice(0, 8);
+  }, [posts]);
 
   // Set auth token when provided
   useEffect(() => {
@@ -213,9 +240,15 @@ export function PostsManager({
       let response: PostsApiResponse;
 
       if (editingPost) {
-        response = await postsApi.updatePost(editingPost.id, formData);
+        response = await postsApi.updatePost(editingPost.id, {
+          ...formData,
+          tags: formData.tags,
+        });
       } else {
-        response = await postsApi.createPost(formData);
+        response = await postsApi.createPost({
+          ...formData,
+          tags: formData.tags,
+        });
       }
 
       if (response.success) {
@@ -282,6 +315,7 @@ export function PostsManager({
       status: "draft",
       featured: false,
       excerpt: "",
+      tags: [],
       thumbnail: { url: "", alt: "" },
     });
   };
@@ -295,6 +329,7 @@ export function PostsManager({
       status: post.status,
       featured: post.featured,
       excerpt: post.excerpt || "",
+      tags: post.tags || [],
       thumbnail: post.thumbnail || { url: "", alt: "" },
     });
     setIsCreateDialogOpen(true);
@@ -400,6 +435,18 @@ export function PostsManager({
                         }
                         placeholder="Brief description of the post"
                         rows={3}
+                      />
+                    </div>
+
+                    <div>
+                      <TagEditor
+                        label="Tags"
+                        tags={formData.tags}
+                        onChange={(tags) => setFormData({ ...formData, tags })}
+                        placeholder="Add a tag (Enter to confirm)…"
+                        id="form-tags"
+                        suggestions={allExistingTags}
+                        popularTags={popularTags}
                       />
                     </div>
 
@@ -550,92 +597,139 @@ export function PostsManager({
         </CardContent>
       </Card>
 
+      {/* Search */}
+      <div className="mb-4">
+        <div className="relative">
+          <Input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search by title, tags, or excerpt…"
+            className="pl-9"
+          />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        </div>
+      </div>
+
       {/* Posts List */}
       {loading ? (
         <div className="text-center py-8">Loading posts...</div>
-      ) : posts.length === 0 ? (
-        <Card>
-          <CardContent className="text-center py-8">
-            <p className="text-muted-foreground">No posts found.</p>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="grid gap-4">
-          {posts.map((post) => (
-            <Card key={post.id}>
-              <CardContent className="p-6">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="text-lg font-semibold">{post.title}</h3>
-                      <Badge
-                        variant={
-                          post.status === "published" ? "default" : "secondary"
-                        }
-                      >
-                        {post.status}
-                      </Badge>
-                      <Badge variant="outline">{post.type}</Badge>
-                      {post.featured && (
-                        <Badge variant="secondary">Featured</Badge>
-                      )}
-                    </div>
-
-                    {post.excerpt && (
-                      <p className="text-muted-foreground mb-2">
-                        {post.excerpt}
-                      </p>
-                    )}
-
-                    <div className="text-sm text-muted-foreground">
-                      Created: {new Date(post.createdAt).toLocaleDateString()} |
-                      Updated: {new Date(post.updatedAt).toLocaleDateString()}
-                      {post.viewCount !== undefined &&
-                        ` | Views: ${post.viewCount}`}
-                    </div>
-                  </div>
-
-                  {isAdmin && (
-                    <div className="flex space-x-2 ml-4">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setViewingPost(post)}
-                        title="View Post"
-                      >
-                        <Eye className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => openVisualEditor(post)}
-                        title="Edit with Visual Editor"
-                      >
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => startEdit(post)}
-                        title="Edit Properties"
-                      >
-                        <Filter className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleDelete(post.id)}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  )}
-                </div>
+      ) : (() => {
+        const filteredPosts = searchQuery.trim()
+          ? posts.filter((p) => {
+              const q = searchQuery.toLowerCase();
+              const pm = p.projectMetadata;
+              const searchText = [
+                p.title,
+                p.excerpt ?? "",
+                pm?.subtitle ?? "",
+                pm?.category ?? "",
+                pm?.client ?? "",
+                pm?.role ?? "",
+                pm?.teamMembers ?? "",
+                ...(p.tags || []),
+                ...(pm?.technologies || []),
+              ].join(" ").toLowerCase();
+              return searchText.includes(q);
+            })
+          : posts;
+        if (filteredPosts.length === 0) {
+          return (
+            <Card>
+              <CardContent className="text-center py-8">
+                <p className="text-muted-foreground">
+                  {searchQuery ? `No posts match "${searchQuery}"` : "No posts found."}
+                </p>
               </CardContent>
             </Card>
-          ))}
-        </div>
-      )}
+          );
+        }
+        return (
+          <div className="grid gap-4">
+            {filteredPosts.map((post) => (
+              <Card key={post.id}>
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
+                        <h3 className="text-lg font-semibold">{post.title}</h3>
+                        <Badge
+                          variant={
+                            post.status === "published" ? "default" : "secondary"
+                          }
+                        >
+                          {post.status}
+                        </Badge>
+                        <Badge variant="outline">{post.type}</Badge>
+                        {post.featured && (
+                          <Badge variant="secondary">Featured</Badge>
+                        )}
+                        {post.tags && post.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-1">
+                            {post.tags.map((t) => (
+                              <span key={t} className="bg-muted text-muted-foreground px-1.5 py-0.5 rounded font-mono text-[9px] uppercase border border-border">
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {post.excerpt && (
+                        <p className="text-muted-foreground mb-2">
+                          {post.excerpt}
+                        </p>
+                      )}
+
+                      <div className="text-sm text-muted-foreground">
+                        Created: {new Date(post.createdAt).toLocaleDateString()} |
+                        Updated: {new Date(post.updatedAt).toLocaleDateString()}
+                        {post.viewCount !== undefined &&
+                          ` | Views: ${post.viewCount}`}
+                      </div>
+                    </div>
+
+                    {isAdmin && (
+                      <div className="flex space-x-2 ml-4 flex-shrink-0">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setViewingPost(post)}
+                          title="View Post"
+                        >
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => openVisualEditor(post)}
+                          title="Edit with Visual Editor"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => startEdit(post)}
+                          title="Edit Properties"
+                        >
+                          <Filter className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDelete(post.id)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        );
+      })()}
 
       {/* View Post Modal */}
       <Dialog open={!!viewingPost} onOpenChange={() => setViewingPost(null)}>

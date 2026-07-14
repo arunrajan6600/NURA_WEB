@@ -12,6 +12,7 @@ import { CitationBlock } from "@/components/post/citation-block";
 import { TableOfContents } from "@/components/post/table-of-contents";
 import { ShareSection } from "@/components/post/share-section";
 import { groupCells, getMediaCounts } from "@/lib/media-grouper";
+import { MarkdownCell } from "@/components/post/markdown-cell";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -44,7 +45,7 @@ function getBackLink(post: Post) {
 }
 
 // Helper to retrieve related works based on metadata, tags, and category match
-const getRelatedWorks = (currentPost: Post, count = 2) => {
+const getRelatedWorks = (currentPost: Post, count = 3) => {
   if (currentPost.type !== "project") return [];
 
   const candidates = posts.filter(
@@ -56,6 +57,9 @@ const getRelatedWorks = (currentPost: Post, count = 2) => {
   ) as Post[];
 
   const getTags = (p: Post) => {
+    if (p.tags && p.tags.length > 0) {
+      return new Set(p.tags.map((t) => t.toLowerCase()));
+    }
     const tags = new Set<string>();
     const text = [p.title, p.excerpt ?? ""].join(" ").toLowerCase();
     if (p.cells.some((c) => c.type === "video") || text.includes("video"))
@@ -70,9 +74,17 @@ const getRelatedWorks = (currentPost: Post, count = 2) => {
   };
 
   const currentTags = getTags(currentPost);
+  const currentTechs = new Set(currentPost.projectMetadata?.technologies?.map((t) => t.toLowerCase()) || []);
+  const currentCategory = currentPost.projectMetadata?.category?.toLowerCase();
 
   const scored = candidates.map((p) => {
     let score = 0;
+
+    // Match category
+    const pCategory = p.projectMetadata?.category?.toLowerCase();
+    if (currentCategory && pCategory && currentCategory === pCategory) {
+      score += 5;
+    }
 
     // Match medium
     if (
@@ -81,24 +93,29 @@ const getRelatedWorks = (currentPost: Post, count = 2) => {
       currentPost.projectMetadata.medium.toLowerCase() ===
         p.projectMetadata.medium.toLowerCase()
     ) {
-      score += 3;
-    }
-
-    // Match researchArea
-    if (
-      currentPost.projectMetadata?.researchArea &&
-      p.projectMetadata?.researchArea &&
-      currentPost.projectMetadata.researchArea.toLowerCase() ===
-        p.projectMetadata.researchArea.toLowerCase()
-    ) {
-      score += 3;
+      score += 2;
     }
 
     // Match tags
     const pTags = getTags(p);
     pTags.forEach((tag) => {
-      if (currentTags.has(tag)) score += 1;
+      if (currentTags.has(tag)) score += 3;
     });
+
+    // Match technologies
+    const pTechs = p.projectMetadata?.technologies?.map((t) => t.toLowerCase()) || [];
+    pTechs.forEach((tech) => {
+      if (currentTechs.has(tech)) score += 3;
+    });
+
+    // Match year
+    if (
+      currentPost.projectMetadata?.year &&
+      p.projectMetadata?.year &&
+      currentPost.projectMetadata.year === p.projectMetadata.year
+    ) {
+      score += 3;
+    }
 
     return { post: p, score };
   });
@@ -251,7 +268,7 @@ export default async function PostPage({ params }: Props) {
       : null;
 
   // Retrieve related works
-  const relatedWorks = getRelatedWorks(post, 2);
+  const relatedWorks = getRelatedWorks(post, 3);
   const relatedWritings = getRelatedWritings(post, 2);
 
   // Calculate reading time
@@ -301,74 +318,129 @@ export default async function PostPage({ params }: Props) {
       };
 
   return (
-    <article className="max-w-4xl mx-auto py-8">
+    <article className={`${post.type === "project" ? "max-w-5xl" : "max-w-4xl"} mx-auto py-8 px-4`}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <Button variant="ghost" className="mb-8" asChild>
+      <Button variant="ghost" className="mb-8 font-mono text-xs uppercase" asChild>
         <Link href={backLink.href}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to {backLink.label}
         </Link>
       </Button>
 
-      <div className="space-y-4 mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-          {post.title}
-        </h1>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-mono uppercase">
-          <span>Updated {formattedDate}</span>
-          {post.type !== "project" && (
-            <>
-              <span>/</span>
-              <span className="flex items-center gap-1">
-                <Clock className="h-3 w-3" />
-                {readingMinutes} min read
+      {/* Hero Header Section */}
+      {post.type === "project" && post.thumbnail?.url ? (
+        <div className="w-full relative h-[45vh] sm:h-[55vh] min-h-[350px] overflow-hidden rounded-lg mb-12 bg-muted/10">
+          <img
+            src={post.thumbnail.url}
+            alt={post.thumbnail.alt || post.title}
+            className="w-full h-full object-cover brightness-[0.7] contrast-[1.05]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-10 space-y-4">
+            {post.projectMetadata?.category && (
+              <span className="font-mono text-xs uppercase bg-primary/20 text-primary border border-primary/30 px-2.5 py-0.5 rounded-sm w-fit tracking-wider">
+                {post.projectMetadata.category}
               </span>
-            </>
-          )}
-          {post.projectMetadata?.year && (
-            <>
-              <span>/</span>
-              <span className="text-foreground/80">{post.projectMetadata.year}</span>
-            </>
-          )}
-          {post.projectMetadata?.medium && (
-            <>
-              <span>/</span>
-              <span className="text-foreground/80">{post.projectMetadata.medium}</span>
-            </>
-          )}
-          {post.projectMetadata?.duration && (
-            <>
-              <span>/</span>
-              <span className="text-foreground/80">{post.projectMetadata.duration}</span>
-            </>
-          )}
+            )}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+              {post.title}
+            </h1>
+            {post.projectMetadata?.subtitle && (
+              <p className="text-lg sm:text-xl text-zinc-300 italic max-w-3xl leading-relaxed">
+                {post.projectMetadata.subtitle}
+              </p>
+            )}
+            {post.tags && post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="bg-white/15 backdrop-blur-sm border border-white/20 px-2 py-0.5 font-mono text-[9px] uppercase text-zinc-250 rounded-sm text-zinc-200"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-        {/* Media stats — shown when post contains images or videos */}
-        {(() => {
-          const { imagesCount, videosCount } = getMediaCounts(post.cells);
-          if (imagesCount === 0 && videosCount === 0) return null;
-          return (
-            <div className="flex flex-wrap items-center gap-3 pt-1">
-              {imagesCount > 0 && (
-                <span className="flex items-center gap-1.5 border border-border/60 bg-muted/30 px-2.5 py-1 font-mono text-[10px] uppercase text-muted-foreground rounded-sm">
-                  <ImageIcon className="h-2.5 w-2.5" />
-                  {imagesCount} {imagesCount === 1 ? "image" : "images"}
+      ) : (
+        <div className="space-y-4 mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+            {post.title}
+          </h1>
+          {post.projectMetadata?.subtitle && (
+            <p className="text-xl text-muted-foreground italic leading-relaxed">
+              {post.projectMetadata.subtitle}
+            </p>
+          )}
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="border border-border/80 px-2 py-0.5 font-mono text-[9px] uppercase text-muted-foreground rounded-sm"
+                >
+                  {tag}
                 </span>
-              )}
-              {videosCount > 0 && (
-                <span className="flex items-center gap-1.5 border border-border/60 bg-muted/30 px-2.5 py-1 font-mono text-[10px] uppercase text-muted-foreground rounded-sm">
-                  <Video className="h-2.5 w-2.5" />
-                  {videosCount} {videosCount === 1 ? "video" : "videos"}
-                </span>
-              )}
+              ))}
             </div>
-          );
-        })()}
-      </div>
+          )}
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-mono uppercase">
+            <span>Updated {formattedDate}</span>
+            {post.type !== "project" && (
+              <>
+                <span>/</span>
+                <span className="flex items-center gap-1">
+                  <Clock className="h-3 w-3" />
+                  {readingMinutes} min read
+                </span>
+              </>
+            )}
+            {post.projectMetadata?.year && (
+              <>
+                <span>/</span>
+                <span className="text-foreground/80">{post.projectMetadata.year}</span>
+              </>
+            )}
+            {post.projectMetadata?.medium && (
+              <>
+                <span>/</span>
+                <span className="text-foreground/80">{post.projectMetadata.medium}</span>
+              </>
+            )}
+            {post.projectMetadata?.duration && (
+              <>
+                <span>/</span>
+                <span className="text-foreground/80">{post.projectMetadata.duration}</span>
+              </>
+            )}
+          </div>
+          {/* Media stats — shown when post contains images or videos */}
+          {(() => {
+            const { imagesCount, videosCount } = getMediaCounts(post.cells);
+            if (imagesCount === 0 && videosCount === 0) return null;
+            return (
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                {imagesCount > 0 && (
+                  <span className="flex items-center gap-1.5 border border-border/60 bg-muted/30 px-2.5 py-1 font-mono text-[10px] uppercase text-muted-foreground rounded-sm">
+                    <ImageIcon className="h-2.5 w-2.5" />
+                    {imagesCount} {imagesCount === 1 ? "image" : "images"}
+                  </span>
+                )}
+                {videosCount > 0 && (
+                  <span className="flex items-center gap-1.5 border border-border/60 bg-muted/30 px-2.5 py-1 font-mono text-[10px] uppercase text-muted-foreground rounded-sm">
+                    <Video className="h-2.5 w-2.5" />
+                    {videosCount} {videosCount === 1 ? "video" : "videos"}
+                  </span>
+                )}
+              </div>
+            );
+          })()}
+        </div>
+      )}
 
       {post.researchMetadata && (
         <div className="mb-12 border-y border-border py-8 font-mono text-xs uppercase space-y-4">
@@ -444,6 +516,30 @@ export default async function PostPage({ params }: Props) {
 
       {post.projectMetadata && (
         <div className="mb-12 border-y border-border py-8 font-mono text-xs uppercase space-y-4">
+          {post.projectMetadata.category && (
+            <div className="grid grid-cols-[140px_1fr] gap-4">
+              <span className="text-muted-foreground">category:</span>
+              <span className="lowercase text-foreground/90">{post.projectMetadata.category}</span>
+            </div>
+          )}
+          {post.projectMetadata.role && (
+            <div className="grid grid-cols-[140px_1fr] gap-4">
+              <span className="text-muted-foreground">role:</span>
+              <span className="lowercase text-foreground/90">{post.projectMetadata.role}</span>
+            </div>
+          )}
+          {post.projectMetadata.client && (
+            <div className="grid grid-cols-[140px_1fr] gap-4">
+              <span className="text-muted-foreground">client:</span>
+              <span className="lowercase text-foreground/90">{post.projectMetadata.client}</span>
+            </div>
+          )}
+          {post.projectMetadata.teamMembers && (
+            <div className="grid grid-cols-[140px_1fr] gap-4">
+              <span className="text-muted-foreground">team members:</span>
+              <span className="lowercase text-foreground/90">{post.projectMetadata.teamMembers}</span>
+            </div>
+          )}
           {post.projectMetadata.exhibition && (
             <div className="grid grid-cols-[140px_1fr] gap-4">
               <span className="text-muted-foreground">exhibition:</span>
@@ -480,15 +576,97 @@ export default async function PostPage({ params }: Props) {
               <span className="lowercase text-foreground/90">{post.projectMetadata.technologies.join(", ")}</span>
             </div>
           )}
+
+          {/* Project links & Publication info */}
+          {((post.projectMetadata.repoLink || post.projectMetadata.demoLink || post.projectMetadata.docLink || post.projectMetadata.publication)) && (
+            <div className="flex flex-wrap gap-4 pt-4 border-t border-border mt-4">
+              {post.projectMetadata.repoLink && (
+                <a
+                  href={post.projectMetadata.repoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-4 lowercase"
+                >
+                  [ repository ]
+                </a>
+              )}
+              {post.projectMetadata.demoLink && (
+                <a
+                  href={post.projectMetadata.demoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-4 lowercase"
+                >
+                  [ live demo ]
+                </a>
+              )}
+              {post.projectMetadata.docLink && (
+                <a
+                  href={post.projectMetadata.docLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-4 lowercase"
+                >
+                  [ documentation ]
+                </a>
+              )}
+              {post.projectMetadata.publication && (
+                <div className="lowercase text-foreground/90 lowercase">
+                  [ publication: {post.projectMetadata.publication} ]
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 
-      <TableOfContents content={markdownContent} />
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-10 mt-12 items-start">
+        {/* Main Content Area */}
+        <div className="space-y-12 min-w-0">
+          <div className="space-y-12">
+            {groupCells(post.cells).map((cell) => (
+              <PostCell key={cell.id} cell={cell} />
+            ))}
+          </div>
 
-      <div className="space-y-12">
-        {groupCells(post.cells).map((cell) => (
-          <PostCell key={cell.id} cell={cell} />
-        ))}
+          {/* Render custom project sections */}
+          {post.projectMetadata?.sections && post.projectMetadata.sections.length > 0 && (
+            <div className="space-y-16 border-t border-border/60 pt-16">
+              {post.projectMetadata.sections
+                .sort((a, b) => a.order - b.order)
+                .map((sec) => (
+                  <section key={sec.id} id={`section-${sec.id}`} className="space-y-4 scroll-mt-20">
+                    <h3 className="text-xl font-bold tracking-tight text-foreground font-mono lowercase border-b border-border/40 pb-2">
+                      [ {sec.title} ]
+                    </h3>
+                    <div className="text-muted-foreground leading-relaxed">
+                      <MarkdownCell content={sec.content} />
+                    </div>
+                  </section>
+                ))}
+            </div>
+          )}
+        </div>
+
+        {/* Sticky Sidebar (TOC) */}
+        {post.projectMetadata?.sections && post.projectMetadata.sections.length > 0 && (
+          <aside className="hidden lg:block sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto border-l border-border/40 pl-5 space-y-4">
+            <h4 className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-bold">Sections</h4>
+            <nav className="space-y-2.5 font-mono text-[11px] uppercase" aria-label="Project sections navigation">
+              {post.projectMetadata.sections
+                .sort((a, b) => a.order - b.order)
+                .map((sec) => (
+                  <a
+                    key={sec.id}
+                    href={`#section-${sec.id}`}
+                    className="block text-muted-foreground hover:text-primary transition-colors hover:underline underline-offset-4"
+                  >
+                    // {sec.title}
+                  </a>
+                ))}
+            </nav>
+          </aside>
+        )}
       </div>
 
       <ShareSection title={post.title} url={postUrl} />
@@ -581,7 +759,7 @@ export default async function PostPage({ params }: Props) {
       {relatedWorks.length > 0 && (
         <div className="mt-20 border-t border-border pt-10">
           <h3 className="font-mono text-xs uppercase text-muted-foreground mb-6">[ related works ]</h3>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-3">
             {relatedWorks.map((work) => (
               <PostCard key={work.id} post={work} variant="compact" />
             ))}

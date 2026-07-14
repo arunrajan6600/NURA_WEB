@@ -20,6 +20,12 @@ class PostsRepository {
         if (filters.featured !== undefined) {
             where.featured = filters.featured;
         }
+        // Filter by tags — post must contain ALL specified tags
+        if (filters.tags && filters.tags.length > 0) {
+            where.tags = {
+                hasEvery: filters.tags,
+            };
+        }
         return prisma_1.default.post.findMany({
             where,
             orderBy: {
@@ -92,6 +98,7 @@ class PostsRepository {
                     thumbnailUrl: data.thumbnail?.url || null,
                     thumbnailAlt: data.thumbnail?.alt || null,
                     authorId: data.authorId || '00000000-0000-0000-0000-000000000001',
+                    tags: data.tags || [],
                     publishedAt: data.status === 'published' ? now : null,
                     viewCount: 0,
                     likeCount: 0,
@@ -120,10 +127,12 @@ class PostsRepository {
             }
             // Insert project metadata
             if (data.projectMetadata) {
+                const { sections, ...restMeta } = data.projectMetadata;
                 await tx.projectMetadata.create({
                     data: {
                         postId: post.id,
-                        ...data.projectMetadata,
+                        ...restMeta,
+                        sections: sections ? sections : undefined,
                     },
                 });
             }
@@ -180,6 +189,8 @@ class PostsRepository {
             }
             if (data.authorId !== undefined)
                 updateData.authorId = data.authorId;
+            if (data.tags !== undefined)
+                updateData.tags = data.tags;
             await tx.post.update({
                 where: { id },
                 data: updateData,
@@ -219,10 +230,12 @@ class PostsRepository {
             if (data.projectMetadata !== undefined) {
                 await tx.projectMetadata.deleteMany({ where: { postId: id } });
                 if (data.projectMetadata) {
+                    const { sections, ...restMeta } = data.projectMetadata;
                     await tx.projectMetadata.create({
                         data: {
                             postId: id,
-                            ...data.projectMetadata,
+                            ...restMeta,
+                            sections: sections ? sections : undefined,
                         },
                     });
                 }

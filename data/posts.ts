@@ -1,79 +1,11 @@
 // Auto-generated posts file
-// Version: v20260713-215808
-// Generated: 2026-07-13T16:28:10.834Z
+// Version: v20260715-020358
+// Generated: 2026-07-14T20:33:59.598Z
 // Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
 
 export const posts: Post[] = [
-  {
-    "id": "cmrhe0mze000cblnwgnt62suy",
-    "title": "Verify Published Post",
-    "slug": "verify-published-1783836200261",
-    "status": "published",
-    "featured": true,
-    "type": "blog",
-    "excerpt": "Verification published post",
-    "createdAt": "2026-07-12T06:03:22.587Z",
-    "updatedAt": "2026-07-12T06:03:22.587Z",
-    "publishedAt": "2026-07-12T06:03:20.257Z",
-    "viewCount": 0,
-    "likeCount": 0,
-    "cells": [
-      {
-        "id": "cmrhe0ndt000dblnwjo7wvezk",
-        "type": "markdown",
-        "content": "# Cell One",
-        "order": 1
-      },
-      {
-        "id": "cmrhe0ndt000eblnwtgdz7kyf",
-        "type": "markdown",
-        "content": "## Cell Two",
-        "order": 2
-      },
-      {
-        "id": "cmrhe0ndt000fblnwmaqih0vm",
-        "type": "markdown",
-        "content": "### Cell Three",
-        "order": 3
-      }
-    ]
-  },
-  {
-    "id": "cmrgomhqv0000blt4tzgvlj91",
-    "title": "Hello World (Seed)",
-    "slug": "seed-hello-world",
-    "status": "published",
-    "featured": true,
-    "type": "blog",
-    "excerpt": "This is the seed published post used for development verification.",
-    "createdAt": "2026-07-11T18:12:32.215Z",
-    "updatedAt": "2026-07-12T06:01:11.882Z",
-    "publishedAt": "2026-07-11T18:12:31.135Z",
-    "viewCount": 0,
-    "likeCount": 0,
-    "cells": [
-      {
-        "id": "cmrhdxw5l0001blwcyav93nf7",
-        "type": "markdown",
-        "content": "# Hello World\n\nWelcome to the seed post.",
-        "order": 1
-      },
-      {
-        "id": "cmrhdxw5l0002blwc6nuzfjls",
-        "type": "markdown",
-        "content": "## Section Two\n\nThis is the second cell of the seed post.",
-        "order": 2
-      },
-      {
-        "id": "cmrhdxw5l0003blwc9okkdyqp",
-        "type": "markdown",
-        "content": "## Section Three\n\nThird cell to verify ordering.",
-        "order": 3
-      }
-    ]
-  },
   {
     "id": "MF0HJ7N5BRKT5L6CWO",
     "title": "akalam abhayam | അകലം അഭയം | 2025",
@@ -172,8 +104,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260713-215808",
-  generatedAt: "2026-07-13T16:28:10.834Z",
+  version: "v20260715-020358",
+  generatedAt: "2026-07-14T20:33:59.598Z",
   source: "api",
-  count: 5
+  count: 3
 };

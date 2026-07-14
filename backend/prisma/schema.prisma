@@ -23,6 +23,7 @@ model Post {
   authorId      String   @default("00000000-0000-0000-0000-000000000001")
   viewCount     Int      @default(0)
   likeCount     Int      @default(0)
+  tags          String[] @default([])
   publishedAt   DateTime?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -35,6 +36,7 @@ model Post {
   @@index([slug])
   @@index([type, status])
   @@index([featured, status])
+  @@index([tags])
 }
 
 model Cell {
@@ -67,18 +69,33 @@ model ResearchMetadata {
 model ProjectMetadata {
   id            String   @id @default(cuid())
   postId        String   @unique
+  // Basic project info
+  subtitle      String?
+  category      String?
+  role          String?
+  client        String?
+  teamMembers   String?
+  // Timeline
   year          String?
   duration      String?
+  // Links
+  repoLink      String?
+  demoLink      String?
+  docLink       String?
+  // Media / exhibition
   medium        String?
   collaborators String?
-  tools         String[]
-  technologies  String[]
   institution   String?
   exhibition    String?
   publication   String?
   researchArea  String?
+  // Arrays
+  tools         String[]
+  technologies  String[]
+  // Structured data
   credits       Json?
   references    Json?
+  sections      Json?    // Array of {id, title, content, order}
 
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 }

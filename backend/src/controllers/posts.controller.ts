@@ -27,19 +27,41 @@ const researchMetadataSchema = z.object({
   researchCategory: z.string().optional(),
 });
 
+const projectSectionSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  content: z.string(),
+  order: z.number().int(),
+});
+
 const projectMetadataSchema = z.object({
+  // Basic project info
+  subtitle: z.string().optional(),
+  category: z.string().optional(),
+  role: z.string().optional(),
+  client: z.string().optional(),
+  teamMembers: z.string().optional(),
+  // Timeline
   year: z.string().optional(),
   duration: z.string().optional(),
+  // Links
+  repoLink: z.string().optional(),
+  demoLink: z.string().optional(),
+  docLink: z.string().optional(),
+  // Media / exhibition
   medium: z.string().optional(),
   collaborators: z.string().optional(),
-  tools: z.array(z.string()).optional(),
-  technologies: z.array(z.string()).optional(),
   institution: z.string().optional(),
   exhibition: z.string().optional(),
   publication: z.string().optional(),
   researchArea: z.string().optional(),
+  // Arrays
+  tools: z.array(z.string()).optional(),
+  technologies: z.array(z.string()).optional(),
+  // Structured data
   credits: z.any().optional(),
   references: z.any().optional(),
+  sections: z.array(projectSectionSchema).optional(),
 });
 
 const createPostSchema = z.object({
@@ -54,6 +76,7 @@ const createPostSchema = z.object({
   excerpt: z.string().nullable().optional(),
   thumbnail: thumbnailSchema.nullable().optional(),
   authorId: z.string().optional(),
+  tags: z.array(z.string().trim()).optional().default([]),
   cells: z.array(cellSchema).optional(),
   researchMetadata: researchMetadataSchema.optional(),
   projectMetadata: projectMetadataSchema.optional(),
@@ -65,6 +88,7 @@ const querySchema = z.object({
   status: z.enum(['draft', 'published']).optional(),
   type: z.enum(['project', 'blog', 'paper', 'article', 'story', 'general']).optional(),
   featured: z.enum(['true', 'false']).transform(v => v === 'true').optional(),
+  tags: z.string().optional(), // comma-separated list
   limit: z.coerce.number().int().positive().optional(),
 });
 
@@ -106,7 +130,18 @@ export class PostsController {
         }
       }
 
-      const posts = await postsService.listPosts(queryData);
+      // Parse comma-separated tags into array
+      const filters: any = {
+        status: queryData.status,
+        type: queryData.type,
+        featured: queryData.featured,
+        limit: queryData.limit,
+      };
+      if (queryData.tags) {
+        filters.tags = queryData.tags.split(',').map((t: string) => t.trim()).filter(Boolean);
+      }
+
+      const posts = await postsService.listPosts(filters);
 
       res.status(200).json({
         success: true,

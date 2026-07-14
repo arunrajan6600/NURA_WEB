@@ -11,9 +11,28 @@ export interface ResearchMetadata {
   researchCategory?: string;
 }
 
+export interface ProjectSection {
+  id: string;
+  title: string;
+  content: string;
+  order: number;
+}
+
 export interface ProjectMetadata {
+  // Basic project info
+  subtitle?: string;
+  category?: string;
+  role?: string;
+  client?: string;
+  teamMembers?: string;
+  // Timeline
   year?: string;
   duration?: string;
+  // Links
+  repoLink?: string;
+  demoLink?: string;
+  docLink?: string;
+  // Media / exhibition
   medium?: string;
   collaborators?: string;
   tools?: string[];
@@ -32,6 +51,7 @@ export interface ProjectMetadata {
     acknowledgements?: string;
   };
   references?: { title: string; url?: string }[];
+  sections?: ProjectSection[];
 }
 
 export interface Post {
@@ -43,6 +63,7 @@ export interface Post {
   featured: boolean;
   pinned?: boolean;
   archived?: boolean;
+  tags?: string[];
   researchMetadata?: ResearchMetadata;
   projectMetadata?: ProjectMetadata;
   type: PostType;

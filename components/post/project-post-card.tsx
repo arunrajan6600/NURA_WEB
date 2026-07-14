@@ -24,6 +24,13 @@ function getPreviewContent(post: Post) {
 }
 
 function getWorkTags(post: Post) {
+  if (post.tags && post.tags.length > 0) {
+    return post.tags;
+  }
+  if (post.projectMetadata?.technologies && post.projectMetadata.technologies.length > 0) {
+    return post.projectMetadata.technologies;
+  }
+
   const tags = new Set<string>();
   const text = [
     post.title,
@@ -68,6 +75,7 @@ export function ProjectPostCard({
   );
   const previewContent = useMemo(() => getPreviewContent(post), [post]);
   const tags = useMemo(() => getWorkTags(post), [post]);
+  const pm = post.projectMetadata;
 
   useEffect(() => {
     const cardElement = cardRef.current;
@@ -200,59 +208,85 @@ export function ProjectPostCard({
     };
   }, [post.id]);
 
+  // Construct mono metadata string
+  const metaString = useMemo(() => {
+    const parts = [];
+    if (pm?.year) parts.push(`year: ${pm.year}`);
+    if (pm?.medium) parts.push(pm.medium);
+    if (pm?.category) parts.push(pm.category);
+    return parts.join(" · ");
+  }, [pm]);
+
   return (
     <Card
       ref={cardRef}
-      className="w-full transition-all duration-300 hover:border-primary/70 hover:bg-card"
+      className="group w-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-md bg-card/40 hover:bg-card border border-border/50"
     >
-      <Link href={`/post/${post.id}`} className="block">
-        <CardContent className={`flex flex-col px-4 py-3 md:px-5 md:py-4 ${isCompact ? "" : "min-h-[200px]"}`}>
-          <div className="flex items-start justify-between gap-3 mb-1">
+      <Link href={`/post/${post.id}`} className="block" aria-label={`View project: ${post.title}`}>
+        {/* Top Thumbnail Cover */}
+        {post.thumbnail && (
+          <div className="relative overflow-hidden aspect-video w-full border-b border-border/40 bg-muted/10">
+            <ThumbnailCell
+              content={post.thumbnail}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            />
+          </div>
+        )}
+
+        <CardContent className="flex flex-col p-5 md:p-6 gap-3">
+          {/* Metadata Row */}
+          {metaString && (
+            <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-wider">
+              {metaString}
+            </span>
+          )}
+
+          {/* Title and Featured Badge */}
+          <div className="flex items-start justify-between gap-4">
             <div className="space-y-1 flex-1">
-              <CardTitle className="text-xl font-medium leading-tight transition-colors hover:text-primary">
-                {post.title}
-              </CardTitle>
-              <p className="font-mono text-xs uppercase text-muted-foreground">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <CardTitle className="text-xl md:text-2xl font-medium leading-snug transition-colors group-hover:text-primary">
+                  {post.title}
+                </CardTitle>
+                {post.featured && (
+                  <span className="border border-primary/30 bg-primary/5 px-2 py-0.5 font-mono text-[9px] uppercase text-primary tracking-wider rounded-sm select-none">
+                    featured
+                  </span>
+                )}
+              </div>
+              <p className="font-mono text-[10px] uppercase text-muted-foreground/75">
                 {formattedDate}
               </p>
             </div>
+            
             <Button
               variant="ghost"
               size="sm"
-              className="group font-medium flex-shrink-0"
+              className="group font-mono text-xs uppercase flex-shrink-0 gap-1.5 h-8 px-2 hover:bg-transparent hover:text-primary"
             >
-              Read more{" "}
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              read
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </Button>
           </div>
 
+          {/* Excerpt / Preview */}
+          {!isCompact && previewContent && (
+            <p className="text-muted-foreground/90 text-sm leading-relaxed line-clamp-3">
+              {post.excerpt || previewContent}
+            </p>
+          )}
+
+          {/* Technology / Tags chips */}
           {tags.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 pt-1">
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="border border-border px-2 py-1 font-mono text-[10px] uppercase text-muted-foreground"
+                  className="border border-border/80 bg-muted/10 px-2 py-0.5 font-mono text-[9px] uppercase text-muted-foreground rounded-sm"
                 >
                   {tag}
                 </span>
               ))}
-            </div>
-          )}
-
-          {post.thumbnail && (
-            <div className="mt-3 flex-shrink-0">
-              <ThumbnailCell
-                content={post.thumbnail}
-                className={isCompact ? "h-48" : "h-64 md:h-72"}
-              />
-            </div>
-          )}
-
-          {!isCompact && previewContent && (
-            <div className={post.thumbnail ? "mt-3" : "mt-1"}>
-              <p className="text-muted-foreground line-clamp-3 leading-relaxed">
-                {previewContent}
-              </p>
             </div>
           )}
         </CardContent>
