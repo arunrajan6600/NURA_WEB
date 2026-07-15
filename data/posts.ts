@@ -1,44 +1,49 @@
 // Auto-generated posts file
-// Version: v20260715-191440
-// Generated: 2026-07-15T13:44:42.704Z
+// Version: v20260715-194822
+// Generated: 2026-07-15T14:18:26.869Z
 // Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
 
 export const posts: Post[] = [
   {
-    "id": "cmrls1hh20000e71vvghsspjz",
-    "title": "hi",
-    "slug": "hi",
+    "id": "cmrm56jtl0000av1vb0z3j3tl",
+    "title": "hi hello how are you",
+    "slug": "hi-hello-how-are-you",
     "status": "published",
     "featured": false,
     "type": "project",
     "thumbnail": {
       "url": "https://imgs.search.brave.com/KL3_OExvuF9hugpWhbBPf5fDEvQSxrL7A5gLIXa_b-w/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vcGljanVt/Ym8uY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy9taW5pbWFsaXN0/LXBvcnRyYWl0LW9m/LWEtd29tYW4td2l0/aC1nbG93aW5nLWxp/Z2h0LWJlaGluZC1o/ZXItZnJlZS1pbWFn/ZS5qcGVnP3c9NjAw/JnF1YWxpdHk9ODA",
-      "alt": ""
+      "alt": "this is for testing only"
     },
-    "excerpt": "I specialize in designing and executing comprehensive testing strategies to ensure software quality, reliability, and performance. My portfolio highlights expertise across multiple testing domains: Manual Testing: Skilled in creating detailed test cases, executing functional and regression tests, and documenting results with precision. Automation Testing: Proficient in tools like Selenium, Cypress, and Playwright to build robust automated test suites that reduce effort and improve coverage. API Testing: Experienced in using Postman and REST Assured to validate endpoints, ensure data integrity, and verify system integrations. Performance & Load Testing: Knowledge of JMeter and Locust to simulate real-world usage, identify bottlenecks, and optimize system scalability. Bug Tracking & Reporting: Strong command of tools like Jira, TestRail, and Azure DevOps for issue management, reporting, and collaboration with development teams. Quality Assurance Mindset: Focused on delivering defect-free, user-friendly applications by combining analytical thinking with attention to detail. ✨ Summary: My testing portfolio demonstrates a commitment to building reliable software through structured test planning, automation, and continuous improvement. Each project reflects my ability to identify risks early, streamline testing processes, and contribute to high-quality product delivery.",
+    "excerpt": "I specialize in designing and executing comprehensive testing strategies to ensure software quality, reliability, and performance. My portfolio highlights expertise across multiple testing domains:\n\nManual Testing: Skilled in creating detailed test cases, executing functional and regression tests, and documenting results with precision.\n\nAutomation Testing: Proficient in tools like Selenium, Cypress, and Playwright to build robust automated test suites that reduce effort and improve coverage.\n\nAPI Testing: Experienced in using Postman and REST Assured to validate endpoints, ensure data integrity, and verify system integrations.\n\nPerformance & Load Testing: Knowledge of JMeter and Locust to simulate real-world usage, identify bottlenecks, and optimize system scalability.\n\nBug Tracking & Reporting: Strong command of tools like Jira, TestRail, and Azure DevOps for issue management, reporting, and collaboration with development teams.\n\nQuality Assurance Mindset: Focused on delivering defect-free, user-friendly applications by combining analytical thinking with attention to detail.\n\n✨ Summary: My testing portfolio demonstrates a commitment to building reliable software through structured test planning, automation, and continuous improvement. Each project reflects my ability to identify risks early, streamline testing processes, and contribute to high-quality product delivery.",
     "tags": [
-      "hi"
+      "hi",
+      "hello"
     ],
-    "createdAt": "2026-07-15T07:47:01.430Z",
-    "updatedAt": "2026-07-15T07:51:38.271Z",
-    "publishedAt": "2026-07-15T07:47:54.323Z",
+    "createdAt": "2026-07-15T13:54:52.762Z",
+    "updatedAt": "2026-07-15T13:58:18.258Z",
+    "publishedAt": "2026-07-15T13:58:18.257Z",
     "viewCount": 0,
     "likeCount": 0,
     "cells": [
       {
-        "id": "cmrls7fdn0005e71v93kr2oaq",
-        "type": "markdown",
-        "content": "hello how are you are you alright",
+        "id": "cmrm5ayoi0005av1vh0o2xc1n",
+        "type": "video",
+        "content": {
+          "url": "https://youtu.be/xLLNK7JH76w?si=ptUa_LswSQNp7wnJ",
+          "title": "",
+          "provider": "youtube"
+        },
         "order": 0,
         "orderIndex": 0
       },
       {
-        "id": "cmrls7fdn0006e71vr4rd7s7f",
+        "id": "cmrm5ayoi0006av1vq6c1i5on",
         "type": "video",
         "content": {
-          "url": "https://youtu.be/Je5-4DflV4c?si=agwhyI-XZvNBhJuT",
+          "url": "https://youtu.be/xLLNK7JH76w?si=ptUa_LswSQNp7wnJ",
           "title": "",
           "provider": "youtube"
         },
@@ -46,15 +51,26 @@ export const posts: Post[] = [
         "orderIndex": 1
       },
       {
-        "id": "cmrls7fdn0007e71vue92yux7",
+        "id": "cmrm5ayoi0007av1v34nvgrda",
         "type": "video",
         "content": {
-          "url": "https://youtu.be/Je5-4DflV4c?si=agwhyI-XZvNBhJuT",
+          "url": "https://youtu.be/xLLNK7JH76w?si=ptUa_LswSQNp7wnJ",
           "title": "",
           "provider": "youtube"
         },
         "order": 2,
         "orderIndex": 2
+      },
+      {
+        "id": "cmrm5ayoi0008av1vt1ecgbs3",
+        "type": "video",
+        "content": {
+          "url": "https://youtu.be/xLLNK7JH76w?si=ptUa_LswSQNp7wnJ",
+          "title": "",
+          "provider": "youtube"
+        },
+        "order": 3,
+        "orderIndex": 3
       }
     ]
   },
@@ -67,9 +83,9 @@ export const posts: Post[] = [
     "type": "project",
     "tags": [],
     "createdAt": "2025-09-01T02:13:14.993Z",
-    "updatedAt": "2025-09-26T07:09:10.420Z",
+    "updatedAt": "2026-07-15T13:50:38.429Z",
     "publishedAt": "2025-09-01T02:13:14.993Z",
-    "viewCount": 0,
+    "viewCount": 2,
     "likeCount": 0,
     "cells": [
       {
@@ -91,9 +107,9 @@ export const posts: Post[] = [
     "excerpt": "experimental, interactive",
     "tags": [],
     "createdAt": "2025-09-01T02:00:29.561Z",
-    "updatedAt": "2025-09-01T02:37:43.329Z",
+    "updatedAt": "2026-07-15T13:50:39.054Z",
     "publishedAt": "2025-09-01T02:00:29.561Z",
-    "viewCount": 1,
+    "viewCount": 3,
     "likeCount": 0,
     "cells": [
       {
@@ -137,9 +153,9 @@ export const posts: Post[] = [
     "excerpt": "Using music data from VCV Rack processed through touchdesigner, google maps street view is controlled",
     "tags": [],
     "createdAt": "2025-08-24T17:39:19.030Z",
-    "updatedAt": "2025-09-01T02:36:12.714Z",
+    "updatedAt": "2026-07-15T13:50:39.056Z",
     "publishedAt": "2025-08-24T17:39:19.030Z",
-    "viewCount": 0,
+    "viewCount": 2,
     "likeCount": 0,
     "cells": [
       {
@@ -165,8 +181,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260715-191440",
-  generatedAt: "2026-07-15T13:44:42.704Z",
+  version: "v20260715-194822",
+  generatedAt: "2026-07-15T14:18:26.869Z",
   source: "api",
   count: 4
 };

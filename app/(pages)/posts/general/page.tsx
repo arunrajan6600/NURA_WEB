@@ -1,6 +1,7 @@
 import { posts } from "@/data/posts";
-import { PostCard } from "@/components/post/post-card";
+import { LivePostsList } from "@/components/post/live-posts-list";
 import { Metadata } from "next";
+import { Post } from "@/types/post";
 
 export const metadata: Metadata = {
   title: "Other Writings | Arun Nura",
@@ -11,10 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default function GeneralPage() {
-  const generalPosts = posts.filter(
-    (post) => post.status === "published" && post.type === "general"
-  );
-
   return (
     <div className="flex flex-col gap-10 md:gap-12">
       <section className="site-section">
@@ -27,15 +24,11 @@ export default function GeneralPage() {
             fragments / notes
           </span>
         </div>
-        <div className="grid gap-3">
-          {generalPosts.length > 0 ? (
-            generalPosts.map((post) => (
-              <PostCard key={post.id} post={post} variant="compact" />
-            ))
-          ) : (
-            <p className="empty-note">No other writings yet.</p>
-          )}
-        </div>
+        <LivePostsList
+          staticPosts={posts as Post[]}
+          postTypes={["general"]}
+          emptyMessage="No other writings yet."
+        />
       </section>
     </div>
   );

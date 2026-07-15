@@ -1,6 +1,7 @@
 import { posts } from "@/data/posts";
-import { PostCard } from "@/components/post/post-card";
+import { LivePostsList } from "@/components/post/live-posts-list";
 import { Metadata } from "next";
+import { Post } from "@/types/post";
 
 export const metadata: Metadata = {
   title: "Blog | Arun Nura",
@@ -11,10 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const publishedPosts = posts.filter(
-    (post) => post.status === "published" && post.type === "blog"
-  );
-
   return (
     <div className="flex flex-col gap-10 md:gap-12">
       <section className="site-section">
@@ -25,15 +22,11 @@ export default function BlogPage() {
             notes / process / field log
           </span>
         </div>
-        <div className="grid gap-3">
-          {publishedPosts.length > 0 ? (
-            publishedPosts.map((post) => (
-              <PostCard key={post.id} post={post} variant="compact" />
-            ))
-          ) : (
-            <p className="empty-note">No blog posts yet.</p>
-          )}
-        </div>
+        <LivePostsList
+          staticPosts={posts as Post[]}
+          postTypes={["blog"]}
+          emptyMessage="No blog posts yet."
+        />
       </section>
     </div>
   );

@@ -14,6 +14,8 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { ImageLightbox } from "@/components/ui/image-lightbox";
+import { UnifiedImage } from "./unified-image";
+import { VideoCard } from "./video-card";
 
 interface FileCellProps {
   s3Url: string;
@@ -58,64 +60,17 @@ export function FileCell({
   // ── IMAGE ─────────────────────────────────────────────────────────────────
   if (fileType === "image") {
     return (
-      <>
-        <div className="my-4 space-y-2">
-          <div
-            className="group relative overflow-hidden rounded-lg border border-border/50 cursor-zoom-in"
-            onClick={() => setLightboxOpen(true)}
-            role="button"
-            tabIndex={0}
-            aria-label={`View ${caption || originalName || "image"} fullscreen`}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                setLightboxOpen(true);
-              }
-            }}
-          >
-            <img
-              src={s3Url}
-              alt={caption || originalName || "Image"}
-              className="max-w-full h-auto transition-opacity duration-200 group-hover:opacity-90"
-              loading="lazy"
-            />
-          </div>
-          {caption && (
-            <p className="text-xs text-muted-foreground italic font-mono text-center lowercase">
-              {caption}
-            </p>
-          )}
-        </div>
-        {lightboxOpen && (
-          <ImageLightbox
-            src={s3Url}
-            alt={caption || originalName}
-            onClose={() => setLightboxOpen(false)}
-          />
-        )}
-      </>
+      <div className="my-4">
+        <UnifiedImage src={s3Url} alt={caption || originalName || "Image"} />
+      </div>
     );
   }
 
   // ── VIDEO ─────────────────────────────────────────────────────────────────
   if (fileType === "video") {
     return (
-      <div className="my-4 space-y-2">
-        <div className="overflow-hidden rounded-lg border border-border/50">
-          <video
-            controls
-            className="max-w-full h-auto"
-            preload="metadata"
-          >
-            <source src={s3Url} />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        {caption && (
-          <p className="text-xs text-muted-foreground italic font-mono text-center lowercase">
-            {caption}
-          </p>
-        )}
+      <div className="my-4">
+        <VideoCard url={s3Url} title={caption || originalName} />
       </div>
     );
   }

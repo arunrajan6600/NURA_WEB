@@ -27,11 +27,20 @@ async function getPost(id: string): Promise<Post | undefined> {
     if (res.success && res.data) {
       return res.data as Post;
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Error fetching post ${id} from live API:`, error);
+    
+    // Check if error is an explicit 404 (not found)
+    const errorMsg = error?.message || "";
+    if (
+      errorMsg.toLowerCase().includes("not found") || 
+      errorMsg.includes("404")
+    ) {
+      return undefined;
+    }
   }
   
-  // Fallback to static posts
+  // Fallback to static posts only if the API is offline/unavailable
   return posts.find((p) => p.id === id) as Post | undefined;
 }
 

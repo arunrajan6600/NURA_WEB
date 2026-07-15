@@ -1,6 +1,7 @@
 import { posts } from "@/data/posts";
-import { PostCard } from "@/components/post/post-card";
+import { LivePostsList } from "@/components/post/live-posts-list";
 import { Metadata } from "next";
+import { Post } from "@/types/post";
 
 export const metadata: Metadata = {
   title: "Stories | Arun Nura",
@@ -11,10 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default function StoriesPage() {
-  const storyPosts = posts.filter(
-    (post) => post.status === "published" && post.type === "story"
-  );
-
   return (
     <div className="flex flex-col gap-10 md:gap-12">
       <section className="site-section">
@@ -27,15 +24,11 @@ export default function StoriesPage() {
             fiction / literary
           </span>
         </div>
-        <div className="grid gap-3">
-          {storyPosts.length > 0 ? (
-            storyPosts.map((post) => (
-              <PostCard key={post.id} post={post} variant="compact" />
-            ))
-          ) : (
-            <p className="empty-note">No stories yet.</p>
-          )}
-        </div>
+        <LivePostsList
+          staticPosts={posts as Post[]}
+          postTypes={["story"]}
+          emptyMessage="No stories yet."
+        />
       </section>
     </div>
   );

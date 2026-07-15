@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight, Home } from "lucide-react";
 import { posts } from "@/data/posts";
+import { useState, useEffect } from "react";
+import { postsApi } from "@/lib/posts-api";
 
 const segmentLabels: Record<string, string> = {
   posts: "Posts",
@@ -19,13 +21,38 @@ const segmentLabels: Record<string, string> = {
 
 export function Breadcrumbs() {
   const pathname = usePathname() || "";
+  const [dynamicTitle, setDynamicTitle] = useState<string | null>(null);
+
+  const segments = pathname.split("/").filter(Boolean);
+
+  useEffect(() => {
+    const postSegmentIndex = segments.findIndex(
+      (s, i) => i > 0 && segments[i - 1] === "post" && s.length > 10
+    );
+    if (postSegmentIndex !== -1) {
+      const postId = segments[postSegmentIndex];
+      const staticPost = posts.find((p) => p.id === postId);
+      if (staticPost) {
+        setDynamicTitle(staticPost.title);
+      } else {
+        postsApi
+          .getPost(postId)
+          .then((res) => {
+            if (res.success && res.data) {
+              setDynamicTitle((res.data as any).title);
+            }
+          })
+          .catch(() => {});
+      }
+    } else {
+      setDynamicTitle(null);
+    }
+  }, [pathname, segments]);
   
   // Hide breadcrumbs on homepage
   if (pathname === "/") {
     return null;
   }
-
-  const segments = pathname.split("/").filter(Boolean);
   
   return (
     <nav 
@@ -48,10 +75,7 @@ export function Breadcrumbs() {
         let label = segmentLabels[segment] || segment;
         
         if (segment.length > 10 && index > 0 && segments[index - 1] === "post") {
-          const post = posts.find((p) => p.id === segment);
-          if (post) {
-            label = post.title;
-          }
+          label = dynamicTitle || segmentLabels[segment] || segment;
         }
 
         return (

@@ -1,13 +1,37 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import MatrixGridBackground from "@/components/ui/matrix-grid-background";
 import { posts } from "@/data/posts";
+import { useEffect, useState, useRef } from "react";
+import { postsApi } from "@/lib/posts-api";
+import { Post } from "@/types/post";
 
 export default function Home() {
-  const projectCount = posts.filter(
+  const [livePosts, setLivePosts] = useState<Post[]>(posts as Post[]);
+  const fetchedRef = useRef(false);
+
+  useEffect(() => {
+    if (fetchedRef.current) return;
+    fetchedRef.current = true;
+
+    postsApi
+      .listPosts({ status: "published" })
+      .then((res) => {
+        if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+          setLivePosts(res.data as Post[]);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to load live counts for home page:", err);
+      });
+  }, []);
+
+  const projectCount = livePosts.filter(
     (post) => post.status === "published" && post.type === "project"
   ).length;
-  const writingCount = posts.filter(
+  const writingCount = livePosts.filter(
     (post) => post.status === "published" && post.type !== "project"
   ).length;
 
