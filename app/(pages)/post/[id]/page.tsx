@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { posts } from "@/data/posts";
 import { PostCell } from "@/components/post/post-cell";
 import { PostCard } from "@/components/post/post-card";
-import { formatDistance } from "date-fns";
+import { formatDistance, format } from "date-fns";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Clock, ImageIcon, Video } from "lucide-react";
@@ -13,12 +13,25 @@ import { TableOfContents } from "@/components/post/table-of-contents";
 import { ShareSection } from "@/components/post/share-section";
 import { groupCells, getMediaCounts } from "@/lib/media-grouper";
 import { MarkdownCell } from "@/components/post/markdown-cell";
+import { postsApi } from "@/lib/posts-api";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
-function getPost(id: string): Post | undefined {
+async function getPost(id: string): Promise<Post | undefined> {
+  if (id === "placeholder") return undefined;
+  
+  try {
+    const res = await postsApi.getPost(id);
+    if (res.success && res.data) {
+      return res.data as Post;
+    }
+  } catch (error) {
+    console.error(`Error fetching post ${id} from live API:`, error);
+  }
+  
+  // Fallback to static posts
   return posts.find((p) => p.id === id) as Post | undefined;
 }
 
@@ -45,16 +58,16 @@ function getBackLink(post: Post) {
 }
 
 // Helper to retrieve related works based on metadata, tags, and category match
-const getRelatedWorks = (currentPost: Post, count = 3) => {
+const getRelatedWorks = (currentPost: Post, postsList: Post[], count = 3) => {
   if (currentPost.type !== "project") return [];
 
-  const candidates = posts.filter(
+  const candidates = postsList.filter(
     (p) =>
       p.status === "published" &&
       p.type === "project" &&
       p.id !== currentPost.id &&
       p.archived !== true
-  ) as Post[];
+  );
 
   const getTags = (p: Post) => {
     if (p.tags && p.tags.length > 0) {
@@ -128,16 +141,16 @@ const getRelatedWorks = (currentPost: Post, count = 3) => {
 };
 
 // Helper to retrieve related writings based on type/tags match
-const getRelatedWritings = (currentPost: Post, count = 2) => {
+const getRelatedWritings = (currentPost: Post, postsList: Post[], count = 2) => {
   if (currentPost.type === "project") return [];
 
-  const candidates = posts.filter(
+  const candidates = postsList.filter(
     (p) =>
       p.status === "published" &&
       p.type !== "project" &&
       p.id !== currentPost.id &&
       p.archived !== true
-  ) as Post[];
+  );
 
   const getTags = (p: Post) => {
     const tags = new Set<string>();
@@ -177,7 +190,7 @@ const getRelatedWritings = (currentPost: Post, count = 2) => {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const resolvedId = validateAndParseId(id);
-  const post = getPost(resolvedId);
+  const post = await getPost(resolvedId);
 
   if (!post) {
     return {
@@ -245,21 +258,31 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
   
-  const post = getPost(resolvedId);
+  const post = await getPost(resolvedId);
 
   if (!post || post.status !== "published") {
     notFound();
   }
 
-  const formattedDate = formatDistance(new Date(post.updatedAt), new Date(), {
-    addSuffix: true,
-  });
+  const formattedDate = format(new Date(post.updatedAt), "MMMM d, yyyy");
   const backLink = getBackLink(post);
 
+  // Fetch all published posts from live API to resolve dynamic routing & relations
+  let allPublishedPosts: Post[] = [];
+  try {
+    const res = await postsApi.listPosts({ status: "published" });
+    if (res.success && Array.isArray(res.data)) {
+      allPublishedPosts = res.data as Post[];
+    }
+  } catch (error) {
+    console.error("Error fetching published posts list from live API:", error);
+  }
+  if (allPublishedPosts.length === 0) {
+    allPublishedPosts = posts.filter((p) => p.status === "published") as Post[];
+  }
+
   // Navigation sequencing
-  const sameTypePosts = posts.filter(
-    (p) => p.status === "published" && p.type === post.type
-  );
+  const sameTypePosts = allPublishedPosts.filter((p) => p.type === post.type);
   const currentIndex = sameTypePosts.findIndex((p) => p.id === post.id);
   const prevPost = currentIndex > 0 ? sameTypePosts[currentIndex - 1] : null;
   const nextPost =
@@ -268,8 +291,8 @@ export default async function PostPage({ params }: Props) {
       : null;
 
   // Retrieve related works
-  const relatedWorks = getRelatedWorks(post, 3);
-  const relatedWritings = getRelatedWritings(post, 2);
+  const relatedWorks = getRelatedWorks(post, allPublishedPosts, 3);
+  const relatedWritings = getRelatedWritings(post, allPublishedPosts, 2);
 
   // Calculate reading time
   const allText = post.cells
@@ -389,7 +412,7 @@ export default async function PostPage({ params }: Props) {
             </div>
           )}
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-mono uppercase">
-            <span>Updated {formattedDate}</span>
+            <span suppressHydrationWarning>Updated {formattedDate}</span>
             {post.type !== "project" && (
               <>
                 <span>/</span>

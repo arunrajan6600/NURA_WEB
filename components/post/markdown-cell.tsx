@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { InfoIcon, AlertTriangleIcon, CheckCircle } from "lucide-react";
 import { ImageLightbox } from "@/components/ui/image-lightbox";
+import { UnifiedImage } from "./unified-image";
 
 interface MarkdownCellProps {
   content: string;
@@ -152,34 +153,12 @@ function CustomLink({
 
 // Custom image component with lightbox support
 function CustomImage({ alt, src }: { alt?: string; src?: string }) {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-
   if (!src) return null;
 
   return (
-    <>
-      <span className="block relative my-8 overflow-hidden rounded-lg cursor-zoom-in group">
-        <img
-          src={src as string}
-          alt={alt || ""}
-          className="w-full h-auto rounded-md shadow-sm border border-border/50 transition-opacity duration-200 group-hover:opacity-90"
-          loading="lazy"
-          onClick={() => setLightboxOpen(true)}
-        />
-        {alt && (
-          <span className="block text-center text-xs text-muted-foreground mt-2 italic">
-            {alt}
-          </span>
-        )}
-      </span>
-      {lightboxOpen && (
-        <ImageLightbox
-          src={src as string}
-          alt={alt}
-          onClose={() => setLightboxOpen(false)}
-        />
-      )}
-    </>
+    <span className="block my-8">
+      <UnifiedImage src={src} alt={alt} />
+    </span>
   );
 }
 

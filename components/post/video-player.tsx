@@ -18,6 +18,7 @@ interface VideoPlayerProps {
   title?: string;
   onTheatreToggle?: () => void;
   isTheatreMode?: boolean;
+  defaultOrientation?: "portrait" | "landscape";
 }
 
 export function VideoPlayer({
@@ -25,6 +26,7 @@ export function VideoPlayer({
   title,
   onTheatreToggle,
   isTheatreMode = false,
+  defaultOrientation,
 }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -42,6 +44,7 @@ export function VideoPlayer({
   const [showResumePrompt, setShowResumePrompt] = useState(false);
   const [savedTime, setSavedTime] = useState(0);
   const [isScrubbing] = useState(false);
+  const [orientation, setOrientation] = useState<"portrait" | "landscape">(defaultOrientation || "landscape");
 
   const storageKey = `nuraweb-video-${btoa(url).slice(0, 32)}`;
 
@@ -90,6 +93,11 @@ export function VideoPlayer({
 
     const handleDurationChange = () => {
       setDuration(video.duration);
+      if (video.videoWidth && video.videoHeight && video.videoHeight > video.videoWidth) {
+        setOrientation("portrait");
+      } else {
+        setOrientation("landscape");
+      }
     };
 
     video.addEventListener("timeupdate", handleTimeUpdate);
@@ -372,7 +380,11 @@ export function VideoPlayer({
       ref={containerRef}
       className={cn(
         "group/player relative w-full overflow-hidden bg-black text-white focus-visible:outline-none transition-all duration-300",
-        isTheatreMode && !isFullscreen ? "aspect-[21/9]" : "aspect-video",
+        orientation === "portrait" && !isFullscreen
+          ? "max-w-[360px] mx-auto aspect-[9/16]"
+          : isTheatreMode && !isFullscreen
+          ? "aspect-[21/9]"
+          : "aspect-video",
         isFullscreen ? "h-screen w-screen" : "rounded-xl border border-border/10 shadow-2xl"
       )}
       onMouseMove={triggerControlsTimer}

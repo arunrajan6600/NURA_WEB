@@ -52,6 +52,7 @@ export function VideoCard({
   const [duration, setDuration] = useState<number | null>(null);
   const [vimeoThumbnail, setVimeoThumbnail] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [orientation, setOrientation] = useState<"portrait" | "landscape">("landscape");
 
   const previewVideoRef = useRef<HTMLVideoElement>(null);
   const provider = getVideoProvider(url);
@@ -131,6 +132,7 @@ export function VideoCard({
           title={title}
           onTheatreToggle={onTheatreToggle}
           isTheatreMode={isTheatreMode}
+          defaultOrientation={orientation}
         />
       );
     }
@@ -182,14 +184,21 @@ export function VideoCard({
   }
 
   const handleLoadedMetadata = (e: React.SyntheticEvent<HTMLVideoElement>) => {
-    if (!isNaN(e.currentTarget.duration)) {
-      setDuration(e.currentTarget.duration);
+    const { videoWidth, videoHeight, duration: videoDuration } = e.currentTarget;
+    if (!isNaN(videoDuration)) {
+      setDuration(videoDuration);
+    }
+    if (videoWidth && videoHeight && videoHeight > videoWidth) {
+      setOrientation("portrait");
     }
   };
 
   return (
     <div
-      className="group relative aspect-video w-full overflow-hidden rounded-xl border border-border/40 bg-muted/30 shadow-sm cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:border-primary/40"
+      className={cn(
+        "group relative w-full overflow-hidden rounded-xl border border-border/10 bg-black shadow-2xl cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:border-primary/45",
+        orientation === "portrait" ? "max-w-[360px] mx-auto aspect-[9/16]" : "aspect-video"
+      )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => setIsPlaying(true)}
