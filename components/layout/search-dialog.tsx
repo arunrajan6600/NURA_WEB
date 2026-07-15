@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Search, X, ArrowRight, FileText, FolderOpen } from "lucide-react";
-import { posts } from "@/data/posts";
+import { posts as staticPosts } from "@/data/posts";
+import { postsApi } from "@/lib/posts-api";
 import { Post } from "@/types/post";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -47,8 +48,24 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [allPosts, setAllPosts] = useState<Post[]>(staticPosts);
   const inputRef = useRef<HTMLInputElement>(null);
+  const fetchedRef = useRef(false);
   const router = useRouter();
+
+  // Hydrate with live data once the dialog is first opened
+  useEffect(() => {
+    if (!open || fetchedRef.current) return;
+    fetchedRef.current = true;
+    postsApi
+      .listPosts({ status: "published" })
+      .then((res) => {
+        if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+          setAllPosts(res.data as Post[]);
+        }
+      })
+      .catch(() => { /* keep static fallback */ });
+  }, [open]);
 
   useEffect(() => {
     if (open) {
@@ -64,7 +81,7 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
       setResults([]);
       return;
     }
-    const allResults = posts
+    const allResults = allPosts
       .filter((p) => p.status === "published")
       .map((p) => scorePost(p, query))
       .filter((r): r is SearchResult => r !== null)
@@ -72,7 +89,7 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
       .slice(0, 8);
     setResults(allResults);
     setSelectedIndex(0);
-  }, [query]);
+  }, [query, allPosts]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {

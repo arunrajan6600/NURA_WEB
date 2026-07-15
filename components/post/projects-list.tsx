@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { posts } from "@/data/posts";
+import { useState, useMemo, useEffect, useRef } from "react";
+import { posts as staticPosts } from "@/data/posts";
+import { postsApi } from "@/lib/posts-api";
+import { Post } from "@/types/post";
 import { PostCard } from "@/components/post/post-card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -53,17 +55,35 @@ export function ProjectsList() {
   const [featuredOnly, setFeaturedOnly] = useState(false);
   const [sortMode, setSortMode] = useState<SortMode>("curated");
   const [showArchived, setShowArchived] = useState(false);
+  // Live data state – starts with static snapshot so there's no blank flash
+  const [livePosts, setLivePosts] = useState<Post[]>(staticPosts);
+  const fetchedRef = useRef(false);
 
   useEffect(() => {
     setMounted(true);
+
+    // Fetch live data once from the API to pick up posts created after the last build
+    if (fetchedRef.current) return;
+    fetchedRef.current = true;
+
+    postsApi
+      .listPosts({ status: "published", type: "project" })
+      .then((res) => {
+        if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+          setLivePosts(res.data as Post[]);
+        }
+      })
+      .catch(() => {
+        // API unavailable – keep using the static snapshot silently
+      });
   }, []);
 
-  // Filter only published projects
+  // Filter only published projects from whichever data source we have
   const allProjects = useMemo(() => {
-    return posts.filter(
+    return livePosts.filter(
       (post) => post.status === "published" && post.type === "project"
     );
-  }, []);
+  }, [livePosts]);
 
   // Dynamically collect unique categories, technologies, tags, and years
   const filterOptions = useMemo(() => {

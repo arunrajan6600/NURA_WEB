@@ -11,10 +11,23 @@ const app = express();
 // Secure Express headers with Helmet
 app.use(helmet());
 
+// Parse allowed origins — supports comma-separated list
+const rawOrigin = env.ALLOWED_ORIGIN;
+const allowedOrigins = rawOrigin === '*'
+  ? ['*']
+  : rawOrigin.split(',').map((o) => o.trim()).filter(Boolean);
+
 // Configure CORS policy
 app.use(
   cors({
-    origin: env.ALLOWED_ORIGIN === '*' ? true : env.ALLOWED_ORIGIN,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (curl, Postman, server-to-server)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      callback(new Error(`CORS: origin ${origin} not allowed`));
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: false
