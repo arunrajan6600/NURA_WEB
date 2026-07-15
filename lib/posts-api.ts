@@ -24,8 +24,10 @@ export interface CreatePostData {
     alt: string;
   };
   cells?: Array<{
+    id?: string;
     type: "markdown" | "image" | "video" | "file";
     content: unknown;
+    orderIndex?: number;
   }>;
   projectMetadata?: ProjectMetadata;
   researchMetadata?: ResearchMetadata;
@@ -53,15 +55,18 @@ class PostsApi {
       "http://localhost:3001";
   }
 
-  // Utility to fix escaped newlines in post content
   private processPostContent(post: Post): Post {
     if (!post || !post.cells) return post;
 
     return {
       ...post,
-      cells: post.cells.map((cell: Cell) => {
-        if (cell.type === "markdown" && typeof cell.content === "string") {
-          let content = cell.content;
+      cells: post.cells.map((cell: Cell, index: number) => {
+        const normalizedCell = {
+          ...cell,
+          orderIndex: cell.orderIndex ?? cell.order ?? index,
+        };
+        if (normalizedCell.type === "markdown" && typeof normalizedCell.content === "string") {
+          let content = normalizedCell.content;
 
           // Remove outer quotes if they exist (double JSON encoding issue)
           if (content.startsWith('"') && content.endsWith('"')) {
@@ -74,12 +79,9 @@ class PostsApi {
             .replace(/\\t/g, "\t")
             .replace(/\\"/g, '"');
 
-          return {
-            ...cell,
-            content,
-          };
+          normalizedCell.content = content;
         }
-        return cell;
+        return normalizedCell;
       }),
     };
   }
@@ -89,16 +91,19 @@ class PostsApi {
     return posts.map((post) => this.processPostContent(post));
   }
 
-  // Static method to process posts data (for use with static imports)
   static processStaticPosts(posts: Post[]): Post[] {
     return posts.map((post) => {
       if (!post || !post.cells) return post;
 
       return {
         ...post,
-        cells: post.cells.map((cell: Cell) => {
-          if (cell.type === "markdown" && typeof cell.content === "string") {
-            let content = cell.content;
+        cells: post.cells.map((cell: Cell, index: number) => {
+          const normalizedCell = {
+            ...cell,
+            orderIndex: cell.orderIndex ?? cell.order ?? index,
+          };
+          if (normalizedCell.type === "markdown" && typeof normalizedCell.content === "string") {
+            let content = normalizedCell.content;
 
             // Remove outer quotes if they exist (double JSON encoding issue)
             if (content.startsWith('"') && content.endsWith('"')) {
@@ -111,12 +116,9 @@ class PostsApi {
               .replace(/\\t/g, "\t")
               .replace(/\\"/g, '"');
 
-            return {
-              ...cell,
-              content,
-            };
+            normalizedCell.content = content;
           }
-          return cell;
+          return normalizedCell;
         }),
       };
     });
@@ -208,9 +210,16 @@ class PostsApi {
 
   // Create a new post (requires authentication)
   async createPost(postData: CreatePostData): Promise<PostsApiResponse> {
+    const sanitizedPostData = {
+      ...postData,
+      cells: postData.cells?.map((cell, index) => ({
+        ...cell,
+        orderIndex: index
+      }))
+    };
     const response = await this.makeRequest("/posts", {
       method: "POST",
-      body: JSON.stringify(postData),
+      body: JSON.stringify(sanitizedPostData),
     });
 
     // Process the created post to fix escaped newlines
@@ -231,9 +240,16 @@ class PostsApi {
     id: string,
     updateData: UpdatePostData
   ): Promise<PostsApiResponse> {
+    const sanitizedUpdateData = {
+      ...updateData,
+      cells: updateData.cells?.map((cell, index) => ({
+        ...cell,
+        orderIndex: index
+      }))
+    };
     const response = await this.makeRequest(`/posts/${id}`, {
       method: "PUT",
-      body: JSON.stringify(updateData),
+      body: JSON.stringify(sanitizedUpdateData),
     });
 
     // Process the updated post to fix escaped newlines

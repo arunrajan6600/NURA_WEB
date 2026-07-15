@@ -1,11 +1,35 @@
 // Auto-generated posts file
-// Version: v20260715-020358
-// Generated: 2026-07-14T20:33:59.598Z
+// Version: v20260715-073857
+// Generated: 2026-07-15T02:09:22.303Z
 // Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
 
 export const posts: Post[] = [
+  {
+    "id": "cmrl53qyk0007e62ea6ulstb8",
+    "title": "this is for testing",
+    "slug": "this-is-for-testing",
+    "status": "published",
+    "featured": false,
+    "type": "project",
+    "thumbnail": {
+      "url": "https://imgs.search.brave.com/KL3_OExvuF9hugpWhbBPf5fDEvQSxrL7A5gLIXa_b-w/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vcGljanVt/Ym8uY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy9taW5pbWFsaXN0/LXBvcnRyYWl0LW9m/LWEtd29tYW4td2l0/aC1nbG93aW5nLWxp/Z2h0LWJlaGluZC1o/ZXItZnJlZS1pbWFn/ZS5qcGVnP3c9NjAw/JnF1YWxpdHk9ODA",
+      "alt": "this is for testing only"
+    },
+    "excerpt": "this is for the tesing purpose and not used for main stream ",
+    "tags": [
+      "hi",
+      "hello",
+      "how are you"
+    ],
+    "createdAt": "2026-07-14T21:04:55.868Z",
+    "updatedAt": "2026-07-14T21:15:26.507Z",
+    "publishedAt": "2026-07-14T21:07:51.332Z",
+    "viewCount": 0,
+    "likeCount": 0,
+    "cells": []
+  },
   {
     "id": "MF0HJ7N5BRKT5L6CWO",
     "title": "akalam abhayam | അകലം അഭയം | 2025",
@@ -13,6 +37,7 @@ export const posts: Post[] = [
     "status": "published",
     "featured": false,
     "type": "project",
+    "tags": [],
     "createdAt": "2025-09-01T02:13:14.993Z",
     "updatedAt": "2025-09-26T07:09:10.420Z",
     "publishedAt": "2025-09-01T02:13:14.993Z",
@@ -23,7 +48,8 @@ export const posts: Post[] = [
         "id": "MG0I42KTLI45YMGW4X",
         "type": "markdown",
         "content": "AI Model: YOLO  \nSoftwares: Touchdesigner [Visual Manipulation & Text], VCV Rack [Audio Synthesis]\n\n*18 July 2025*",
-        "order": 1
+        "order": 1,
+        "orderIndex": 1
       }
     ]
   },
@@ -35,6 +61,7 @@ export const posts: Post[] = [
     "featured": false,
     "type": "project",
     "excerpt": "experimental, interactive",
+    "tags": [],
     "createdAt": "2025-09-01T02:00:29.561Z",
     "updatedAt": "2025-09-01T02:37:43.329Z",
     "publishedAt": "2025-09-01T02:00:29.561Z",
@@ -45,7 +72,8 @@ export const posts: Post[] = [
         "id": "MF0IEOMYL41MOIUBHDR",
         "type": "markdown",
         "content": "Bhasha Naishadha Ambu is an experiment to find and manipulate the numerical data from a vector embedding AI model and compare the vector values with the positions of 3D points from a masked video of Ambu (the child). Then the words corresponding to the positional values from video is selected and superimposed over the video. The fundamental intention of this experiment is to explore how language, pixels, vectors are all interconnected in a world of pseudo-futurism which might transformed to a \"future\".\n\nVideo Credits: Rajesh Karthy, Dr. Jaseera Majid'  \n\n*10 October 2024*",
-        "order": 1
+        "order": 1,
+        "orderIndex": 1
       },
       {
         "id": "MF0IEON2GH023ZAWIMU",
@@ -55,7 +83,8 @@ export const posts: Post[] = [
           "title": "",
           "provider": "direct"
         },
-        "order": 2
+        "order": 2,
+        "orderIndex": 2
       },
       {
         "id": "MF0IEON7PNNKED18OCB",
@@ -65,7 +94,8 @@ export const posts: Post[] = [
           "title": "",
           "provider": "direct"
         },
-        "order": 3
+        "order": 3,
+        "orderIndex": 3
       }
     ]
   },
@@ -77,6 +107,7 @@ export const posts: Post[] = [
     "featured": false,
     "type": "project",
     "excerpt": "Using music data from VCV Rack processed through touchdesigner, google maps street view is controlled",
+    "tags": [],
     "createdAt": "2025-08-24T17:39:19.030Z",
     "updatedAt": "2025-09-01T02:36:12.714Z",
     "publishedAt": "2025-08-24T17:39:19.030Z",
@@ -87,7 +118,8 @@ export const posts: Post[] = [
         "id": "MF0ICQQC0IIPLUJA3JTV",
         "type": "markdown",
         "content": "Street View: Kottarakkara\n\nGoogle Maps API + Touchdesigner + VCV Rack + Python + ChatGPT\n\n*25 july 2025*",
-        "order": 1
+        "order": 1,
+        "orderIndex": 1
       },
       {
         "id": "MF0ICQQJWXPRIAY4R7",
@@ -97,15 +129,16 @@ export const posts: Post[] = [
           "title": "",
           "provider": "direct"
         },
-        "order": 2
+        "order": 2,
+        "orderIndex": 2
       }
     ]
   }
 ];
 
 export const postsMetadata = {
-  version: "v20260715-020358",
-  generatedAt: "2026-07-14T20:33:59.598Z",
+  version: "v20260715-073857",
+  generatedAt: "2026-07-15T02:09:22.303Z",
   source: "api",
-  count: 3
+  count: 4
 };

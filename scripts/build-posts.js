@@ -113,9 +113,13 @@ function processStaticPosts(posts) {
 
     return {
       ...post,
-      cells: post.cells.map((cell) => {
-        if (typeof cell.content === "string") {
-          let content = cell.content;
+      cells: post.cells.map((cell, index) => {
+        let normalizedCell = {
+          ...cell,
+          orderIndex: cell.orderIndex ?? cell.order ?? index,
+        };
+        if (typeof normalizedCell.content === "string") {
+          let content = normalizedCell.content;
 
           // Handle double JSON encoding for all cell types
           if (content.startsWith('"') && content.endsWith('"')) {
@@ -129,21 +133,18 @@ function processStaticPosts(posts) {
             .replace(/\\"/g, '"');
 
           // For non-markdown cells, try to parse as JSON if it looks like JSON
-          if (cell.type !== "markdown" && content.startsWith('{') && content.endsWith('}')) {
+          if (normalizedCell.type !== "markdown" && content.startsWith('{') && content.endsWith('}')) {
             try {
               content = JSON.parse(content);
             } catch (e) {
-              console.warn(`Failed to parse JSON content for ${cell.type} cell:`, e.message);
+              console.warn(`Failed to parse JSON content for ${normalizedCell.type} cell:`, e.message);
               // Keep original content if parsing fails
             }
           }
 
-          return {
-            ...cell,
-            content,
-          };
+          normalizedCell.content = content;
         }
-        return cell;
+        return normalizedCell;
       }),
     };
   });

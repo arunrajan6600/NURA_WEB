@@ -605,7 +605,7 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
     (index: number, cell: Cell) => {
       updatePostInternally((prev) => ({
         ...prev,
-        cells: prev.cells.map((c, i) => (i === index ? cell : c)),
+        cells: prev.cells.map((c, i) => (i === index ? { ...cell, orderIndex: index } : c)),
       }));
     },
     [updatePostInternally]
@@ -613,10 +613,13 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
 
   const handleCellDelete = useCallback(
     (index: number) => {
-      updatePostInternally((prev) => ({
-        ...prev,
-        cells: prev.cells.filter((_, i) => i !== index),
-      }));
+      updatePostInternally((prev) => {
+        const filtered = prev.cells.filter((_, i) => i !== index);
+        return {
+          ...prev,
+          cells: filtered.map((c, idx) => ({ ...c, orderIndex: idx })),
+        };
+      });
     },
     [updatePostInternally]
   );
@@ -633,7 +636,11 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
         updatePostInternally((prev) => {
           const oldIndex = prev.cells.findIndex((cell) => cell.id === active.id);
           const newIndex = prev.cells.findIndex((cell) => cell.id === over.id);
-          return { ...prev, cells: arrayMove(prev.cells, oldIndex, newIndex) };
+          const moved = arrayMove(prev.cells, oldIndex, newIndex);
+          return {
+            ...prev,
+            cells: moved.map((c, idx) => ({ ...c, orderIndex: idx })),
+          };
         });
       }
     },
@@ -641,8 +648,18 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
   );
 
   const addCell = useCallback(() => {
-    const newCell: Cell = { id: nanoid(), type: "markdown", content: "" };
-    updatePostInternally((prev) => ({ ...prev, cells: [...prev.cells, newCell] }));
+    updatePostInternally((prev) => {
+      const newCell: Cell = {
+        id: nanoid(),
+        type: "markdown",
+        content: "",
+        orderIndex: prev.cells.length,
+      };
+      return {
+        ...prev,
+        cells: [...prev.cells, newCell],
+      };
+    });
   }, [updatePostInternally]);
 
   const isProject = localPost.type === "project";

@@ -81,6 +81,7 @@ export interface Cell {
   type: "markdown" | "image" | "video" | "file";
   content: string | ImageContent | VideoContent | FileContent;
   order?: number;
+  orderIndex?: number;
 }
 
 export interface ImageContent {
