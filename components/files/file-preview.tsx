@@ -19,6 +19,7 @@ import {
   FileText 
 } from 'lucide-react';
 import { URLCopier } from './url-copier';
+import { VideoCard } from '@/components/post/video-card';
 
 interface FileRecord {
   id: string;
@@ -85,15 +86,8 @@ export function FilePreview({ file, open, onOpenChange }: FilePreviewProps) {
 
     if (file.mimeType.startsWith('video/')) {
       return (
-        <div className="bg-muted/50 rounded-lg p-4">
-          <video 
-            controls 
-            className="max-w-full max-h-96 mx-auto rounded-lg"
-            preload="metadata"
-          >
-            <source src={file.s3Url} type={file.mimeType} />
-            Your browser does not support the video tag.
-          </video>
+        <div className="rounded-lg overflow-hidden">
+          <VideoCard url={file.s3Url} title={file.originalName} />
         </div>
       );
     }

@@ -141,9 +141,10 @@ export function VideoCollection({ videos }: VideoCollectionProps) {
               )}
               aria-label={`Play video ${idx + 1}: ${video.title || ""}`}
             >
-              {video.url.endsWith(".mp4") ||
-              video.url.endsWith(".webm") ||
-              video.url.endsWith(".ogg") ? (
+              {/* Only direct-upload videos (S3, local) get a video thumbnail; embeds get a text label */}
+              {!video.url.includes("youtube.com") &&
+              !video.url.includes("youtu.be") &&
+              !video.url.includes("vimeo.com") ? (
                 <video
                   src={video.url}
                   muted
