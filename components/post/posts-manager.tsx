@@ -29,6 +29,7 @@ import { Switch } from "@/components/ui/switch";
 import { Trash2, Edit, Eye, Plus, Filter, Search } from "lucide-react";
 import { toast } from "sonner";
 import { PostCell } from "@/components/post/post-cell";
+import { groupCells } from "@/lib/media-grouper";
 import { VisualEditor } from "@/components/editor/visual-editor";
 import { TagEditor } from "@/components/editor/tag-editor";
 
@@ -772,7 +773,7 @@ export function PostsManager({
 
                 <div className="space-y-6">
                   {viewingPost.cells && viewingPost.cells.length > 0 ? (
-                    viewingPost.cells.map((cell) => (
+                    groupCells(viewingPost.cells).map((cell) => (
                       <div
                         key={cell.id}
                         className="border rounded-lg p-4 bg-muted/20"

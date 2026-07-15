@@ -145,8 +145,12 @@ class PostsApi {
     options: RequestInit = {}
   ): Promise<PostsApiResponse<T>> {
     try {
+      // GET requests must never be served from Next.js server-side or client-side fetch cache.
+      // We always want live data from the Render backend.
+      const isGet = !options.method || options.method.toUpperCase() === "GET";
       const response = await fetch(`${this.baseUrl}${endpoint}`, {
         ...options,
+        cache: isGet ? "no-store" : options.cache,
         headers: {
           ...this.getHeaders(),
           ...options.headers,

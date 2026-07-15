@@ -1,73 +1,73 @@
 // Auto-generated posts file
-// Version: v20260715-194822
-// Generated: 2026-07-15T14:18:26.869Z
+// Version: v20260715-212033
+// Generated: 2026-07-15T15:50:35.690Z
 // Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
 
 export const posts: Post[] = [
   {
-    "id": "cmrm56jtl0000av1vb0z3j3tl",
-    "title": "hi hello how are you",
-    "slug": "hi-hello-how-are-you",
+    "id": "cmrm6gorf0000ap2c0zedx7xz",
+    "title": "testing final",
+    "slug": "testing-final",
     "status": "published",
     "featured": false,
     "type": "project",
     "thumbnail": {
       "url": "https://imgs.search.brave.com/KL3_OExvuF9hugpWhbBPf5fDEvQSxrL7A5gLIXa_b-w/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vcGljanVt/Ym8uY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy9taW5pbWFsaXN0/LXBvcnRyYWl0LW9m/LWEtd29tYW4td2l0/aC1nbG93aW5nLWxp/Z2h0LWJlaGluZC1o/ZXItZnJlZS1pbWFn/ZS5qcGVnP3c9NjAw/JnF1YWxpdHk9ODA",
-      "alt": "this is for testing only"
+      "alt": ""
     },
-    "excerpt": "I specialize in designing and executing comprehensive testing strategies to ensure software quality, reliability, and performance. My portfolio highlights expertise across multiple testing domains:\n\nManual Testing: Skilled in creating detailed test cases, executing functional and regression tests, and documenting results with precision.\n\nAutomation Testing: Proficient in tools like Selenium, Cypress, and Playwright to build robust automated test suites that reduce effort and improve coverage.\n\nAPI Testing: Experienced in using Postman and REST Assured to validate endpoints, ensure data integrity, and verify system integrations.\n\nPerformance & Load Testing: Knowledge of JMeter and Locust to simulate real-world usage, identify bottlenecks, and optimize system scalability.\n\nBug Tracking & Reporting: Strong command of tools like Jira, TestRail, and Azure DevOps for issue management, reporting, and collaboration with development teams.\n\nQuality Assurance Mindset: Focused on delivering defect-free, user-friendly applications by combining analytical thinking with attention to detail.\n\n✨ Summary: My testing portfolio demonstrates a commitment to building reliable software through structured test planning, automation, and continuous improvement. Each project reflects my ability to identify risks early, streamline testing processes, and contribute to high-quality product delivery.",
+    "excerpt": "hi hello how are you",
     "tags": [
       "hi",
       "hello"
     ],
-    "createdAt": "2026-07-15T13:54:52.762Z",
-    "updatedAt": "2026-07-15T13:58:18.258Z",
-    "publishedAt": "2026-07-15T13:58:18.257Z",
-    "viewCount": 0,
+    "createdAt": "2026-07-15T14:30:45.339Z",
+    "updatedAt": "2026-07-15T15:01:22.461Z",
+    "publishedAt": "2026-07-15T14:31:59.386Z",
+    "viewCount": 13,
     "likeCount": 0,
     "cells": [
       {
-        "id": "cmrm5ayoi0005av1vh0o2xc1n",
+        "id": "cmrm6ko0l0009ap2cb8c0q6td",
         "type": "video",
         "content": {
-          "url": "https://youtu.be/xLLNK7JH76w?si=ptUa_LswSQNp7wnJ",
+          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
           "title": "",
-          "provider": "youtube"
+          "provider": "direct"
         },
         "order": 0,
         "orderIndex": 0
       },
       {
-        "id": "cmrm5ayoi0006av1vq6c1i5on",
+        "id": "cmrm6ko0l000aap2chyqz9q3p",
         "type": "video",
         "content": {
-          "url": "https://youtu.be/xLLNK7JH76w?si=ptUa_LswSQNp7wnJ",
+          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
           "title": "",
-          "provider": "youtube"
+          "provider": "direct"
         },
         "order": 1,
         "orderIndex": 1
       },
       {
-        "id": "cmrm5ayoi0007av1v34nvgrda",
+        "id": "cmrm6ko0l000bap2cjbnlqsy8",
         "type": "video",
         "content": {
-          "url": "https://youtu.be/xLLNK7JH76w?si=ptUa_LswSQNp7wnJ",
+          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
           "title": "",
-          "provider": "youtube"
+          "provider": "direct"
         },
         "order": 2,
         "orderIndex": 2
       },
       {
-        "id": "cmrm5ayoi0008av1vt1ecgbs3",
+        "id": "cmrm6ko0l000cap2cgliiwuva",
         "type": "video",
         "content": {
-          "url": "https://youtu.be/xLLNK7JH76w?si=ptUa_LswSQNp7wnJ",
+          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
           "title": "",
-          "provider": "youtube"
+          "provider": "direct"
         },
         "order": 3,
         "orderIndex": 3
@@ -83,9 +83,9 @@ export const posts: Post[] = [
     "type": "project",
     "tags": [],
     "createdAt": "2025-09-01T02:13:14.993Z",
-    "updatedAt": "2026-07-15T13:50:38.429Z",
+    "updatedAt": "2026-07-15T14:23:43.409Z",
     "publishedAt": "2025-09-01T02:13:14.993Z",
-    "viewCount": 2,
+    "viewCount": 3,
     "likeCount": 0,
     "cells": [
       {
@@ -107,9 +107,9 @@ export const posts: Post[] = [
     "excerpt": "experimental, interactive",
     "tags": [],
     "createdAt": "2025-09-01T02:00:29.561Z",
-    "updatedAt": "2026-07-15T13:50:39.054Z",
+    "updatedAt": "2026-07-15T14:23:44.042Z",
     "publishedAt": "2025-09-01T02:00:29.561Z",
-    "viewCount": 3,
+    "viewCount": 4,
     "likeCount": 0,
     "cells": [
       {
@@ -153,9 +153,9 @@ export const posts: Post[] = [
     "excerpt": "Using music data from VCV Rack processed through touchdesigner, google maps street view is controlled",
     "tags": [],
     "createdAt": "2025-08-24T17:39:19.030Z",
-    "updatedAt": "2026-07-15T13:50:39.056Z",
+    "updatedAt": "2026-07-15T14:23:44.043Z",
     "publishedAt": "2025-08-24T17:39:19.030Z",
-    "viewCount": 2,
+    "viewCount": 3,
     "likeCount": 0,
     "cells": [
       {
@@ -181,8 +181,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260715-194822",
-  generatedAt: "2026-07-15T14:18:26.869Z",
+  version: "v20260715-212033",
+  generatedAt: "2026-07-15T15:50:35.690Z",
   source: "api",
   count: 4
 };
