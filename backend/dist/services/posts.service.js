@@ -16,11 +16,10 @@ class PostsService {
      */
     async getPost(identifier) {
         let post = null;
-        // Check if identifier format looks like custom ULID/UUID ID (Alphanumeric/uppercase/timestamp)
-        if (/^[0-9A-Z]{10,30}$/i.test(identifier)) {
-            post = await posts_repository_1.postsRepository.findById(identifier);
-        }
-        else {
+        // Try lookup by ID first
+        post = await posts_repository_1.postsRepository.findById(identifier);
+        // Fallback to lookup by slug if not found by ID
+        if (!post) {
             post = await posts_repository_1.postsRepository.findBySlug(identifier);
         }
         if (!post) {

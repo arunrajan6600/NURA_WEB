@@ -1,15 +1,15 @@
 // Auto-generated posts file
-// Version: v20260715-214839
-// Generated: 2026-07-15T16:18:40.877Z
+// Version: v20260716-234809
+// Generated: 2026-07-16T18:18:34.288Z
 // Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
 
 export const posts: Post[] = [
   {
-    "id": "cmrm9jt2u0000df2dcgjl4lro",
-    "title": "testing",
-    "slug": "testing",
+    "id": "cmrmamynf0000bw2c02zq2bqp",
+    "title": "hi",
+    "slug": "hi",
     "status": "published",
     "featured": false,
     "type": "project",
@@ -17,18 +17,18 @@ export const posts: Post[] = [
       "url": "https://imgs.search.brave.com/KL3_OExvuF9hugpWhbBPf5fDEvQSxrL7A5gLIXa_b-w/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vcGljanVt/Ym8uY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy9taW5pbWFsaXN0/LXBvcnRyYWl0LW9m/LWEtd29tYW4td2l0/aC1nbG93aW5nLWxp/Z2h0LWJlaGluZC1o/ZXItZnJlZS1pbWFn/ZS5qcGVnP3c9NjAw/JnF1YWxpdHk9ODA",
       "alt": ""
     },
-    "excerpt": "hi hello how are you",
+    "excerpt": "this is for testing",
     "tags": [
       "hi"
     ],
-    "createdAt": "2026-07-15T15:57:09.750Z",
-    "updatedAt": "2026-07-15T16:14:05.110Z",
-    "publishedAt": "2026-07-15T15:57:09.464Z",
-    "viewCount": 13,
+    "createdAt": "2026-07-15T16:27:36.556Z",
+    "updatedAt": "2026-07-15T16:42:15.495Z",
+    "publishedAt": "2026-07-15T16:27:36.273Z",
+    "viewCount": 32,
     "likeCount": 0,
     "cells": [
       {
-        "id": "cmrma0ppj0004df2d5bkf4lkx",
+        "id": "cmrmanvs50001bw2ck6af7acb",
         "type": "video",
         "content": {
           "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
@@ -39,7 +39,7 @@ export const posts: Post[] = [
         "orderIndex": 0
       },
       {
-        "id": "cmrma0ppj0005df2dpp1lp3yr",
+        "id": "cmrmanvs50002bw2ctzyqgzdg",
         "type": "video",
         "content": {
           "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
@@ -48,85 +48,6 @@ export const posts: Post[] = [
         },
         "order": 1,
         "orderIndex": 1
-      },
-      {
-        "id": "cmrma0ppj0006df2da4cbyf89",
-        "type": "video",
-        "content": {
-          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
-          "title": "",
-          "provider": "direct"
-        },
-        "order": 2,
-        "orderIndex": 2
-      }
-    ]
-  },
-  {
-    "id": "cmrm6gorf0000ap2c0zedx7xz",
-    "title": "testing final",
-    "slug": "testing-final",
-    "status": "published",
-    "featured": false,
-    "type": "project",
-    "thumbnail": {
-      "url": "https://imgs.search.brave.com/KL3_OExvuF9hugpWhbBPf5fDEvQSxrL7A5gLIXa_b-w/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vcGljanVt/Ym8uY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy9taW5pbWFsaXN0/LXBvcnRyYWl0LW9m/LWEtd29tYW4td2l0/aC1nbG93aW5nLWxp/Z2h0LWJlaGluZC1o/ZXItZnJlZS1pbWFn/ZS5qcGVnP3c9NjAw/JnF1YWxpdHk9ODA",
-      "alt": ""
-    },
-    "excerpt": "hi hello how are you",
-    "tags": [
-      "hi",
-      "hello"
-    ],
-    "createdAt": "2026-07-15T14:30:45.339Z",
-    "updatedAt": "2026-07-15T16:14:04.503Z",
-    "publishedAt": "2026-07-15T14:31:59.386Z",
-    "viewCount": 23,
-    "likeCount": 0,
-    "cells": [
-      {
-        "id": "cmrm6ko0l0009ap2cb8c0q6td",
-        "type": "video",
-        "content": {
-          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
-          "title": "",
-          "provider": "direct"
-        },
-        "order": 0,
-        "orderIndex": 0
-      },
-      {
-        "id": "cmrm6ko0l000aap2chyqz9q3p",
-        "type": "video",
-        "content": {
-          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
-          "title": "",
-          "provider": "direct"
-        },
-        "order": 1,
-        "orderIndex": 1
-      },
-      {
-        "id": "cmrm6ko0l000bap2cjbnlqsy8",
-        "type": "video",
-        "content": {
-          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
-          "title": "",
-          "provider": "direct"
-        },
-        "order": 2,
-        "orderIndex": 2
-      },
-      {
-        "id": "cmrm6ko0l000cap2cgliiwuva",
-        "type": "video",
-        "content": {
-          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
-          "title": "",
-          "provider": "direct"
-        },
-        "order": 3,
-        "orderIndex": 3
       }
     ]
   },
@@ -139,9 +60,9 @@ export const posts: Post[] = [
     "type": "project",
     "tags": [],
     "createdAt": "2025-09-01T02:13:14.993Z",
-    "updatedAt": "2026-07-15T16:14:06.803Z",
+    "updatedAt": "2026-07-15T16:42:14.810Z",
     "publishedAt": "2025-09-01T02:13:14.993Z",
-    "viewCount": 8,
+    "viewCount": 19,
     "likeCount": 0,
     "cells": [
       {
@@ -163,9 +84,9 @@ export const posts: Post[] = [
     "excerpt": "experimental, interactive",
     "tags": [],
     "createdAt": "2025-09-01T02:00:29.561Z",
-    "updatedAt": "2026-07-15T16:14:09.439Z",
+    "updatedAt": "2026-07-15T16:42:14.791Z",
     "publishedAt": "2025-09-01T02:00:29.561Z",
-    "viewCount": 9,
+    "viewCount": 17,
     "likeCount": 0,
     "cells": [
       {
@@ -209,9 +130,9 @@ export const posts: Post[] = [
     "excerpt": "Using music data from VCV Rack processed through touchdesigner, google maps street view is controlled",
     "tags": [],
     "createdAt": "2025-08-24T17:39:19.030Z",
-    "updatedAt": "2026-07-15T16:14:04.503Z",
+    "updatedAt": "2026-07-15T16:42:16.787Z",
     "publishedAt": "2025-08-24T17:39:19.030Z",
-    "viewCount": 8,
+    "viewCount": 17,
     "likeCount": 0,
     "cells": [
       {
@@ -237,8 +158,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260715-214839",
-  generatedAt: "2026-07-15T16:18:40.877Z",
+  version: "v20260716-234809",
+  generatedAt: "2026-07-16T18:18:34.288Z",
   source: "api",
-  count: 5
+  count: 4
 };

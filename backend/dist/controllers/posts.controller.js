@@ -11,10 +11,20 @@ const cellSchema = zod_1.z.object({
     content: zod_1.z.any(),
     orderIndex: zod_1.z.number().int(),
 });
-const thumbnailSchema = zod_1.z.object({
+const thumbnailSchema = zod_1.z.preprocess((val) => {
+    if (!val || typeof val !== 'object')
+        return null;
+    if (!val.url || (typeof val.url === 'string' && val.url.trim() === '')) {
+        return null;
+    }
+    return {
+        url: val.url.trim(),
+        alt: typeof val.alt === 'string' ? val.alt.trim() : '',
+    };
+}, zod_1.z.object({
     url: zod_1.z.string().url('Thumbnail must be a valid URL'),
     alt: zod_1.z.string().default(''),
-});
+}).nullable());
 const researchMetadataSchema = zod_1.z.object({
     publicationYear: zod_1.z.string().optional(),
     authors: zod_1.z.string().optional(),

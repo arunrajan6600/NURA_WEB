@@ -212,10 +212,24 @@ class PostsApi {
     return response;
   }
 
+  private sanitizeThumbnail(thumbnail: any) {
+    if (thumbnail === null || thumbnail === undefined) {
+      return null;
+    }
+    if (typeof thumbnail === "object" && (!thumbnail.url || typeof thumbnail.url !== "string" || !thumbnail.url.trim())) {
+      return null;
+    }
+    return {
+      url: thumbnail.url.trim(),
+      alt: typeof thumbnail.alt === "string" ? thumbnail.alt.trim() : "",
+    };
+  }
+
   // Create a new post (requires authentication)
   async createPost(postData: CreatePostData): Promise<PostsApiResponse> {
     const sanitizedPostData = {
       ...postData,
+      thumbnail: postData.thumbnail !== undefined ? this.sanitizeThumbnail(postData.thumbnail) : undefined,
       cells: postData.cells?.map((cell, index) => ({
         ...cell,
         orderIndex: index
@@ -246,6 +260,7 @@ class PostsApi {
   ): Promise<PostsApiResponse> {
     const sanitizedUpdateData = {
       ...updateData,
+      thumbnail: updateData.thumbnail !== undefined ? this.sanitizeThumbnail(updateData.thumbnail) : undefined,
       cells: updateData.cells?.map((cell, index) => ({
         ...cell,
         orderIndex: index

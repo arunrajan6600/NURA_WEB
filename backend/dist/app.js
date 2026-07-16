@@ -13,9 +13,22 @@ const error_middleware_1 = require("./middleware/error.middleware");
 const app = (0, express_1.default)();
 // Secure Express headers with Helmet
 app.use((0, helmet_1.default)());
+// Parse allowed origins — supports comma-separated list
+const rawOrigin = env_1.env.ALLOWED_ORIGIN;
+const allowedOrigins = rawOrigin === '*'
+    ? ['*']
+    : rawOrigin.split(',').map((o) => o.trim()).filter(Boolean);
 // Configure CORS policy
 app.use((0, cors_1.default)({
-    origin: env_1.env.ALLOWED_ORIGIN === '*' ? true : env_1.env.ALLOWED_ORIGIN,
+    origin: (origin, callback) => {
+        // Allow requests with no origin (curl, Postman, server-to-server)
+        if (!origin)
+            return callback(null, true);
+        if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        callback(new Error(`CORS: origin ${origin} not allowed`));
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: false

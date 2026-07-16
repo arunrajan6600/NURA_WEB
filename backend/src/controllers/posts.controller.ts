@@ -11,10 +11,19 @@ const cellSchema = z.object({
   orderIndex: z.number().int(),
 });
 
-const thumbnailSchema = z.object({
+const thumbnailSchema = z.preprocess((val: any) => {
+  if (!val || typeof val !== 'object') return null;
+  if (!val.url || (typeof val.url === 'string' && val.url.trim() === '')) {
+    return null;
+  }
+  return {
+    url: val.url.trim(),
+    alt: typeof val.alt === 'string' ? val.alt.trim() : '',
+  };
+}, z.object({
   url: z.string().url('Thumbnail must be a valid URL'),
   alt: z.string().default(''),
-});
+}).nullable());
 
 const researchMetadataSchema = z.object({
   publicationYear: z.string().optional(),
