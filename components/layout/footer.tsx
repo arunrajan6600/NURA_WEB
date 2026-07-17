@@ -8,7 +8,7 @@ const links = [
     icon: Github,
   },
   {
-    href: "https://instagram.com/moodupani",
+    href: "https://www.instagram.com/arunr6600/",
     label: "Instagram",
     icon: Instagram,
   },
