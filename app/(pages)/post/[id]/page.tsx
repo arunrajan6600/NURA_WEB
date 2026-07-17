@@ -31,6 +31,11 @@ async function getPost(id: string): Promise<Post | undefined> {
     return undefined;
   } catch (error: unknown) {
     console.error(`[post/[id]] API fetch failed for "${id}":`, error);
+    // If the post was explicitly not found (404/not found error), don't fall back to static list.
+    const msg = String((error as any)?.message || "").toLowerCase();
+    if (msg.includes("not found") || msg.includes("404")) {
+      return undefined;
+    }
     // API is unreachable — fall back to the static snapshot as last resort
     return posts.find((p) => p.id === id) as Post | undefined;
   }

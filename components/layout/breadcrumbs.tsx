@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight, Home } from "lucide-react";
-import { posts } from "@/data/posts";
 import { useState, useEffect } from "react";
 import { postsApi } from "@/lib/posts-api";
 
 const segmentLabels: Record<string, string> = {
   posts: "Posts",
   blog: "Blog",
+  articles: "Articles & Papers",
   papers: "Articles & Papers",
   stories: "Stories",
   general: "Other Writings",
@@ -17,66 +17,93 @@ const segmentLabels: Record<string, string> = {
   works: "Works",
   admin: "Admin",
   files: "Files",
+  settings: "Settings",
+  projects: "Projects",
+  post: "Post",
 };
+
+// Segments we know are valid link targets
+const LINKABLE_SEGMENTS = new Set([
+  "posts",
+  "blog",
+  "articles",
+  "papers",
+  "stories",
+  "general",
+  "info",
+  "works",
+  "admin",
+  "files",
+  "settings",
+  "projects",
+]);
 
 export function Breadcrumbs() {
   const pathname = usePathname() || "";
   const [dynamicTitle, setDynamicTitle] = useState<string | null>(null);
+  const [titleLoading, setTitleLoading] = useState(false);
 
   const segments = pathname.split("/").filter(Boolean);
 
+  // Detect post-detail: path is /post/<id>
+  const postIndex = segments.indexOf("post");
+  const postId =
+    postIndex !== -1 && postIndex < segments.length - 1
+      ? segments[postIndex + 1]
+      : null;
+
   useEffect(() => {
-    const postSegmentIndex = segments.findIndex(
-      (s, i) => i > 0 && segments[i - 1] === "post" && s.length > 10
-    );
-    if (postSegmentIndex !== -1) {
-      const postId = segments[postSegmentIndex];
-      const staticPost = posts.find((p) => p.id === postId);
-      if (staticPost) {
-        setDynamicTitle(staticPost.title);
-      } else {
-        postsApi
-          .getPost(postId)
-          .then((res) => {
-            if (res.success && res.data) {
-              setDynamicTitle((res.data as any).title);
-            }
-          })
-          .catch(() => {});
-      }
-    } else {
+    if (!postId) {
       setDynamicTitle(null);
+      return;
     }
-  }, [pathname, segments]);
-  
+    setTitleLoading(true);
+    postsApi
+      .getPost(postId)
+      .then((res) => {
+        if (res.success && res.data) {
+          setDynamicTitle((res.data as any).title || null);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setTitleLoading(false));
+  }, [postId]);
+
   // Hide breadcrumbs on homepage
   if (pathname === "/") {
     return null;
   }
-  
+
   return (
-    <nav 
-      aria-label="Breadcrumb" 
+    <nav
+      aria-label="Breadcrumb"
       className="mb-6 flex items-center gap-1.5 font-mono text-[10px] uppercase text-muted-foreground"
     >
-      <Link 
-        href="/" 
+      <Link
+        href="/"
         className="flex items-center gap-1 transition-colors hover:text-primary"
       >
         <Home className="h-3 w-3" />
         <span className="sr-only">Home</span>
       </Link>
-      
+
       {segments.map((segment, index) => {
         const url = `/${segments.slice(0, index + 1).join("/")}`;
         const isLast = index === segments.length - 1;
-        
-        // Resolve label: if it's a post ID, find the post title
-        let label = segmentLabels[segment] || segment;
-        
-        if (segment.length > 10 && index > 0 && segments[index - 1] === "post") {
-          label = dynamicTitle || segmentLabels[segment] || segment;
+
+        // This segment is a post ID (UUID following "post")
+        const isPrevPost = index > 0 && segments[index - 1] === "post";
+        const isUuid = segment.length > 10 && isPrevPost;
+
+        let label: string;
+        if (isUuid) {
+          label = titleLoading ? "…" : dynamicTitle || segment;
+        } else {
+          label = segmentLabels[segment] || segment;
         }
+
+        // Non-last segments: only linkify if it's a known navigable route
+        const isLinkable = LINKABLE_SEGMENTS.has(segment) || isUuid;
 
         return (
           <div key={url} className="flex items-center gap-1.5">
@@ -85,13 +112,12 @@ export function Breadcrumbs() {
               <span className="text-foreground font-medium max-w-[200px] sm:max-w-[300px] truncate normal-case">
                 {label}
               </span>
-            ) : (
-              <Link 
-                href={url} 
-                className="transition-colors hover:text-primary"
-              >
+            ) : isLinkable ? (
+              <Link href={url} className="transition-colors hover:text-primary">
                 {label}
               </Link>
+            ) : (
+              <span>{label}</span>
             )}
           </div>
         );

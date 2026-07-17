@@ -16,21 +16,21 @@ export interface CreatePostData {
   featured?: boolean;
   pinned?: boolean;
   archived?: boolean;
-  excerpt?: string;
+  excerpt?: string | null;
   tags?: string[];
   slug?: string;
   thumbnail?: {
     url: string;
     alt: string;
-  };
+  } | null;
   cells?: Array<{
     id?: string;
     type: "markdown" | "image" | "video" | "file";
     content: unknown;
     orderIndex?: number;
   }>;
-  projectMetadata?: ProjectMetadata;
-  researchMetadata?: ResearchMetadata;
+  projectMetadata?: ProjectMetadata | null;
+  researchMetadata?: ResearchMetadata | null;
 }
 
 export interface UpdatePostData extends Partial<CreatePostData> {

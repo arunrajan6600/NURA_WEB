@@ -12,12 +12,13 @@ interface CategoryItem {
 }
 
 interface LiveCategoriesGridProps {
-  staticPosts: Post[];
+  staticPosts?: Post[];
   categories: CategoryItem[];
 }
 
-export function LiveCategoriesGrid({ staticPosts, categories }: LiveCategoriesGridProps) {
-  const [livePosts, setLivePosts] = useState<Post[]>(staticPosts);
+export function LiveCategoriesGrid({ categories }: LiveCategoriesGridProps) {
+  const [livePosts, setLivePosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
   const fetchedRef = useRef(false);
 
   useEffect(() => {
@@ -27,12 +28,15 @@ export function LiveCategoriesGrid({ staticPosts, categories }: LiveCategoriesGr
     postsApi
       .listPosts({ status: "published" })
       .then((res) => {
-        if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+        if (res.success && Array.isArray(res.data)) {
           setLivePosts(res.data as Post[]);
         }
       })
       .catch((err) => {
         console.error("Failed to load live categories count:", err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -58,7 +62,7 @@ export function LiveCategoriesGrid({ staticPosts, categories }: LiveCategoriesGr
               {category.label}
             </h2>
             <p className="mt-3 font-mono text-xs uppercase text-muted-foreground">
-              {count} published
+              {loading ? "…" : `${count} published`}
             </p>
           </Link>
         );

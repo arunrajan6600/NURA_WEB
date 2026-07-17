@@ -14,14 +14,14 @@ export interface ThumbnailData {
 }
 
 export interface ResearchMetadataInput {
-  publicationYear?: string;
-  authors?: string;
-  venue?: string;
-  abstract?: string;
+  publicationYear?: string | null;
+  authors?: string | null;
+  venue?: string | null;
+  abstract?: string | null;
   keywords?: string[];
   externalLinks?: any;
-  pdfAttachment?: string;
-  researchCategory?: string;
+  pdfAttachment?: string | null;
+  researchCategory?: string | null;
 }
 
 export interface ProjectSection {
@@ -33,32 +33,33 @@ export interface ProjectSection {
 
 export interface ProjectMetadataInput {
   // Basic project info
-  subtitle?: string;
-  category?: string;
-  role?: string;
-  client?: string;
-  teamMembers?: string;
+  subtitle?: string | null;
+  category?: string | null;
+  role?: string | null;
+  client?: string | null;
+  teamMembers?: string | null;
   // Timeline
-  year?: string;
-  duration?: string;
+  year?: string | null;
+  duration?: string | null;
   // Links
-  repoLink?: string;
-  demoLink?: string;
-  docLink?: string;
+  repoLink?: string | null;
+  demoLink?: string | null;
+  docLink?: string | null;
   // Media / exhibition
-  medium?: string;
-  collaborators?: string;
-  institution?: string;
-  exhibition?: string;
-  publication?: string;
-  researchArea?: string;
+  medium?: string | null;
+  collaborators?: string | null;
+  institution?: string | null;
+  exhibition?: string | null;
+  publication?: string | null;
+  researchArea?: string | null;
+  projectCreationDate?: string | null;
   // Arrays
   tools?: string[];
   technologies?: string[];
   // Structured data
   credits?: any;
   references?: any;
-  sections?: ProjectSection[];
+  sections?: ProjectSection[] | null;
 }
 
 export interface CreatePostInput {
@@ -75,8 +76,8 @@ export interface CreatePostInput {
   authorId?: string;
   tags?: string[];
   cells?: PostCell[];
-  researchMetadata?: ResearchMetadataInput;
-  projectMetadata?: ProjectMetadataInput;
+  researchMetadata?: ResearchMetadataInput | null;
+  projectMetadata?: ProjectMetadataInput | null;
 }
 
 export interface UpdatePostInput extends Partial<CreatePostInput> {}
@@ -105,6 +106,8 @@ export interface PostApiResponse {
   featured: boolean;
   type: string;
   thumbnail?: ThumbnailData;
+  pinned?: boolean;
+  archived?: boolean;
   excerpt: string | null;
   tags: string[];
   createdAt: string;

@@ -89,6 +89,8 @@ model ProjectMetadata {
   exhibition    String?
   publication   String?
   researchArea  String?
+  // Project creation date (actual work date, not CMS publish date)
+  projectCreationDate String?
   // Arrays
   tools         String[]
   technologies  String[]

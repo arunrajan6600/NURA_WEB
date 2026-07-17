@@ -922,6 +922,19 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
               </div>
 
               <div className="space-y-2">
+                <Label>Project Creation Date</Label>
+                <Input
+                  type="date"
+                  value={pm.projectCreationDate || ""}
+                  onChange={(e) => updateProjectMeta("projectCreationDate", e.target.value || null)}
+                  placeholder="YYYY-MM-DD"
+                />
+                <p className="text-[10px] text-muted-foreground font-mono">
+                  Actual date the work was created (used for chronological sorting). Not the CMS publish date.
+                </p>
+              </div>
+
+              <div className="space-y-2">
                 <Label>Institution</Label>
                 <Input
                   value={pm.institution || ""}

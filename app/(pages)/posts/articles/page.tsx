@@ -1,7 +1,5 @@
-import { posts } from "@/data/posts";
 import { LivePostsList } from "@/components/post/live-posts-list";
 import { Metadata } from "next";
-import { Post } from "@/types/post";
 
 export const metadata: Metadata = {
   title: "Articles | Arun Nura",
@@ -25,7 +23,6 @@ export default function ArticlesPage() {
           </span>
         </div>
         <LivePostsList
-          staticPosts={posts as Post[]}
           postTypes={["article"]}
           emptyMessage="No articles yet."
         />

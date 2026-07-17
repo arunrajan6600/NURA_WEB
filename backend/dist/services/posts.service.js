@@ -138,6 +138,7 @@ class PostsService {
                     exhibition: post.projectMetadata.exhibition,
                     publication: post.projectMetadata.publication,
                     researchArea: post.projectMetadata.researchArea,
+                    projectCreationDate: post.projectMetadata.projectCreationDate,
                     // Structured data
                     credits: post.projectMetadata.credits,
                     references: post.projectMetadata.references,

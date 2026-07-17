@@ -11,6 +11,25 @@ const cellSchema = z.object({
   orderIndex: z.number().int(),
 });
 
+// Converts null/undefined/empty-string to null; otherwise trims and validates as string
+const nullableString = z.preprocess((val: any) => {
+  if (val === null || val === undefined) return null;
+  if (typeof val === 'string' && val.trim() === '') return null;
+  return typeof val === 'string' ? val.trim() : String(val).trim();
+}, z.string().nullable().optional());
+
+// Converts null/undefined to []; normalises comma-strings and arrays of values
+const optionalArray = z.preprocess((val: any) => {
+  if (val === null || val === undefined) return [];
+  if (typeof val === 'string') {
+    return val.split(',').map((s: string) => s.trim()).filter(Boolean);
+  }
+  if (Array.isArray(val)) {
+    return val.map((s: any) => String(s).trim()).filter(Boolean);
+  }
+  return [];
+}, z.array(z.string()));
+
 const thumbnailSchema = z.preprocess((val: any) => {
   if (!val || typeof val !== 'object') return null;
   if (!val.url || (typeof val.url === 'string' && val.url.trim() === '')) {
@@ -26,14 +45,14 @@ const thumbnailSchema = z.preprocess((val: any) => {
 }).nullable());
 
 const researchMetadataSchema = z.object({
-  publicationYear: z.string().optional(),
-  authors: z.string().optional(),
-  venue: z.string().optional(),
-  abstract: z.string().optional(),
-  keywords: z.array(z.string()).optional(),
-  externalLinks: z.any().optional(),
-  pdfAttachment: z.string().optional(),
-  researchCategory: z.string().optional(),
+  publicationYear: nullableString,
+  authors: nullableString,
+  venue: nullableString,
+  abstract: nullableString,
+  keywords: optionalArray,
+  externalLinks: z.any().nullable().optional(),
+  pdfAttachment: nullableString,
+  researchCategory: nullableString,
 });
 
 const projectSectionSchema = z.object({
@@ -45,32 +64,37 @@ const projectSectionSchema = z.object({
 
 const projectMetadataSchema = z.object({
   // Basic project info
-  subtitle: z.string().optional(),
-  category: z.string().optional(),
-  role: z.string().optional(),
-  client: z.string().optional(),
-  teamMembers: z.string().optional(),
+  subtitle: nullableString,
+  category: nullableString,
+  role: nullableString,
+  client: nullableString,
+  teamMembers: nullableString,
   // Timeline
-  year: z.string().optional(),
-  duration: z.string().optional(),
+  year: nullableString,
+  duration: nullableString,
   // Links
-  repoLink: z.string().optional(),
-  demoLink: z.string().optional(),
-  docLink: z.string().optional(),
+  repoLink: nullableString,
+  demoLink: nullableString,
+  docLink: nullableString,
   // Media / exhibition
-  medium: z.string().optional(),
-  collaborators: z.string().optional(),
-  institution: z.string().optional(),
-  exhibition: z.string().optional(),
-  publication: z.string().optional(),
-  researchArea: z.string().optional(),
+  medium: nullableString,
+  collaborators: nullableString,
+  institution: nullableString,
+  exhibition: nullableString,
+  publication: nullableString,
+  researchArea: nullableString,
+  // Project creation date (actual work date, NOT CMS publish date)
+  projectCreationDate: nullableString,
   // Arrays
-  tools: z.array(z.string()).optional(),
-  technologies: z.array(z.string()).optional(),
+  tools: optionalArray,
+  technologies: optionalArray,
   // Structured data
-  credits: z.any().optional(),
-  references: z.any().optional(),
-  sections: z.array(projectSectionSchema).optional(),
+  credits: z.any().nullable().optional(),
+  references: z.any().nullable().optional(),
+  sections: z.preprocess((val: any) => {
+    if (val === null || val === undefined) return null;
+    return val;
+  }, z.array(projectSectionSchema).nullable().optional()),
 });
 
 const createPostSchema = z.object({
@@ -82,13 +106,13 @@ const createPostSchema = z.object({
   featured: z.boolean().default(false),
   pinned: z.boolean().default(false),
   archived: z.boolean().default(false),
-  excerpt: z.string().nullable().optional(),
+  excerpt: nullableString,
   thumbnail: thumbnailSchema.nullable().optional(),
   authorId: z.string().optional(),
-  tags: z.array(z.string().trim()).optional().default([]),
+  tags: optionalArray,
   cells: z.array(cellSchema).optional(),
-  researchMetadata: researchMetadataSchema.optional(),
-  projectMetadata: projectMetadataSchema.optional(),
+  researchMetadata: researchMetadataSchema.nullable().optional(),
+  projectMetadata: projectMetadataSchema.nullable().optional(),
 });
 
 const updatePostSchema = createPostSchema.partial();

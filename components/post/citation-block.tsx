@@ -6,20 +6,20 @@ import { Button } from "@/components/ui/button";
 
 interface CitationBlockProps {
   title: string;
-  authors?: string;
-  year?: string;
-  venue?: string;
-  url?: string;
+  authors?: string | null;
+  year?: string | null;
+  venue?: string | null;
+  url?: string | null;
 }
 
-export function CitationBlock({ title, authors = "Arun Nura", year = new Date().getFullYear().toString(), venue, url }: CitationBlockProps) {
+export function CitationBlock({ title, authors, year, venue, url }: CitationBlockProps) {
   const [activeTab, setActiveTab] = useState<"bibtex" | "apa" | "mla" | "chicago">("bibtex");
   const [copied, setCopied] = useState(false);
 
-  const cleanAuthors = authors.trim();
+  const cleanAuthors = (authors || "Arun Nura").trim();
   const cleanTitle = title.trim();
   const cleanVenue = venue?.trim() || "NuraWeb";
-  const cleanYear = year.trim();
+  const cleanYear = (year || new Date().getFullYear().toString()).trim();
   const cleanUrl = url?.trim() || "";
 
   // Formats

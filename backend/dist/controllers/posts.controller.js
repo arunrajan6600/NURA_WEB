@@ -11,6 +11,26 @@ const cellSchema = zod_1.z.object({
     content: zod_1.z.any(),
     orderIndex: zod_1.z.number().int(),
 });
+// Converts null/undefined/empty-string to null; otherwise trims and validates as string
+const nullableString = zod_1.z.preprocess((val) => {
+    if (val === null || val === undefined)
+        return null;
+    if (typeof val === 'string' && val.trim() === '')
+        return null;
+    return typeof val === 'string' ? val.trim() : String(val).trim();
+}, zod_1.z.string().nullable().optional());
+// Converts null/undefined to []; normalises comma-strings and arrays of values
+const optionalArray = zod_1.z.preprocess((val) => {
+    if (val === null || val === undefined)
+        return [];
+    if (typeof val === 'string') {
+        return val.split(',').map((s) => s.trim()).filter(Boolean);
+    }
+    if (Array.isArray(val)) {
+        return val.map((s) => String(s).trim()).filter(Boolean);
+    }
+    return [];
+}, zod_1.z.array(zod_1.z.string()));
 const thumbnailSchema = zod_1.z.preprocess((val) => {
     if (!val || typeof val !== 'object')
         return null;
@@ -26,14 +46,14 @@ const thumbnailSchema = zod_1.z.preprocess((val) => {
     alt: zod_1.z.string().default(''),
 }).nullable());
 const researchMetadataSchema = zod_1.z.object({
-    publicationYear: zod_1.z.string().optional(),
-    authors: zod_1.z.string().optional(),
-    venue: zod_1.z.string().optional(),
-    abstract: zod_1.z.string().optional(),
-    keywords: zod_1.z.array(zod_1.z.string()).optional(),
-    externalLinks: zod_1.z.any().optional(),
-    pdfAttachment: zod_1.z.string().optional(),
-    researchCategory: zod_1.z.string().optional(),
+    publicationYear: nullableString,
+    authors: nullableString,
+    venue: nullableString,
+    abstract: nullableString,
+    keywords: optionalArray,
+    externalLinks: zod_1.z.any().nullable().optional(),
+    pdfAttachment: nullableString,
+    researchCategory: nullableString,
 });
 const projectSectionSchema = zod_1.z.object({
     id: zod_1.z.string(),
@@ -43,32 +63,38 @@ const projectSectionSchema = zod_1.z.object({
 });
 const projectMetadataSchema = zod_1.z.object({
     // Basic project info
-    subtitle: zod_1.z.string().optional(),
-    category: zod_1.z.string().optional(),
-    role: zod_1.z.string().optional(),
-    client: zod_1.z.string().optional(),
-    teamMembers: zod_1.z.string().optional(),
+    subtitle: nullableString,
+    category: nullableString,
+    role: nullableString,
+    client: nullableString,
+    teamMembers: nullableString,
     // Timeline
-    year: zod_1.z.string().optional(),
-    duration: zod_1.z.string().optional(),
+    year: nullableString,
+    duration: nullableString,
     // Links
-    repoLink: zod_1.z.string().optional(),
-    demoLink: zod_1.z.string().optional(),
-    docLink: zod_1.z.string().optional(),
+    repoLink: nullableString,
+    demoLink: nullableString,
+    docLink: nullableString,
     // Media / exhibition
-    medium: zod_1.z.string().optional(),
-    collaborators: zod_1.z.string().optional(),
-    institution: zod_1.z.string().optional(),
-    exhibition: zod_1.z.string().optional(),
-    publication: zod_1.z.string().optional(),
-    researchArea: zod_1.z.string().optional(),
+    medium: nullableString,
+    collaborators: nullableString,
+    institution: nullableString,
+    exhibition: nullableString,
+    publication: nullableString,
+    researchArea: nullableString,
+    // Project creation date (actual work date, NOT CMS publish date)
+    projectCreationDate: nullableString,
     // Arrays
-    tools: zod_1.z.array(zod_1.z.string()).optional(),
-    technologies: zod_1.z.array(zod_1.z.string()).optional(),
+    tools: optionalArray,
+    technologies: optionalArray,
     // Structured data
-    credits: zod_1.z.any().optional(),
-    references: zod_1.z.any().optional(),
-    sections: zod_1.z.array(projectSectionSchema).optional(),
+    credits: zod_1.z.any().nullable().optional(),
+    references: zod_1.z.any().nullable().optional(),
+    sections: zod_1.z.preprocess((val) => {
+        if (val === null || val === undefined)
+            return null;
+        return val;
+    }, zod_1.z.array(projectSectionSchema).nullable().optional()),
 });
 const createPostSchema = zod_1.z.object({
     id: zod_1.z.string().optional(),
@@ -79,13 +105,13 @@ const createPostSchema = zod_1.z.object({
     featured: zod_1.z.boolean().default(false),
     pinned: zod_1.z.boolean().default(false),
     archived: zod_1.z.boolean().default(false),
-    excerpt: zod_1.z.string().nullable().optional(),
+    excerpt: nullableString,
     thumbnail: thumbnailSchema.nullable().optional(),
     authorId: zod_1.z.string().optional(),
-    tags: zod_1.z.array(zod_1.z.string().trim()).optional().default([]),
+    tags: optionalArray,
     cells: zod_1.z.array(cellSchema).optional(),
-    researchMetadata: researchMetadataSchema.optional(),
-    projectMetadata: projectMetadataSchema.optional(),
+    researchMetadata: researchMetadataSchema.nullable().optional(),
+    projectMetadata: projectMetadataSchema.nullable().optional(),
 });
 const updatePostSchema = createPostSchema.partial();
 const querySchema = zod_1.z.object({

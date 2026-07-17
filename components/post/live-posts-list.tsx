@@ -6,17 +6,17 @@ import { postsApi } from "@/lib/posts-api";
 import { PostCard } from "./post-card";
 
 interface LivePostsListProps {
-  staticPosts: Post[];
+  staticPosts?: Post[];
   postTypes: string[];
   emptyMessage?: string;
 }
 
 export function LivePostsList({
-  staticPosts,
   postTypes,
   emptyMessage = "No posts yet.",
 }: LivePostsListProps) {
-  const [livePosts, setLivePosts] = useState<Post[]>(staticPosts);
+  const [livePosts, setLivePosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
   const fetchedRef = useRef(false);
 
   useEffect(() => {
@@ -26,18 +26,30 @@ export function LivePostsList({
     postsApi
       .listPosts({ status: "published" })
       .then((res) => {
-        if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+        if (res.success && Array.isArray(res.data)) {
           setLivePosts(res.data as Post[]);
         }
       })
       .catch((err) => {
         console.error("Failed to load live posts list:", err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
   const filteredPosts = livePosts.filter(
     (post) => post.status === "published" && postTypes.includes(post.type)
   );
+
+  if (loading) {
+    return (
+      <div className="grid gap-3">
+        <div className="h-14 rounded bg-muted/20 animate-pulse" />
+        <div className="h-14 rounded bg-muted/20 animate-pulse" />
+      </div>
+    );
+  }
 
   return (
     <div className="grid gap-3">

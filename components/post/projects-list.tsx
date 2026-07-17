@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
-import { posts as staticPosts } from "@/data/posts";
 import { postsApi } from "@/lib/posts-api";
 import { Post } from "@/types/post";
 import { PostCard } from "@/components/post/post-card";
@@ -46,6 +45,7 @@ function ProjectCardSkeleton() {
 
 export function ProjectsList() {
   const [mounted, setMounted] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState("all");
@@ -55,26 +55,28 @@ export function ProjectsList() {
   const [featuredOnly, setFeaturedOnly] = useState(false);
   const [sortMode, setSortMode] = useState<SortMode>("curated");
   const [showArchived, setShowArchived] = useState(false);
-  // Live data state – starts with static snapshot so there's no blank flash
-  const [livePosts, setLivePosts] = useState<Post[]>(staticPosts);
+  // Always start empty – never use stale static data as initial state
+  const [livePosts, setLivePosts] = useState<Post[]>([]);
   const fetchedRef = useRef(false);
 
   useEffect(() => {
     setMounted(true);
 
-    // Fetch live data once from the API to pick up posts created after the last build
     if (fetchedRef.current) return;
     fetchedRef.current = true;
 
     postsApi
       .listPosts({ status: "published", type: "project" })
       .then((res) => {
-        if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+        if (res.success && Array.isArray(res.data)) {
           setLivePosts(res.data as Post[]);
         }
       })
       .catch(() => {
-        // API unavailable – keep using the static snapshot silently
+        // API unavailable – show nothing rather than stale data
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -192,21 +194,34 @@ export function ProjectsList() {
   ]);
 
   // Sorting logic
+  // Uses projectCreationDate (actual work date) when available, falls back to createdAt.
+  const getProjectDate = (post: Post): number => {
+    const pcd = post.projectMetadata?.projectCreationDate;
+    if (pcd) {
+      const d = new Date(pcd).getTime();
+      if (!isNaN(d)) return d;
+    }
+    return new Date(post.createdAt).getTime();
+  };
+
   const sortedPosts = useMemo(() => {
     const postsCopy = [...filteredPosts];
     return postsCopy.sort((a, b) => {
       if (sortMode === "curated") {
-        if (a.pinned && !b.pinned) return -1;
-        if (!a.pinned && b.pinned) return 1;
+        // Featured first, then pinned, then newest project creation date
         if (a.featured && !b.featured) return -1;
         if (!a.featured && b.featured) return 1;
+        if (a.pinned && !b.pinned) return -1;
+        if (!a.pinned && b.pinned) return 1;
+        return getProjectDate(b) - getProjectDate(a);
+      } else if (sortMode === "newest") {
+        return getProjectDate(b) - getProjectDate(a);
       } else if (sortMode === "oldest") {
-        return new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime();
+        return getProjectDate(a) - getProjectDate(b);
       } else if (sortMode === "alphabetical") {
         return a.title.localeCompare(b.title);
       }
-      
-      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+      return getProjectDate(b) - getProjectDate(a);
     });
   }, [filteredPosts, sortMode]);
 
@@ -452,7 +467,7 @@ export function ProjectsList() {
 
         {/* Posts Rendering */}
         <div className="grid gap-6">
-          {!mounted ? (
+          {!mounted || loading ? (
             <>
               <ProjectCardSkeleton />
               <ProjectCardSkeleton />

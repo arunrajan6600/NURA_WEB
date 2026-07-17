@@ -1,14 +1,14 @@
 import { PostType } from "@/lib/constants";
 
 export interface ResearchMetadata {
-  publicationYear?: string;
-  authors?: string;
-  venue?: string;
-  abstract?: string;
+  publicationYear?: string | null;
+  authors?: string | null;
+  venue?: string | null;
+  abstract?: string | null;
   keywords?: string[];
-  externalLinks?: { label: string; url: string }[];
-  pdfAttachment?: string;
-  researchCategory?: string;
+  externalLinks?: { label: string; url: string }[] | null;
+  pdfAttachment?: string | null;
+  researchCategory?: string | null;
 }
 
 export interface ProjectSection {
@@ -20,58 +20,59 @@ export interface ProjectSection {
 
 export interface ProjectMetadata {
   // Basic project info
-  subtitle?: string;
-  category?: string;
-  role?: string;
-  client?: string;
-  teamMembers?: string;
+  subtitle?: string | null;
+  category?: string | null;
+  role?: string | null;
+  client?: string | null;
+  teamMembers?: string | null;
   // Timeline
-  year?: string;
-  duration?: string;
+  year?: string | null;
+  duration?: string | null;
   // Links
-  repoLink?: string;
-  demoLink?: string;
-  docLink?: string;
+  repoLink?: string | null;
+  demoLink?: string | null;
+  docLink?: string | null;
   // Media / exhibition
-  medium?: string;
-  collaborators?: string;
+  medium?: string | null;
+  collaborators?: string | null;
   tools?: string[];
   technologies?: string[];
-  institution?: string;
-  exhibition?: string;
-  publication?: string;
-  researchArea?: string;
+  institution?: string | null;
+  exhibition?: string | null;
+  publication?: string | null;
+  researchArea?: string | null;
+  projectCreationDate?: string | null;
   credits?: {
-    performers?: string;
-    cinematography?: string;
-    music?: string;
-    sound?: string;
-    editing?: string;
-    institutions?: string;
-    acknowledgements?: string;
-  };
-  references?: { title: string; url?: string }[];
-  sections?: ProjectSection[];
+    performers?: string | null;
+    cinematography?: string | null;
+    music?: string | null;
+    sound?: string | null;
+    editing?: string | null;
+    institutions?: string | null;
+    acknowledgements?: string | null;
+  } | null;
+  references?: { title: string; url?: string }[] | null;
+  sections?: ProjectSection[] | null;
 }
 
 export interface Post {
   title: string;
   slug?: string;
   cells: Cell[];
-  thumbnail?: ImageContent;
+  thumbnail?: ImageContent | null;
   status: "published" | "draft";
   featured: boolean;
   pinned?: boolean;
   archived?: boolean;
   tags?: string[];
-  researchMetadata?: ResearchMetadata;
-  projectMetadata?: ProjectMetadata;
+  researchMetadata?: ResearchMetadata | null;
+  projectMetadata?: ProjectMetadata | null;
   type: PostType;
   id: string;
   createdAt: string;
   updatedAt: string;
   publishedAt?: string | null;
-  excerpt?: string;
+  excerpt?: string | null;
   viewCount?: number;
   likeCount?: number;
 }
@@ -97,9 +98,7 @@ export interface VideoContent {
 
 export interface FileContent {
   s3Url: string;
-  displayType?: "inline" | "attachment" | "gallery";
-  caption?: string;
-  fileType?: "image" | "video" | "audio" | "document";
-  originalName?: string;
-  size?: number;
+  originalName: string;
+  mimeType: string;
+  size: number;
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Search, X, ArrowRight, FileText, FolderOpen } from "lucide-react";
-import { posts as staticPosts } from "@/data/posts";
 import { postsApi } from "@/lib/posts-api";
 import { Post } from "@/types/post";
 import Link from "next/link";
@@ -48,7 +47,7 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [allPosts, setAllPosts] = useState<Post[]>(staticPosts);
+  const [allPosts, setAllPosts] = useState<Post[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const fetchedRef = useRef(false);
   const router = useRouter();

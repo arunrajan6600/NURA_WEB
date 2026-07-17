@@ -3,38 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import MatrixGridBackground from "@/components/ui/matrix-grid-background";
-import { posts } from "@/data/posts";
-import { useEffect, useState, useRef } from "react";
-import { postsApi } from "@/lib/posts-api";
-import { Post } from "@/types/post";
 
 export default function Home() {
-  const [livePosts, setLivePosts] = useState<Post[]>(posts as Post[]);
-  const fetchedRef = useRef(false);
-
-  useEffect(() => {
-    if (fetchedRef.current) return;
-    fetchedRef.current = true;
-
-    postsApi
-      .listPosts({ status: "published" })
-      .then((res) => {
-        if (res.success && Array.isArray(res.data) && res.data.length > 0) {
-          setLivePosts(res.data as Post[]);
-        }
-      })
-      .catch((err) => {
-        console.error("Failed to load live counts for home page:", err);
-      });
-  }, []);
-
-  const projectCount = livePosts.filter(
-    (post) => post.status === "published" && post.type === "project"
-  ).length;
-  const writingCount = livePosts.filter(
-    (post) => post.status === "published" && post.type !== "project"
-  ).length;
-
   return (
     <>
       <MatrixGridBackground
@@ -49,7 +19,6 @@ export default function Home() {
           <div className="mb-10 space-y-3 font-mono text-[11px] uppercase text-muted-foreground">
             <p>arun nura</p>
             <p>multi-disciplinary art practitioner</p>
-            <p className="opacity-75 tracking-wider font-light">[{projectCount} works / {writingCount} posts compiled]</p>
           </div>
 
           <div className="relative flex w-full max-w-3xl flex-col items-center">

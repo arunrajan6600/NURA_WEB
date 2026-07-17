@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { posts } from "@/data/posts";
 import { LiveCategoriesGrid } from "@/components/post/live-categories-grid";
-import { Post } from "@/types/post";
 
 export const metadata: Metadata = {
   title: "Posts | Arun Nura",
@@ -50,7 +47,6 @@ export default function PostsPage() {
         </div>
 
         <LiveCategoriesGrid
-          staticPosts={posts as Post[]}
           categories={categories}
         />
       </section>
