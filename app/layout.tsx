@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lato, Roboto_Mono } from "next/font/google";
+import { Lato, Roboto_Mono, JetBrains_Mono, VT323, Cairo } from "next/font/google";
 import "./globals.css";
 import "./code-styles.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -21,6 +21,30 @@ const robotoMono = Roboto_Mono({
   variable: "--font-roboto-mono",
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
+  display: "swap",
+});
+
+// Metadata / labels / technical text
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
+// Decorative counters / dot-matrix accent
+const vt323 = VT323({
+  variable: "--font-dotmatrix",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+});
+
+// Page headings / display titles
+const cairo = Cairo({
+  variable: "--font-cairopixel",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -63,7 +87,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${lato.variable} ${robotoMono.variable} min-h-screen bg-background font-mono antialiased`}
+        className={`${lato.variable} ${robotoMono.variable} ${jetbrainsMono.variable} ${vt323.variable} ${cairo.variable} min-h-screen bg-background font-mono antialiased`}
       >
         <ThemeProvider>
           <AuthProvider>

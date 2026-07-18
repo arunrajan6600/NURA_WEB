@@ -236,7 +236,7 @@ export function ProjectPostCard({
         <CardContent className="flex flex-col p-5 md:p-6 gap-3">
           {/* Metadata Row */}
           {metaString && (
-            <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-wider">
+            <span className="font-meta text-[10px] uppercase text-muted-foreground tracking-wider">
               {metaString}
             </span>
           )}
@@ -245,16 +245,16 @@ export function ProjectPostCard({
           <div className="flex items-start justify-between gap-4">
             <div className="space-y-1 flex-1">
               <div className="flex items-center gap-2.5 flex-wrap">
-                <CardTitle className="text-xl md:text-2xl font-medium leading-snug transition-colors group-hover:text-primary">
+                <CardTitle className="font-heading text-xl md:text-2xl font-medium leading-snug transition-colors group-hover:text-primary">
                   {post.title}
                 </CardTitle>
                 {post.featured && (
-                  <span className="border border-primary/30 bg-primary/5 px-2 py-0.5 font-mono text-[9px] uppercase text-primary tracking-wider rounded-sm select-none">
+                  <span className="border border-primary/30 bg-primary/5 px-2 py-0.5 font-meta text-[9px] uppercase text-primary tracking-wider rounded-sm select-none">
                     featured
                   </span>
                 )}
               </div>
-              <p className="font-mono text-[10px] uppercase text-muted-foreground/75">
+              <p className="font-meta text-[10px] uppercase text-muted-foreground/75">
                 {formattedDate}
               </p>
             </div>
@@ -282,7 +282,7 @@ export function ProjectPostCard({
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="border border-border/80 bg-muted/10 px-2 py-0.5 font-mono text-[9px] uppercase text-muted-foreground rounded-sm"
+                  className="border border-border/80 bg-muted/10 px-2 py-0.5 font-meta text-[9px] uppercase text-muted-foreground rounded-sm"
                 >
                   {tag}
                 </span>

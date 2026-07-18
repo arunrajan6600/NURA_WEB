@@ -102,7 +102,7 @@ export function VideoCollection({ videos }: VideoCollectionProps) {
             Prev
           </button>
 
-          <span className="text-foreground/70">
+        <span className="font-counter text-xl text-foreground/70">
             Video {playlistIndex + 1} of {videos.length}
           </span>
 
@@ -174,7 +174,7 @@ export function VideoCollection({ videos }: VideoCollectionProps) {
     <div className="w-full space-y-3">
       {/* Video count header */}
       {hasMultiple && (
-        <div className="flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground">
+        <div className="flex items-center gap-3 font-meta text-[10px] uppercase text-muted-foreground">
           <div className="h-px flex-1 bg-border/50" />
           <span>{videos.length} videos</span>
           <div className="h-px flex-1 bg-border/50" />

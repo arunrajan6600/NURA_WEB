@@ -77,7 +77,7 @@ export function Breadcrumbs() {
   return (
     <nav
       aria-label="Breadcrumb"
-      className="mb-6 flex items-center gap-1.5 font-mono text-[10px] uppercase text-muted-foreground"
+      className="mb-6 flex items-center gap-1.5 font-meta text-[10px] uppercase text-muted-foreground"
     >
       <Link
         href="/"

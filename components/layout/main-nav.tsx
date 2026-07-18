@@ -44,7 +44,7 @@ export function MainNav() {
   };
 
   return (
-    <nav className="font-mono text-xs uppercase" aria-label="Main navigation">
+    <nav className="font-meta text-xs uppercase" aria-label="Main navigation">
       <div className="flex items-center gap-1">
         <Link className={`nav-link ${isActive("/") ? "border-border text-primary" : ""}`} href="/">
           Home
@@ -88,7 +88,7 @@ export function MainNav() {
                 }`}
                 onClick={closeNow}
               >
-                <span className="mr-3 text-muted-foreground">
+                <span className="mr-3 font-counter text-lg text-muted-foreground leading-none">
                   {(index + 1).toString().padStart(2, "0")}
                 </span>
                 {link.label}
