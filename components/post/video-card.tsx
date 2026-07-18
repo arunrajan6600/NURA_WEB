@@ -10,6 +10,9 @@ interface VideoCardProps {
   title?: string;
   onTheatreToggle?: () => void;
   isTheatreMode?: boolean;
+  /** When set, clicking the thumbnail calls this instead of mounting VideoPlayer inline.
+   *  Used by VideoCollection to route playback through theatre mode. */
+  onPlayClick?: () => void;
 }
 
 function getVideoProvider(url: string): "youtube" | "vimeo" | "direct" {
@@ -46,6 +49,7 @@ export function VideoCard({
   title,
   onTheatreToggle,
   isTheatreMode = false,
+  onPlayClick,
 }: VideoCardProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -202,14 +206,14 @@ export function VideoCard({
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => setIsPlaying(true)}
+      onClick={() => (onPlayClick ? onPlayClick() : setIsPlaying(true))}
       role="button"
       tabIndex={0}
       aria-label={`Play video${title ? `: ${title}` : ""}`}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          setIsPlaying(true);
+          onPlayClick ? onPlayClick() : setIsPlaying(true);
         }
       }}
     >

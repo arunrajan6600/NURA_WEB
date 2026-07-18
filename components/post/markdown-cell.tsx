@@ -182,7 +182,8 @@ function CustomVideo({ src, children, ...props }: any) {
       </span>
     );
   }
-  return <video {...props}>{children}</video>;
+  // No extractable URL — render nothing rather than a native video element
+  return null;
 }
 
 
