@@ -411,7 +411,7 @@ export function VideoPlayer({
       {/* Title overlay */}
       {title && showControls && (
         <div className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent px-6 py-4 transition-opacity duration-300 pointer-events-none">
-          <h3 className="font-mono text-sm uppercase tracking-wider text-white/90 drop-shadow-md">
+          <h3 className="font-display text-sm uppercase tracking-wider text-white/90 drop-shadow-md">
             {title}
           </h3>
         </div>
@@ -420,7 +420,7 @@ export function VideoPlayer({
       {/* Resume dialog */}
       {showResumePrompt && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-md z-30 transition-all duration-300">
-          <div className="max-w-xs border border-white/20 bg-background/95 p-6 rounded-lg text-foreground font-mono text-xs uppercase space-y-4 shadow-2xl">
+          <div className="max-w-xs border border-white/20 bg-background/95 p-6 rounded-lg text-foreground font-display text-xs uppercase space-y-4 shadow-2xl">
             <p className="text-center font-semibold leading-relaxed">
               Resume watching from <span className="text-primary font-bold">{formatTime(savedTime)}</span>?
             </p>
@@ -484,7 +484,7 @@ export function VideoPlayer({
         </div>
 
         {/* Buttons / Options */}
-        <div className="flex items-center justify-between font-mono text-xs text-white/90">
+        <div className="flex items-center justify-between font-display text-xs text-white/90">
           <div className="flex items-center gap-4">
             {/* Play/Pause Mini button */}
             <button
@@ -596,3 +596,4 @@ export function VideoPlayer({
     </div>
   );
 }
+

@@ -319,7 +319,7 @@ function SortableSection({
             value={section.title}
             onChange={(e) => onChange({ ...section, title: e.target.value })}
             placeholder="Section title"
-            className="h-7 text-xs font-mono flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0 px-1"
+            className="h-7 text-xs font-display flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0 px-1"
           />
           <div className="flex items-center gap-0.5 flex-shrink-0">
             <Button
@@ -366,7 +366,7 @@ function SortableSection({
               <button
                 type="button"
                 onClick={() => setPreviewMode(false)}
-                className={`px-3 py-1 text-[10px] font-mono uppercase rounded-l-md transition-colors ${
+                className={`px-3 py-1 text-[10px] font-display uppercase rounded-l-md transition-colors ${
                   !previewMode ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -375,7 +375,7 @@ function SortableSection({
               <button
                 type="button"
                 onClick={() => setPreviewMode(true)}
-                className={`px-3 py-1 text-[10px] font-mono uppercase rounded-r-md transition-colors flex items-center gap-1 ${
+                className={`px-3 py-1 text-[10px] font-display uppercase rounded-r-md transition-colors flex items-center gap-1 ${
                   previewMode ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -388,7 +388,7 @@ function SortableSection({
                 {section.content ? (
                   <MarkdownCell content={section.content} />
                 ) : (
-                  <p className="text-muted-foreground italic text-xs font-mono">No content yet.</p>
+                  <p className="text-muted-foreground italic text-xs font-display">No content yet.</p>
                 )}
               </div>
             ) : (
@@ -397,7 +397,7 @@ function SortableSection({
                 onChange={(e) => onChange({ ...section, content: e.target.value })}
                 placeholder="Section content (supports Markdown)…"
                 rows={5}
-                className="text-sm font-mono resize-y"
+                className="text-sm font-display resize-y"
               />
             )}
           </div>
@@ -475,7 +475,7 @@ function ProjectSectionsEditor({
             key={title}
             type="button"
             onClick={() => addSection(title)}
-            className="border border-dashed border-border px-2 py-0.5 font-mono text-[10px] uppercase text-muted-foreground hover:border-primary hover:text-primary transition-colors rounded-sm"
+            className="border border-dashed border-border px-2 py-0.5 font-display text-[10px] uppercase text-muted-foreground hover:border-primary hover:text-primary transition-colors rounded-sm"
           >
             + {title}
           </button>
@@ -929,7 +929,7 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
                   onChange={(e) => updateProjectMeta("projectCreationDate", e.target.value || null)}
                   placeholder="YYYY-MM-DD"
                 />
-                <p className="text-[10px] text-muted-foreground font-mono">
+                <p className="text-[10px] text-muted-foreground font-display">
                   Actual date the work was created (used for chronological sorting). Not the CMS publish date.
                 </p>
               </div>
@@ -1060,7 +1060,7 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
           </CollapsiblePanel>
 
           <CollapsiblePanel title="Project Sections" icon={Layers}>
-            <p className="text-xs text-muted-foreground font-mono mb-3">
+            <p className="text-xs text-muted-foreground font-display mb-3">
               Add structured sections (drag to reorder). Supports Markdown content.
             </p>
             <ProjectSectionsEditor

@@ -119,7 +119,7 @@ export function TagEditor({
         {tags.map((tag, i) => (
           <span
             key={`${tag}-${i}`}
-            className={`inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase ${chipStyle}`}
+            className={`inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 font-display text-[10px] uppercase ${chipStyle}`}
           >
             {tag}
             <button
@@ -161,7 +161,7 @@ export function TagEditor({
                 role="option"
                 aria-selected={index === activeIndex}
                 onClick={() => addTag(suggestion)}
-                className={`flex items-center px-3 py-1.5 text-xs font-mono lowercase rounded-sm cursor-pointer select-none ${
+                className={`flex items-center px-3 py-1.5 text-xs font-display lowercase rounded-sm cursor-pointer select-none ${
                   index === activeIndex ? "bg-accent text-accent-foreground" : "hover:bg-muted/50"
                 }`}
               >
@@ -181,13 +181,13 @@ export function TagEditor({
             variant="outline"
             onClick={() => addTag(inputValue)}
             disabled={!inputValue.trim()}
-            className="h-7 px-2 text-xs font-mono"
+            className="h-7 px-2 text-xs font-display"
           >
             <Plus className="h-3 w-3 mr-1" />
             Add
           </Button>
           {tags.length > 0 && (
-            <span className="text-[10px] font-mono text-muted-foreground uppercase">
+            <span className="text-[10px] font-display text-muted-foreground uppercase">
               {tags.length} tag{tags.length !== 1 ? "s" : ""}
             </span>
           )}
@@ -195,7 +195,7 @@ export function TagEditor({
 
         {/* Popular Tags suggestions */}
         {popularTags.length > 0 && (
-          <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase text-muted-foreground">
+          <div className="flex items-center gap-1.5 text-[10px] font-display uppercase text-muted-foreground">
             <span>Popular:</span>
             <div className="flex gap-1 flex-wrap">
               {popularTags

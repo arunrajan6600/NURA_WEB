@@ -40,7 +40,7 @@ export function ShareSection({ title, url }: ShareSectionProps) {
 
   return (
     <div className="mt-12 border-t border-border pt-8">
-      <div className="flex items-center gap-2 font-mono text-[10px] uppercase text-muted-foreground mb-4">
+      <div className="flex items-center gap-2 font-display text-[10px] uppercase text-muted-foreground mb-4">
         <Share2 className="h-3 w-3" />
         Share this post
       </div>
@@ -51,7 +51,7 @@ export function ShareSection({ title, url }: ShareSectionProps) {
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 border border-border/70 px-3 py-1.5 font-mono text-[10px] uppercase text-muted-foreground transition-colors hover:border-primary/60 hover:text-primary"
+            className="flex items-center gap-2 border border-border/70 px-3 py-1.5 font-display text-[10px] uppercase text-muted-foreground transition-colors hover:border-primary/60 hover:text-primary"
             aria-label={`Share on ${link.label}`}
           >
             {link.icon}
@@ -62,7 +62,7 @@ export function ShareSection({ title, url }: ShareSectionProps) {
         {/* Copy link */}
         <button
           onClick={handleCopy}
-          className="flex items-center gap-2 border border-border/70 px-3 py-1.5 font-mono text-[10px] uppercase text-muted-foreground transition-colors hover:border-primary/60 hover:text-primary"
+          className="flex items-center gap-2 border border-border/70 px-3 py-1.5 font-display text-[10px] uppercase text-muted-foreground transition-colors hover:border-primary/60 hover:text-primary"
           aria-label="Copy post link to clipboard"
         >
           {copied ? (
@@ -81,3 +81,4 @@ export function ShareSection({ title, url }: ShareSectionProps) {
     </div>
   );
 }
+

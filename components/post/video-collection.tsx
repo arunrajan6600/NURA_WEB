@@ -78,7 +78,7 @@ export function VideoCollection({ videos }: VideoCollectionProps) {
         </div>
 
         {/* Playlist navigator */}
-        <div className="flex items-center justify-between gap-4 font-mono text-xs uppercase text-muted-foreground">
+        <div className="flex items-center justify-between gap-4 font-display text-xs uppercase text-muted-foreground">
           <button
             onClick={handlePrev}
             className="flex items-center gap-1.5 border border-border px-3 py-1.5 hover:text-foreground hover:border-foreground/40 transition-colors"
@@ -196,3 +196,4 @@ export function VideoCollection({ videos }: VideoCollectionProps) {
     </div>
   );
 }
+

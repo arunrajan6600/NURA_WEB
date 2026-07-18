@@ -262,7 +262,7 @@ export function ProjectPostCard({
             <Button
               variant="ghost"
               size="sm"
-              className="group font-mono text-xs uppercase flex-shrink-0 gap-1.5 h-8 px-2 hover:bg-transparent hover:text-primary"
+              className="group font-display text-xs uppercase flex-shrink-0 gap-1.5 h-8 px-2 hover:bg-transparent hover:text-primary"
             >
               read
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
@@ -294,3 +294,4 @@ export function ProjectPostCard({
     </Card>
   );
 }
+

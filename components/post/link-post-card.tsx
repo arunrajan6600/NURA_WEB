@@ -48,7 +48,7 @@ export function LinkPostCard({
           <h3 className="text-base font-medium uppercase leading-snug">
             {post.title}
           </h3>
-          <p className="font-mono text-xs uppercase text-muted-foreground">
+          <p className="font-display text-xs uppercase text-muted-foreground">
             {formattedDate}
           </p>
         </div>
@@ -78,7 +78,7 @@ export function LinkPostCard({
       )}
 
       {externalUrl && (
-        <p className="border-t border-border pt-3 font-mono text-xs text-muted-foreground truncate">
+        <p className="border-t border-border pt-3 font-display text-xs text-muted-foreground truncate">
           <span className="uppercase">link:</span> {externalUrl}
         </p>
       )}

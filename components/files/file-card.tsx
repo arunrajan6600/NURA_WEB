@@ -178,7 +178,7 @@ export function FileCard({ file, viewMode = 'grid', onDelete, onPreview, onRenam
                   value={editedName}
                   onChange={(e) => setEditedName(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="font-mono text-xs border border-border px-2 py-1 outline-none bg-background w-full"
+                  className="font-display text-xs border border-border px-2 py-1 outline-none bg-background w-full"
                 />
                 <Button size="sm" variant="ghost" onClick={handleSaveRename} className="h-7 w-7 p-0">
                   <Check className="h-3.5 w-3.5 text-green-500" />
@@ -196,19 +196,19 @@ export function FileCard({ file, viewMode = 'grid', onDelete, onPreview, onRenam
                 >
                   {file.originalName}
                 </span>
-                <span className="font-mono text-[9px] text-muted-foreground flex-shrink-0">
+                <span className="font-display text-[9px] text-muted-foreground flex-shrink-0">
                   ({formatFileSize(file.size)})
                 </span>
               </div>
             )}
-            <p className="text-[10px] text-muted-foreground font-mono mt-0.5 uppercase">
+            <p className="text-[10px] text-muted-foreground font-display mt-0.5 uppercase">
               Uploaded {formatDate(file.uploadedAt)}
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0">
-          <Badge variant="outline" className="font-mono text-[8px] uppercase px-1.5 py-0">
+          <Badge variant="outline" className="font-display text-[8px] uppercase px-1.5 py-0">
             {file.mimeType.split('/')[0]}
           </Badge>
 
@@ -272,14 +272,14 @@ export function FileCard({ file, viewMode = 'grid', onDelete, onPreview, onRenam
                 <Video className="h-10 w-10 text-purple-400" />
               </div>
             )}
-            <Badge className="absolute bottom-2 right-2 bg-black/60 text-white border-none font-mono text-[8px] uppercase">
+            <Badge className="absolute bottom-2 right-2 bg-black/60 text-white border-none font-display text-[8px] uppercase">
               video
             </Badge>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center p-4 text-center">
             {getFileIcon(file.mimeType)}
-            <span className="font-mono text-[9px] uppercase mt-2 text-muted-foreground">
+            <span className="font-display text-[9px] uppercase mt-2 text-muted-foreground">
               {file.mimeType.split('/')[1] || 'binary'}
             </span>
           </div>
@@ -287,7 +287,7 @@ export function FileCard({ file, viewMode = 'grid', onDelete, onPreview, onRenam
 
         {/* Action overlay hint */}
         <div className="absolute inset-0 bg-background/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
-          <span className="bg-background/90 border border-border px-2 py-1 font-mono text-[9px] uppercase text-muted-foreground shadow-sm">
+          <span className="bg-background/90 border border-border px-2 py-1 font-display text-[9px] uppercase text-muted-foreground shadow-sm">
             preview
           </span>
         </div>
@@ -303,7 +303,7 @@ export function FileCard({ file, viewMode = 'grid', onDelete, onPreview, onRenam
                   value={editedName}
                   onChange={(e) => setEditedName(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="font-mono text-[11px] border border-border px-1.5 py-0.5 outline-none bg-background w-full"
+                  className="font-display text-[11px] border border-border px-1.5 py-0.5 outline-none bg-background w-full"
                 />
                 <button onClick={handleSaveRename} className="hover:text-green-500 p-0.5">
                   <Check className="h-3.5 w-3.5 text-green-500" />
@@ -350,7 +350,7 @@ export function FileCard({ file, viewMode = 'grid', onDelete, onPreview, onRenam
         </div>
 
         <div className="space-y-2 pt-1 border-t border-border/40">
-          <div className="flex items-center justify-between font-mono text-[9px] text-muted-foreground uppercase">
+          <div className="flex items-center justify-between font-display text-[9px] text-muted-foreground uppercase">
             <span>{formatDate(file.uploadedAt)}</span>
             <Badge variant="secondary" className="text-[8px] leading-none px-1.5 py-0.5 select-none">
               {file.mimeType.split('/')[0]}

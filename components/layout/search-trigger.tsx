@@ -23,7 +23,7 @@ export function SearchTrigger() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 border border-border/70 px-2.5 py-1.5 font-mono text-[10px] uppercase text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+        className="flex items-center gap-2 border border-border/70 px-2.5 py-1.5 font-display text-[10px] uppercase text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
         aria-label="Open search (Ctrl+K)"
       >
         <Search className="h-3 w-3" />

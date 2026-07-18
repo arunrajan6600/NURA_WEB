@@ -194,7 +194,7 @@ export function FileBrowser() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">File & Media Assets</h2>
-          <p className="text-muted-foreground font-mono text-[10px] uppercase mt-1">
+          <p className="text-muted-foreground font-display text-[10px] uppercase mt-1">
             Supabase Public Storage Bucket
           </p>
         </div>
@@ -203,7 +203,7 @@ export function FileBrowser() {
           size="sm"
           onClick={fetchFiles}
           disabled={loading}
-          className="font-mono text-xs uppercase"
+          className="font-display text-xs uppercase"
         >
           <RefreshCw className={`h-3.5 w-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} />
           Refresh
@@ -211,7 +211,7 @@ export function FileBrowser() {
       </div>
 
       {error && (
-        <Alert variant="destructive" className="font-mono text-xs uppercase">
+        <Alert variant="destructive" className="font-display text-xs uppercase">
           <AlertDescription className="flex items-center justify-between">
             <span>{error}</span>
             <button onClick={fetchFiles} className="underline ml-4">[ Retry ]</button>
@@ -220,7 +220,7 @@ export function FileBrowser() {
       )}
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="font-mono text-xs uppercase">
+          <TabsList className="font-display text-xs uppercase">
             <TabsTrigger value="browse">Browse Files</TabsTrigger>
             <TabsTrigger value="upload">Upload Files</TabsTrigger>
           </TabsList>
@@ -240,7 +240,7 @@ export function FileBrowser() {
                     placeholder="Search files by name..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 font-mono text-xs"
+                    className="pl-10 font-display text-xs"
                   />
                 </div>
 
@@ -269,7 +269,7 @@ export function FileBrowser() {
                     </button>
                   </div>
 
-                  <div className="flex items-center gap-2 border border-border px-3 py-1 bg-background text-xs font-mono text-muted-foreground">
+                  <div className="flex items-center gap-2 border border-border px-3 py-1 bg-background text-xs font-display text-muted-foreground">
                     <ArrowUpDown className="h-3 w-3" />
                     <select
                       value={sortOption}
@@ -289,14 +289,14 @@ export function FileBrowser() {
 
               {/* Type Category Filtering pills */}
               <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border/40">
-                <span className="text-[10px] uppercase font-mono text-muted-foreground flex items-center gap-1.5 mr-2">
+                <span className="text-[10px] uppercase font-display text-muted-foreground flex items-center gap-1.5 mr-2">
                   <Filter className="h-3 w-3" /> filter:
                 </span>
                 {categories.map((cat) => (
                   <button
                     key={cat.value}
                     onClick={() => setCategoryFilter(cat.value)}
-                    className={`px-3 py-1 font-mono text-[10px] uppercase transition-all ${
+                    className={`px-3 py-1 font-display text-[10px] uppercase transition-all ${
                       categoryFilter === cat.value
                         ? 'bg-primary text-primary-foreground font-bold'
                         : 'border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground'

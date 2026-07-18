@@ -46,7 +46,7 @@ export function CitationBlock({ title, authors, year, venue, url }: CitationBloc
   };
 
   return (
-    <div className="border border-border bg-card/40 p-5 font-mono text-[11px] uppercase tracking-wide space-y-4 rounded-sm">
+    <div className="border border-border bg-card/40 p-5 font-display text-[11px] uppercase tracking-wide space-y-4 rounded-sm">
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-3">
         <span className="text-muted-foreground text-xs font-semibold lowercase">[ citation format ]</span>
         <div className="flex flex-wrap gap-2">
@@ -66,7 +66,7 @@ export function CitationBlock({ title, authors, year, venue, url }: CitationBloc
         </div>
       </div>
 
-      <div className="relative bg-muted/20 p-4 border border-border/40 font-mono text-[11px] lowercase tracking-normal normal-case overflow-x-auto select-all max-h-48 whitespace-pre-wrap leading-relaxed text-foreground/80">
+      <div className="relative bg-muted/20 p-4 border border-border/40 font-display text-[11px] lowercase tracking-normal normal-case overflow-x-auto select-all max-h-48 whitespace-pre-wrap leading-relaxed text-foreground/80">
         {citationText}
       </div>
 
@@ -75,7 +75,7 @@ export function CitationBlock({ title, authors, year, venue, url }: CitationBloc
           variant="outline"
           size="sm"
           onClick={handleCopy}
-          className="font-mono text-[10px] uppercase h-7 px-3 flex items-center gap-1.5"
+          className="font-display text-[10px] uppercase h-7 px-3 flex items-center gap-1.5"
         >
           {copied ? (
             <>

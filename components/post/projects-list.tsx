@@ -252,7 +252,7 @@ export function ProjectsList() {
           <h1 className="text-3xl font-medium uppercase md:text-4xl">
             Works
           </h1>
-          <span className="text-xs uppercase text-muted-foreground font-mono">
+          <span className="text-xs uppercase text-muted-foreground font-display">
             video / image / ai / interactive
           </span>
         </div>
@@ -265,7 +265,7 @@ export function ProjectsList() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search works…"
-                className="pl-9 h-10 font-mono text-sm border-border bg-background"
+                className="pl-9 h-10 font-display text-sm border-border bg-background"
                 aria-label="Search posts text"
               />
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -282,7 +282,7 @@ export function ProjectsList() {
             <Button
               variant="outline"
               onClick={() => setShowFilters(!showFilters)}
-              className={`h-10 px-4 font-mono text-xs uppercase gap-2 border-border ${
+              className={`h-10 px-4 font-display text-xs uppercase gap-2 border-border ${
                 showFilters ? "bg-muted text-foreground" : "bg-background"
               }`}
               aria-expanded={showFilters}
@@ -301,15 +301,15 @@ export function ProjectsList() {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {/* Tag Filter */}
                 <div className="space-y-1.5">
-                  <Label className="font-mono text-[10px] uppercase text-muted-foreground">Filter by Tag</Label>
+                  <Label className="font-display text-[10px] uppercase text-muted-foreground">Filter by Tag</Label>
                   <Select value={selectedTag} onValueChange={setSelectedTag}>
-                    <SelectTrigger className="h-9 font-mono text-xs border-border bg-background">
+                    <SelectTrigger className="h-9 font-display text-xs border-border bg-background">
                       <SelectValue placeholder="All Tags" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Tags</SelectItem>
                       {filterOptions.tags.map((tag) => (
-                        <SelectItem key={tag} value={tag} className="font-mono text-xs lowercase">
+                        <SelectItem key={tag} value={tag} className="font-display text-xs lowercase">
                           {tag}
                         </SelectItem>
                       ))}
@@ -319,15 +319,15 @@ export function ProjectsList() {
 
                 {/* Tech Filter */}
                 <div className="space-y-1.5">
-                  <Label className="font-mono text-[10px] uppercase text-muted-foreground">Filter by Technology</Label>
+                  <Label className="font-display text-[10px] uppercase text-muted-foreground">Filter by Technology</Label>
                   <Select value={selectedTech} onValueChange={setSelectedTech}>
-                    <SelectTrigger className="h-9 font-mono text-xs border-border bg-background">
+                    <SelectTrigger className="h-9 font-display text-xs border-border bg-background">
                       <SelectValue placeholder="All Technologies" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Technologies</SelectItem>
                       {filterOptions.technologies.map((tech) => (
-                        <SelectItem key={tech} value={tech} className="font-mono text-xs lowercase">
+                        <SelectItem key={tech} value={tech} className="font-display text-xs lowercase">
                           {tech}
                         </SelectItem>
                       ))}
@@ -337,15 +337,15 @@ export function ProjectsList() {
 
                 {/* Category Filter */}
                 <div className="space-y-1.5">
-                  <Label className="font-mono text-[10px] uppercase text-muted-foreground">Filter by Category</Label>
+                  <Label className="font-display text-[10px] uppercase text-muted-foreground">Filter by Category</Label>
                   <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                    <SelectTrigger className="h-9 font-mono text-xs border-border bg-background">
+                    <SelectTrigger className="h-9 font-display text-xs border-border bg-background">
                       <SelectValue placeholder="All Categories" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Categories</SelectItem>
                       {filterOptions.categories.map((cat) => (
-                        <SelectItem key={cat} value={cat} className="font-mono text-xs lowercase">
+                        <SelectItem key={cat} value={cat} className="font-display text-xs lowercase">
                           {cat}
                         </SelectItem>
                       ))}
@@ -355,15 +355,15 @@ export function ProjectsList() {
 
                 {/* Year Filter */}
                 <div className="space-y-1.5">
-                  <Label className="font-mono text-[10px] uppercase text-muted-foreground">Filter by Year</Label>
+                  <Label className="font-display text-[10px] uppercase text-muted-foreground">Filter by Year</Label>
                   <Select value={selectedYear} onValueChange={setSelectedYear}>
-                    <SelectTrigger className="h-9 font-mono text-xs border-border bg-background">
+                    <SelectTrigger className="h-9 font-display text-xs border-border bg-background">
                       <SelectValue placeholder="All Years" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Years</SelectItem>
                       {filterOptions.years.map((year) => (
-                        <SelectItem key={year} value={year} className="font-mono text-xs">
+                        <SelectItem key={year} value={year} className="font-display text-xs">
                           {year}
                         </SelectItem>
                       ))}
@@ -381,7 +381,7 @@ export function ProjectsList() {
                       checked={featuredOnly}
                       onCheckedChange={setFeaturedOnly}
                     />
-                    <Label htmlFor="featured-only" className="font-mono text-xs uppercase cursor-pointer">
+                    <Label htmlFor="featured-only" className="font-display text-xs uppercase cursor-pointer">
                       Featured Only
                     </Label>
                   </div>
@@ -391,7 +391,7 @@ export function ProjectsList() {
                       checked={showArchived}
                       onCheckedChange={setShowArchived}
                     />
-                    <Label htmlFor="show-archived" className="font-mono text-xs uppercase cursor-pointer">
+                    <Label htmlFor="show-archived" className="font-display text-xs uppercase cursor-pointer">
                       Show Archive
                     </Label>
                   </div>
@@ -402,7 +402,7 @@ export function ProjectsList() {
                     variant="ghost"
                     size="sm"
                     onClick={handleResetFilters}
-                    className="font-mono text-xs uppercase h-8 hover:text-destructive"
+                    className="font-display text-xs uppercase h-8 hover:text-destructive"
                   >
                     Clear Filters
                   </Button>
@@ -413,7 +413,7 @@ export function ProjectsList() {
         </div>
 
         {/* Sorting controls */}
-        <div className="mb-8 flex flex-wrap gap-4 font-mono text-xs uppercase" role="group" aria-label="Sort works by">
+        <div className="mb-8 flex flex-wrap gap-4 font-display text-xs uppercase" role="group" aria-label="Sort works by">
           <button
             onClick={() => setSortMode("curated")}
             aria-pressed={sortMode === "curated"}
@@ -479,7 +479,7 @@ export function ProjectsList() {
             ))
           ) : (
             <div className="text-center py-16 px-4 border border-dashed border-border/50 rounded-lg bg-card/10 space-y-4">
-              <p className="font-mono text-xs uppercase text-muted-foreground">
+              <p className="font-display text-xs uppercase text-muted-foreground">
                 No works found matching the active filters.
               </p>
               {isAnyFilterActive && (
@@ -487,7 +487,7 @@ export function ProjectsList() {
                   onClick={handleResetFilters}
                   variant="outline"
                   size="sm"
-                  className="font-mono text-xs uppercase h-8"
+                  className="font-display text-xs uppercase h-8"
                 >
                   Clear all filters
                 </Button>
@@ -499,3 +499,4 @@ export function ProjectsList() {
     </div>
   );
 }
+

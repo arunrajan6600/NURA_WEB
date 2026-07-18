@@ -87,7 +87,7 @@ export function FileCell({
           </audio>
         </div>
         {caption && (
-          <p className="text-xs text-muted-foreground italic font-mono lowercase">
+          <p className="text-xs text-muted-foreground italic font-display lowercase">
             {caption}
           </p>
         )}
@@ -106,7 +106,7 @@ export function FileCell({
             <div className="min-w-0">
               <p className="font-medium text-sm truncate">{originalName || "Document"}</p>
               {size && (
-                <p className="font-mono text-[10px] uppercase text-muted-foreground">
+                <p className="font-display text-[10px] uppercase text-muted-foreground">
                   {formatFileSize(size)}
                 </p>
               )}
@@ -116,7 +116,7 @@ export function FileCell({
             {isPdf(s3Url) && (
               <button
                 onClick={() => setPdfExpanded((e) => !e)}
-                className="flex items-center gap-1.5 border border-border px-2.5 py-1 font-mono text-[10px] uppercase text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors"
+                className="flex items-center gap-1.5 border border-border px-2.5 py-1 font-display text-[10px] uppercase text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors"
                 aria-expanded={pdfExpanded}
               >
                 {pdfExpanded ? (
@@ -173,7 +173,7 @@ export function FileCell({
         <span className="text-muted-foreground flex-shrink-0">{icon}</span>
         <div className="min-w-0">
           <p className="font-medium text-sm truncate">{originalName || "File"}</p>
-          <div className="flex items-center gap-2 font-mono text-[10px] uppercase text-muted-foreground">
+          <div className="flex items-center gap-2 font-display text-[10px] uppercase text-muted-foreground">
             {size && <span>{formatFileSize(size)}</span>}
             {fileType && <span>{fileType}</span>}
           </div>

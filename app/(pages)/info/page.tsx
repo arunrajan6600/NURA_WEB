@@ -74,7 +74,7 @@ export default async function AboutPage() {
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div className="space-y-10">
             <section className="border-l border-border pl-5">
-              <p className="mb-3 font-mono text-xs uppercase text-muted-foreground">
+              <p className="mb-3 font-display text-xs uppercase text-muted-foreground">
                 Short Bio
               </p>
               <p className="max-w-2xl text-base leading-8 text-foreground/85">
@@ -84,14 +84,14 @@ export default async function AboutPage() {
                 areas of interest widened into anthropological studies, films,
                 performance arts and ai-code art.
               </p>
-              <p className="mt-5 font-mono text-xs uppercase text-muted-foreground">
+              <p className="mt-5 font-display text-xs uppercase text-muted-foreground">
                 Sporadic Cinema / Pseudo-futurism / Process-ing
               </p>
             </section>
 
             <section className="grid gap-4 border-t border-border pt-6 sm:grid-cols-2">
               <div>
-                <p className="mb-3 font-mono text-xs uppercase text-muted-foreground">
+                <p className="mb-3 font-display text-xs uppercase text-muted-foreground">
                   CV
                 </p>
                 <Link
@@ -105,7 +105,7 @@ export default async function AboutPage() {
               </div>
 
               <div>
-                <p className="mb-3 font-mono text-xs uppercase text-muted-foreground">
+                <p className="mb-3 font-display text-xs uppercase text-muted-foreground">
                   Contact
                 </p>
                 <div className="grid gap-2">
@@ -151,3 +151,4 @@ export default async function AboutPage() {
     </div>
   );
 }
+

@@ -121,7 +121,7 @@ function SettingsContent() {
       <div className="space-y-6">
         <div className="flex items-center gap-2">
           <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-          <span className="font-mono text-xs uppercase text-muted-foreground">Loading settings…</span>
+          <span className="font-display text-xs uppercase text-muted-foreground">Loading settings…</span>
         </div>
       </div>
     );
@@ -132,11 +132,11 @@ function SettingsContent() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">System Settings</h1>
-          <p className="text-muted-foreground font-mono text-xs uppercase mt-1">
+          <p className="text-muted-foreground font-display text-xs uppercase mt-1">
             Global site variables & configurations
           </p>
         </div>
-        <Button type="submit" disabled={saving} className="font-mono text-xs uppercase gap-1.5 h-9 bg-green-600 hover:bg-green-700">
+        <Button type="submit" disabled={saving} className="font-display text-xs uppercase gap-1.5 h-9 bg-green-600 hover:bg-green-700">
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           Save configs
         </Button>
@@ -150,51 +150,51 @@ function SettingsContent() {
               <Globe className="h-4 w-4 text-muted-foreground" />
               Site Details
             </CardTitle>
-            <CardDescription className="font-mono text-[9px] uppercase">Identity & visuals</CardDescription>
+            <CardDescription className="font-display text-[9px] uppercase">Identity & visuals</CardDescription>
           </CardHeader>
           <CardContent className="p-4 space-y-4">
             <div className="space-y-1.5">
-              <label htmlFor="siteName" className="font-mono text-[10px] uppercase text-muted-foreground">Site Name</label>
+              <label htmlFor="siteName" className="font-display text-[10px] uppercase text-muted-foreground">Site Name</label>
               <Input
                 id="siteName"
                 name="siteName"
                 value={settings.siteName}
                 onChange={handleInputChange}
-                className="font-mono text-xs"
+                className="font-display text-xs"
                 placeholder="e.g. Arun Nura"
                 required
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="logoUrl" className="font-mono text-[10px] uppercase text-muted-foreground">Logo Asset Path / URL</label>
+              <label htmlFor="logoUrl" className="font-display text-[10px] uppercase text-muted-foreground">Logo Asset Path / URL</label>
               <Input
                 id="logoUrl"
                 name="logoUrl"
                 value={settings.logoUrl}
                 onChange={handleInputChange}
-                className="font-mono text-xs"
+                className="font-display text-xs"
                 placeholder="e.g. /logo.svg"
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="faviconUrl" className="font-mono text-[10px] uppercase text-muted-foreground">Favicon Path / URL</label>
+              <label htmlFor="faviconUrl" className="font-display text-[10px] uppercase text-muted-foreground">Favicon Path / URL</label>
               <Input
                 id="faviconUrl"
                 name="faviconUrl"
                 value={settings.faviconUrl}
                 onChange={handleInputChange}
-                className="font-mono text-xs"
+                className="font-display text-xs"
                 placeholder="e.g. /favicon.ico"
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="theme" className="font-mono text-[10px] uppercase text-muted-foreground">Default Color Theme</label>
+              <label htmlFor="theme" className="font-display text-[10px] uppercase text-muted-foreground">Default Color Theme</label>
               <select
                 id="theme"
                 name="theme"
                 value={settings.theme}
                 onChange={handleInputChange}
-                className="w-full font-mono text-xs border border-border bg-background px-3 py-2 outline-none rounded-md"
+                className="w-full font-display text-xs border border-border bg-background px-3 py-2 outline-none rounded-md"
               >
                 <option value="system">System Default</option>
                 <option value="light">Light Mode</option>
@@ -211,39 +211,39 @@ function SettingsContent() {
               <Search className="h-4 w-4 text-muted-foreground" />
               SEO Defaults
             </CardTitle>
-            <CardDescription className="font-mono text-[9px] uppercase">Search engines metadata</CardDescription>
+            <CardDescription className="font-display text-[9px] uppercase">Search engines metadata</CardDescription>
           </CardHeader>
           <CardContent className="p-4 space-y-4">
             <div className="space-y-1.5">
-              <label htmlFor="seoTitle" className="font-mono text-[10px] uppercase text-muted-foreground">Default Page Title Template</label>
+              <label htmlFor="seoTitle" className="font-display text-[10px] uppercase text-muted-foreground">Default Page Title Template</label>
               <Input
                 id="seoTitle"
                 name="seoTitle"
                 value={settings.seoTitle}
                 onChange={handleInputChange}
-                className="font-mono text-xs"
+                className="font-display text-xs"
                 placeholder="e.g. Arun Nura | Multi-disciplinary Art Practitioner"
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="seoDescription" className="font-mono text-[10px] uppercase text-muted-foreground">Default Page Meta Description</label>
+              <label htmlFor="seoDescription" className="font-display text-[10px] uppercase text-muted-foreground">Default Page Meta Description</label>
               <Textarea
                 id="seoDescription"
                 name="seoDescription"
                 value={settings.seoDescription}
                 onChange={handleInputChange}
-                className="font-mono text-xs min-h-[90px]"
+                className="font-display text-xs min-h-[90px]"
                 placeholder="Describe your site for crawlers…"
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="analyticsId" className="font-mono text-[10px] uppercase text-muted-foreground">Google Analytics Measurement ID</label>
+              <label htmlFor="analyticsId" className="font-display text-[10px] uppercase text-muted-foreground">Google Analytics Measurement ID</label>
               <Input
                 id="analyticsId"
                 name="analyticsId"
                 value={settings.analyticsId}
                 onChange={handleInputChange}
-                className="font-mono text-xs"
+                className="font-display text-xs"
                 placeholder="e.g. G-XXXXXXX"
               />
             </div>
@@ -257,39 +257,39 @@ function SettingsContent() {
               <Share2 className="h-4 w-4 text-muted-foreground" />
               Social Accounts
             </CardTitle>
-            <CardDescription className="font-mono text-[9px] uppercase">Networks connection</CardDescription>
+            <CardDescription className="font-display text-[9px] uppercase">Networks connection</CardDescription>
           </CardHeader>
           <CardContent className="p-4 space-y-4">
             <div className="space-y-1.5">
-              <label htmlFor="socialTwitter" className="font-mono text-[10px] uppercase text-muted-foreground">Twitter / X URL</label>
+              <label htmlFor="socialTwitter" className="font-display text-[10px] uppercase text-muted-foreground">Twitter / X URL</label>
               <Input
                 id="socialTwitter"
                 name="socialTwitter"
                 value={settings.socialTwitter}
                 onChange={handleInputChange}
-                className="font-mono text-xs"
+                className="font-display text-xs"
                 placeholder="https://twitter.com/…"
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="socialLinkedin" className="font-mono text-[10px] uppercase text-muted-foreground">LinkedIn URL</label>
+              <label htmlFor="socialLinkedin" className="font-display text-[10px] uppercase text-muted-foreground">LinkedIn URL</label>
               <Input
                 id="socialLinkedin"
                 name="socialLinkedin"
                 value={settings.socialLinkedin}
                 onChange={handleInputChange}
-                className="font-mono text-xs"
+                className="font-display text-xs"
                 placeholder="https://linkedin.com/in/…"
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="socialGithub" className="font-mono text-[10px] uppercase text-muted-foreground">GitHub URL</label>
+              <label htmlFor="socialGithub" className="font-display text-[10px] uppercase text-muted-foreground">GitHub URL</label>
               <Input
                 id="socialGithub"
                 name="socialGithub"
                 value={settings.socialGithub}
                 onChange={handleInputChange}
-                className="font-mono text-xs"
+                className="font-display text-xs"
                 placeholder="https://github.com/…"
               />
             </div>
@@ -303,23 +303,23 @@ function SettingsContent() {
               <Mail className="h-4 w-4 text-muted-foreground" />
               Support & Contact
             </CardTitle>
-            <CardDescription className="font-mono text-[9px] uppercase">Direct correspondence</CardDescription>
+            <CardDescription className="font-display text-[9px] uppercase">Direct correspondence</CardDescription>
           </CardHeader>
           <CardContent className="p-4 space-y-4">
             <div className="space-y-1.5">
-              <label htmlFor="contactEmail" className="font-mono text-[10px] uppercase text-muted-foreground">Contact Email Address</label>
+              <label htmlFor="contactEmail" className="font-display text-[10px] uppercase text-muted-foreground">Contact Email Address</label>
               <Input
                 id="contactEmail"
                 name="contactEmail"
                 type="email"
                 value={settings.contactEmail}
                 onChange={handleInputChange}
-                className="font-mono text-xs"
+                className="font-display text-xs"
                 placeholder="e.g. arunrajan6600@gmail.com"
               />
             </div>
             <div className="pt-2">
-              <div className="bg-muted/15 border border-border p-3 rounded text-[10px] font-mono uppercase text-muted-foreground leading-normal flex items-start gap-2">
+              <div className="bg-muted/15 border border-border p-3 rounded text-[10px] font-display uppercase text-muted-foreground leading-normal flex items-start gap-2">
                 <AlertCircle className="h-4 w-4 text-amber-500 flex-shrink-0" />
                 <span>
                   These configurations apply directly to public layouts, sitemaps, and indexing robots dynamically.
@@ -398,16 +398,16 @@ function ResumeUploadCard() {
           <FileDown className="h-4 w-4 text-muted-foreground" />
           Active Resume / CV
         </CardTitle>
-        <CardDescription className="font-mono text-[9px] uppercase">Upload and manage active resume PDF</CardDescription>
+        <CardDescription className="font-display text-[9px] uppercase">Upload and manage active resume PDF</CardDescription>
       </CardHeader>
       <CardContent className="p-4 space-y-4">
         {activeResume ? (
           <div className="bg-muted/10 border border-border p-3 rounded flex flex-col gap-2">
             <div className="flex items-center gap-2 text-xs">
               <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-              <span className="font-medium truncate font-mono text-[10px] uppercase">Active: {activeResume.filename}</span>
+              <span className="font-medium truncate font-display text-[10px] uppercase">Active: {activeResume.filename}</span>
             </div>
-            <div className="flex items-center justify-between gap-2 text-[10px] text-muted-foreground font-mono uppercase">
+            <div className="flex items-center justify-between gap-2 text-[10px] text-muted-foreground font-display uppercase">
               <span>Uploaded: {new Date(activeResume.createdAt).toLocaleDateString()}</span>
               <a href={activeResume.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline lowercase">
                 [view pdf]
@@ -415,11 +415,11 @@ function ResumeUploadCard() {
             </div>
           </div>
         ) : (
-          <p className="text-xs text-muted-foreground font-mono uppercase">No active resume uploaded yet. Using default fallback.</p>
+          <p className="text-xs text-muted-foreground font-display uppercase">No active resume uploaded yet. Using default fallback.</p>
         )}
 
         <div className="space-y-2">
-          <label className="block font-mono text-[10px] uppercase text-muted-foreground">Select New Resume (PDF)</label>
+          <label className="block font-display text-[10px] uppercase text-muted-foreground">Select New Resume (PDF)</label>
           <div className="flex items-center gap-3">
             <input
               type="file"
@@ -433,7 +433,7 @@ function ResumeUploadCard() {
               variant="outline"
               size="sm"
               onClick={() => document.getElementById("cv-file-input")?.click()}
-              className="font-mono text-[10px] uppercase h-8"
+              className="font-display text-[10px] uppercase h-8"
             >
               Choose PDF
             </Button>
@@ -448,7 +448,7 @@ function ResumeUploadCard() {
             type="button"
             onClick={handleUpload}
             disabled={uploading}
-            className="w-full font-mono text-[10px] uppercase gap-1.5 h-8 bg-primary hover:bg-primary/95 text-primary-foreground"
+            className="w-full font-display text-[10px] uppercase gap-1.5 h-8 bg-primary hover:bg-primary/95 text-primary-foreground"
           >
             {uploading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
             Upload Resume
@@ -458,3 +458,4 @@ function ResumeUploadCard() {
     </Card>
   );
 }
+

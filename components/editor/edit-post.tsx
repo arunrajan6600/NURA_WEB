@@ -153,7 +153,7 @@ export function EditPost({ post }: EditPostProps) {
         <div className="min-w-0">
           <h1 className="text-3xl font-bold truncate">Edit Post: {post.title}</h1>
           {/* Autosave status indicator */}
-          <div className="mt-1 flex items-center gap-1.5 font-mono text-[10px] uppercase h-4">
+          <div className="mt-1 flex items-center gap-1.5 font-display text-[10px] uppercase h-4">
             {autosaveStatus === "saving" && (
               <><Loader2 className="h-3 w-3 animate-spin text-muted-foreground" /><span className="text-muted-foreground">Autosaving…</span></>
             )}

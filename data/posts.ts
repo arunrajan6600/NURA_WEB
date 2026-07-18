@@ -1,84 +1,11 @@
 // Auto-generated posts file
-// Version: v20260718-210827
-// Generated: 2026-07-18T15:38:51.618Z
+// Version: v20260718-232026
+// Generated: 2026-07-18T17:50:27.964Z
 // Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
 
 export const posts: Post[] = [
-  {
-    "id": "cmrqid0yi0006iy2d0jzlm9a3",
-    "title": "tetsing",
-    "slug": "tetsing",
-    "status": "published",
-    "featured": false,
-    "type": "project",
-    "tags": [],
-    "createdAt": "2026-07-18T15:14:54.619Z",
-    "updatedAt": "2026-07-18T15:17:26.078Z",
-    "publishedAt": "2026-07-18T15:15:57.602Z",
-    "viewCount": 4,
-    "likeCount": 0,
-    "cells": [
-      {
-        "id": "cmrqifzh0000diy2d2aha8qhb",
-        "type": "video",
-        "content": {
-          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/9aa893ee-8128-4597-8339-36fdba0bf053.mp4",
-          "title": "",
-          "provider": "direct"
-        },
-        "order": 0,
-        "orderIndex": 0
-      },
-      {
-        "id": "cmrqifzh0000eiy2d0nzvjn8k",
-        "type": "video",
-        "content": {
-          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/9aa893ee-8128-4597-8339-36fdba0bf053.mp4",
-          "title": "",
-          "provider": "direct"
-        },
-        "order": 1,
-        "orderIndex": 1
-      },
-      {
-        "id": "cmrqifzh0000fiy2d1windbok",
-        "type": "video",
-        "content": {
-          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/9aa893ee-8128-4597-8339-36fdba0bf053.mp4",
-          "title": "",
-          "provider": "direct"
-        },
-        "order": 2,
-        "orderIndex": 2
-      }
-    ],
-    "projectMetadata": {
-      "subtitle": null,
-      "category": null,
-      "role": null,
-      "client": null,
-      "teamMembers": null,
-      "year": null,
-      "duration": null,
-      "repoLink": null,
-      "demoLink": null,
-      "docLink": null,
-      "medium": null,
-      "collaborators": null,
-      "tools": [],
-      "technologies": [],
-      "institution": null,
-      "exhibition": null,
-      "publication": null,
-      "researchArea": null,
-      "projectCreationDate": "1997-05-19",
-      "credits": null,
-      "references": null,
-      "sections": null
-    }
-  },
   {
     "id": "cmrp8ka3w0006cx2ejoegj6l5",
     "title": "Google Maps with VCV & Mediapipe in Touchdesigner",
@@ -94,9 +21,9 @@ export const posts: Post[] = [
       "vcv rack"
     ],
     "createdAt": "2026-07-17T17:52:50.732Z",
-    "updatedAt": "2026-07-18T15:17:22.471Z",
+    "updatedAt": "2026-07-18T17:45:37.908Z",
     "publishedAt": "2026-07-17T17:54:28.078Z",
-    "viewCount": 29,
+    "viewCount": 56,
     "likeCount": 0,
     "cells": [
       {
@@ -177,9 +104,9 @@ export const posts: Post[] = [
       "ai"
     ],
     "createdAt": "2026-07-17T16:36:13.233Z",
-    "updatedAt": "2026-07-18T15:17:21.849Z",
+    "updatedAt": "2026-07-18T17:45:38.020Z",
     "publishedAt": "2026-07-17T16:36:12.952Z",
-    "viewCount": 31,
+    "viewCount": 54,
     "likeCount": 0,
     "cells": [
       {
@@ -254,9 +181,9 @@ export const posts: Post[] = [
       "maythil radhakrishnan"
     ],
     "createdAt": "2026-07-17T16:01:41.719Z",
-    "updatedAt": "2026-07-18T15:15:40.951Z",
+    "updatedAt": "2026-07-18T17:45:40.106Z",
     "publishedAt": "2026-07-17T16:10:01.202Z",
-    "viewCount": 23,
+    "viewCount": 35,
     "likeCount": 0,
     "cells": [
       {
@@ -332,9 +259,9 @@ export const posts: Post[] = [
       "puredata"
     ],
     "createdAt": "2026-07-17T15:40:07.424Z",
-    "updatedAt": "2026-07-18T15:17:26.613Z",
+    "updatedAt": "2026-07-18T17:45:40.289Z",
     "publishedAt": "2026-07-17T15:40:06.351Z",
-    "viewCount": 30,
+    "viewCount": 44,
     "likeCount": 0,
     "cells": [
       {
@@ -409,9 +336,9 @@ export const posts: Post[] = [
       "touchdesigner"
     ],
     "createdAt": "2026-07-16T19:11:01.057Z",
-    "updatedAt": "2026-07-18T15:17:21.981Z",
+    "updatedAt": "2026-07-18T17:45:38.002Z",
     "publishedAt": "2026-07-16T19:14:50.140Z",
-    "viewCount": 126,
+    "viewCount": 159,
     "likeCount": 0,
     "cells": [
       {
@@ -471,9 +398,9 @@ export const posts: Post[] = [
       "malayalam cinema"
     ],
     "createdAt": "2026-07-16T18:57:15.078Z",
-    "updatedAt": "2026-07-18T15:17:26.078Z",
+    "updatedAt": "2026-07-18T17:43:58.829Z",
     "publishedAt": "2026-07-16T19:07:07.097Z",
-    "viewCount": 84,
+    "viewCount": 94,
     "likeCount": 0,
     "cells": [
       {
@@ -536,9 +463,9 @@ export const posts: Post[] = [
       "audio reactive"
     ],
     "createdAt": "2025-09-01T02:13:14.993Z",
-    "updatedAt": "2026-07-18T15:17:21.965Z",
+    "updatedAt": "2026-07-18T17:45:38.008Z",
     "publishedAt": "2025-09-01T02:13:14.993Z",
-    "viewCount": 107,
+    "viewCount": 131,
     "likeCount": 0,
     "cells": [
       {
@@ -604,9 +531,9 @@ export const posts: Post[] = [
       "python"
     ],
     "createdAt": "2025-09-01T02:00:29.561Z",
-    "updatedAt": "2026-07-18T15:17:26.076Z",
+    "updatedAt": "2026-07-18T17:45:40.278Z",
     "publishedAt": "2025-09-01T02:00:29.561Z",
-    "viewCount": 92,
+    "viewCount": 105,
     "likeCount": 0,
     "cells": [
       {
@@ -671,8 +598,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260718-210827",
-  generatedAt: "2026-07-18T15:38:51.618Z",
+  version: "v20260718-232026",
+  generatedAt: "2026-07-18T17:50:27.964Z",
   source: "api",
-  count: 9
+  count: 8
 };

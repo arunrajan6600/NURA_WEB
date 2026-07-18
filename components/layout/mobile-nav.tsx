@@ -52,7 +52,7 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent side="right" className="w-[300px] border-l p-0">
         <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-        <nav className="flex h-full flex-col p-5 font-mono text-xs uppercase">
+        <nav className="flex h-full flex-col p-5 font-display text-xs uppercase">
           <div className="mb-8 border-b border-border pb-5 text-muted-foreground">
             index
           </div>

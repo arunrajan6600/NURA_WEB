@@ -353,7 +353,7 @@ export function FileUpload({ onUploadComplete }: FileUploadProps) {
         >
           <Upload className="h-16 w-16 text-primary animate-bounce mb-4" />
           <h2 className="text-2xl font-bold tracking-tight">Drop files to upload</h2>
-          <p className="text-sm text-muted-foreground mt-2 font-mono">Supabase Storage System</p>
+          <p className="text-sm text-muted-foreground mt-2 font-display">Supabase Storage System</p>
         </div>
       )}
 
@@ -373,7 +373,7 @@ export function FileUpload({ onUploadComplete }: FileUploadProps) {
             <p className="text-xs text-muted-foreground mt-1 max-w-[280px]">
               Or click to select. Supports Images (with automatic quality WebP compression), Videos, Audio, and PDFs.
             </p>
-            <span className="mt-4 border border-border px-3 py-1 font-mono text-[10px] uppercase text-muted-foreground hover:text-foreground transition-colors">
+            <span className="mt-4 border border-border px-3 py-1 font-display text-[10px] uppercase text-muted-foreground hover:text-foreground transition-colors">
               select files
             </span>
             <input
@@ -389,7 +389,7 @@ export function FileUpload({ onUploadComplete }: FileUploadProps) {
       </Card>
 
       {globalError && (
-        <Alert variant="destructive" className="font-mono text-xs">
+        <Alert variant="destructive" className="font-display text-xs">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>{globalError}</AlertDescription>
         </Alert>
@@ -398,7 +398,7 @@ export function FileUpload({ onUploadComplete }: FileUploadProps) {
       {/* Upload progress queue */}
       {uploadQueue.length > 0 && (
         <div className="border border-border p-4 bg-muted/10 space-y-3">
-          <div className="flex items-center justify-between font-mono text-[10px] uppercase text-muted-foreground border-b border-border pb-2">
+          <div className="flex items-center justify-between font-display text-[10px] uppercase text-muted-foreground border-b border-border pb-2">
             <span>Upload Queue ({uploadQueue.length} files)</span>
             {uploadQueue.some(q => q.status === 'completed' || q.status === 'cancelled') && (
               <button 
@@ -430,7 +430,7 @@ export function FileUpload({ onUploadComplete }: FileUploadProps) {
                       <span className="font-medium truncate" title={item.originalName}>
                         {item.originalName}
                       </span>
-                      <span className="font-mono text-[10px] text-muted-foreground flex-shrink-0 uppercase">
+                      <span className="font-display text-[10px] text-muted-foreground flex-shrink-0 uppercase">
                         {item.status === 'optimizing' && 'optimizing WebP…'}
                         {item.status === 'uploading' && `uploading ${item.progress}%`}
                         {item.status === 'completed' && 'completed'}
@@ -456,7 +456,7 @@ export function FileUpload({ onUploadComplete }: FileUploadProps) {
                     </div>
 
                     {/* Meta info & Action tools */}
-                    <div className="flex items-center justify-between mt-2 font-mono text-[9px] text-muted-foreground">
+                    <div className="flex items-center justify-between mt-2 font-display text-[9px] text-muted-foreground">
                       <span>{formatSize(item.file.size)}</span>
                       <div className="flex items-center gap-3">
                         {item.status === 'uploading' && (
@@ -490,7 +490,7 @@ export function FileUpload({ onUploadComplete }: FileUploadProps) {
                     </div>
 
                     {item.error && (
-                      <p className="mt-1 font-mono text-[9px] text-destructive break-words uppercase">
+                      <p className="mt-1 font-display text-[9px] text-destructive break-words uppercase">
                         error: {item.error}
                       </p>
                     )}

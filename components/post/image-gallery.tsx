@@ -61,7 +61,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
   return (
     <>
       {/* Image count bar */}
-      <div className="flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground mb-3">
+      <div className="flex items-center gap-3 font-display text-[10px] uppercase text-muted-foreground mb-3">
         <div className="h-px flex-1 bg-border/50" />
         <span>{images.length} images</span>
         <div className="h-px flex-1 bg-border/50" />
@@ -79,7 +79,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
               onLightboxOpen={() => handleOpen(idx)}
             />
             {/* Index badge overlay */}
-            <div className="absolute top-2 left-2 rounded bg-black/60 px-1.5 py-0.5 font-mono text-[9px] text-white/85 select-none backdrop-blur-sm pointer-events-none">
+            <div className="absolute top-2 left-2 rounded bg-black/60 px-1.5 py-0.5 font-display text-[9px] text-white/85 select-none backdrop-blur-sm pointer-events-none">
               {idx + 1}
             </div>
           </div>

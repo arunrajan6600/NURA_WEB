@@ -38,7 +38,7 @@ export function NewsPostCard({
           <h3 className="text-base font-medium uppercase leading-snug">
             {post.title}
           </h3>
-          <p className="font-mono text-xs uppercase text-muted-foreground">
+          <p className="font-display text-xs uppercase text-muted-foreground">
             {formattedDate}
           </p>
         </div>

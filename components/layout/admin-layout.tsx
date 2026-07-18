@@ -42,7 +42,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
                 variant={isActive ? "default" : "ghost"}
                 size="sm"
                 asChild
-                className="font-mono text-[10px] uppercase gap-1.5 h-8"
+                className="font-display text-[10px] uppercase gap-1.5 h-8"
               >
                 <Link href={item.href}>
                   <Icon className="h-3.5 w-3.5" />
@@ -54,14 +54,14 @@ export function AdminLayout({ children }: AdminLayoutProps) {
         </div>
 
         <div className="flex items-center justify-between md:justify-end gap-4 border-t md:border-t-0 border-border/40 pt-3 md:pt-0">
-          <span className="font-mono text-[9px] uppercase text-muted-foreground">
+          <span className="font-display text-[9px] uppercase text-muted-foreground">
             User: <strong className="text-foreground">{user?.username || 'admin'}</strong>
           </span>
           <Button 
             variant="ghost" 
             size="sm" 
             onClick={logout}
-            className="font-mono text-[10px] uppercase text-destructive hover:text-destructive hover:bg-destructive/15 h-8 gap-1.5"
+            className="font-display text-[10px] uppercase text-destructive hover:text-destructive hover:bg-destructive/15 h-8 gap-1.5"
           >
             <LogOut className="h-3.5 w-3.5" />
             logout

@@ -79,7 +79,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
       aria-label="Table of contents"
       className="not-prose my-8 border border-border/60 px-4 py-4 space-y-1"
     >
-      <div className="flex items-center gap-2 font-mono text-[10px] uppercase text-muted-foreground mb-3 pb-3 border-b border-border/40">
+      <div className="flex items-center gap-2 font-display text-[10px] uppercase text-muted-foreground mb-3 pb-3 border-b border-border/40">
         <List className="h-3 w-3" />
         Contents
       </div>
@@ -89,7 +89,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
             <a
               href={`#${h.id}`}
               className={cn(
-                "block font-mono text-xs transition-colors",
+                "block font-display text-xs transition-colors",
                 h.level === 1 ? "pl-0" : h.level === 2 ? "pl-3" : "pl-6",
                 activeId === h.id
                   ? "text-primary"
@@ -108,3 +108,4 @@ export function TableOfContents({ content }: TableOfContentsProps) {
     </nav>
   );
 }
+

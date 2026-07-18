@@ -10,7 +10,7 @@ export function Header() {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="flex items-center gap-3 font-mono text-xs uppercase transition-opacity hover:opacity-75"
+          className="flex items-center gap-3 font-display text-xs uppercase transition-opacity hover:opacity-75"
         >
           <Image
             src="/logo.svg"

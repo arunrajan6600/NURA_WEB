@@ -667,7 +667,7 @@ export function PostsManager({
                         {post.tags && post.tags.length > 0 && (
                           <div className="flex flex-wrap gap-1">
                             {post.tags.map((t) => (
-                              <span key={t} className="bg-muted text-muted-foreground px-1.5 py-0.5 rounded font-mono text-[9px] uppercase border border-border">
+                              <span key={t} className="bg-muted text-muted-foreground px-1.5 py-0.5 rounded font-display text-[9px] uppercase border border-border">
                                 {t}
                               </span>
                             ))}
@@ -912,3 +912,4 @@ export function PostsManager({
     </div>
   );
 }
+

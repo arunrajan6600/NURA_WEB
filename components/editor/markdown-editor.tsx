@@ -166,7 +166,7 @@ export function MarkdownEditor({
         </div>
 
         {/* View toggles */}
-        <div className="flex items-center gap-1 border border-border/80 p-0.5 rounded bg-background select-none font-mono text-[9px] uppercase">
+        <div className="flex items-center gap-1 border border-border/80 p-0.5 rounded bg-background select-none font-display text-[9px] uppercase">
           <button
             type="button"
             onClick={() => setViewMode("write")}
@@ -204,12 +204,12 @@ export function MarkdownEditor({
               value={value}
               onChange={(e) => onChange(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="flex-1 min-h-[400px] font-mono text-sm leading-relaxed p-4 outline-none resize-none border border-border focus-visible:ring-1 focus-visible:ring-primary bg-background"
+              className="flex-1 min-h-[400px] font-display text-sm leading-relaxed p-4 outline-none resize-none border border-border focus-visible:ring-1 focus-visible:ring-primary bg-background"
               placeholder="Start drafting in markdown (supports markdown-to-jsx block widgets)..."
               aria-label="Markdown editor input"
             />
             {/* Keyboard shortcut hints */}
-            <div className="mt-1 flex items-center gap-3 font-mono text-[9px] text-muted-foreground">
+            <div className="mt-1 flex items-center gap-3 font-display text-[9px] text-muted-foreground">
               <span className="flex items-center gap-1"><HelpCircle className="h-3 w-3" /> hints:</span>
               <span><kbd className="border border-border/80 px-1">Ctrl+B</kbd> Bold</span>
               <span><kbd className="border border-border/80 px-1">Ctrl+I</kbd> Italic</span>
@@ -228,7 +228,7 @@ export function MarkdownEditor({
                   <MarkdownCell content={value} />
                 </div>
               ) : (
-                <div className="h-full flex items-center justify-center font-mono text-xs uppercase text-muted-foreground">
+                <div className="h-full flex items-center justify-center font-display text-xs uppercase text-muted-foreground">
                   Nothing to preview
                 </div>
               )}

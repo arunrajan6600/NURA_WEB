@@ -143,7 +143,7 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 bg-transparent font-mono text-sm outline-none placeholder:text-muted-foreground/60"
+            className="flex-1 bg-transparent font-display text-sm outline-none placeholder:text-muted-foreground/60"
             aria-autocomplete="list"
             aria-controls="search-results"
           />
@@ -185,14 +185,14 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
                         {result.post.title}
                       </p>
                       {result.post.excerpt && (
-                        <p className="mt-0.5 font-mono text-[10px] uppercase text-muted-foreground truncate">
+                        <p className="mt-0.5 font-display text-[10px] uppercase text-muted-foreground truncate">
                           {result.post.excerpt.slice(0, 80)}
                         </p>
                       )}
                     </div>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="font-mono text-[9px] uppercase text-muted-foreground border border-border px-1.5 py-0.5">
+                    <span className="font-display text-[9px] uppercase text-muted-foreground border border-border px-1.5 py-0.5">
                       {result.post.type}
                     </span>
                     <ArrowRight className="h-3 w-3 text-muted-foreground/50" />
@@ -205,13 +205,13 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
 
         {/* Empty state */}
         {query.trim() && results.length === 0 && (
-          <div className="px-4 py-8 text-center font-mono text-xs text-muted-foreground uppercase">
+          <div className="px-4 py-8 text-center font-display text-xs text-muted-foreground uppercase">
             No results for &quot;{query}&quot;
           </div>
         )}
 
         {/* Keyboard hints */}
-        <div className="border-t border-border px-4 py-2 flex items-center gap-4 font-mono text-[10px] text-muted-foreground">
+        <div className="border-t border-border px-4 py-2 flex items-center gap-4 font-display text-[10px] text-muted-foreground">
           <span><kbd className="border border-border px-1">↑↓</kbd> Navigate</span>
           <span><kbd className="border border-border px-1">↵</kbd> Open</span>
           <span><kbd className="border border-border px-1">Esc</kbd> Close</span>

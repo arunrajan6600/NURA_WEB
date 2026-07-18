@@ -147,7 +147,7 @@ function PostDetailSkeleton() {
 function PostNotFound() {
   return (
     <div className="max-w-2xl mx-auto py-24 px-4 text-center space-y-6">
-      <p className="font-mono text-xs uppercase text-muted-foreground tracking-widest">
+      <p className="font-display text-xs uppercase text-muted-foreground tracking-widest">
         404 — post not found
       </p>
       <h1 className="text-3xl font-bold">This post doesn&apos;t exist</h1>
@@ -293,7 +293,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <Button variant="ghost" className="mb-8 font-mono text-xs uppercase" asChild>
+      <Button variant="ghost" className="mb-8 font-display text-xs uppercase" asChild>
         <Link href={backLink.href}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to {backLink.label}
@@ -310,7 +310,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-10 space-y-4">
             {post.projectMetadata?.category && (
-              <span className="font-mono text-xs uppercase bg-primary/20 text-primary border border-primary/30 px-2.5 py-0.5 rounded-sm w-fit tracking-wider">
+              <span className="font-display text-xs uppercase bg-primary/20 text-primary border border-primary/30 px-2.5 py-0.5 rounded-sm w-fit tracking-wider">
                 {post.projectMetadata.category}
               </span>
             )}
@@ -327,7 +327,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="bg-white/15 backdrop-blur-sm border border-white/20 px-2 py-0.5 font-mono text-[9px] uppercase text-zinc-200 rounded-sm"
+                    className="bg-white/15 backdrop-blur-sm border border-white/20 px-2 py-0.5 font-display text-[9px] uppercase text-zinc-200 rounded-sm"
                   >
                     {tag}
                   </span>
@@ -349,14 +349,14 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="border border-border/80 px-2 py-0.5 font-mono text-[9px] uppercase text-muted-foreground rounded-sm"
+                  className="border border-border/80 px-2 py-0.5 font-display text-[9px] uppercase text-muted-foreground rounded-sm"
                 >
                   {tag}
                 </span>
               ))}
             </div>
           )}
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-mono uppercase">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-display uppercase">
             <span suppressHydrationWarning>Updated {formattedDate}</span>
             {post.type !== "project" && (
               <>
@@ -392,7 +392,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
 
       {/* Research Metadata */}
       {post.researchMetadata && (
-        <div className="mb-12 border-y border-border py-8 font-mono text-xs uppercase space-y-4">
+        <div className="mb-12 border-y border-border py-8 font-display text-xs uppercase space-y-4">
           {post.researchMetadata.authors && (
             <div className="grid grid-cols-[120px_1fr] gap-4">
               <span className="text-muted-foreground">authors:</span>
@@ -455,7 +455,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
 
       {/* Project Metadata */}
       {post.projectMetadata && (
-        <div className="mb-12 border-y border-border py-8 font-mono text-xs uppercase space-y-4">
+        <div className="mb-12 border-y border-border py-8 font-display text-xs uppercase space-y-4">
           {post.projectMetadata.category && (
             <div className="grid grid-cols-[140px_1fr] gap-4">
               <span className="text-muted-foreground">category:</span>
@@ -561,7 +561,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
                 .sort((a, b) => a.order - b.order)
                 .map((sec) => (
                   <section key={sec.id} id={`section-${sec.id}`} className="space-y-4 scroll-mt-20">
-                    <h3 className="text-xl font-bold tracking-tight text-foreground font-mono lowercase border-b border-border/40 pb-2">
+                    <h3 className="text-xl font-bold tracking-tight text-foreground font-display lowercase border-b border-border/40 pb-2">
                       [ {sec.title} ]
                     </h3>
                     <div className="text-muted-foreground leading-relaxed">
@@ -575,8 +575,8 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
 
         {post.projectMetadata?.sections && post.projectMetadata.sections.length > 0 && (
           <aside className="hidden lg:block sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto border-l border-border/40 pl-5 space-y-4">
-            <h4 className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-bold">Sections</h4>
-            <nav className="space-y-2.5 font-mono text-[11px] uppercase" aria-label="Project sections navigation">
+            <h4 className="font-display text-xs uppercase tracking-wider text-muted-foreground font-bold">Sections</h4>
+            <nav className="space-y-2.5 font-display text-[11px] uppercase" aria-label="Project sections navigation">
               {post.projectMetadata.sections
                 .sort((a, b) => a.order - b.order)
                 .map((sec) => (
@@ -597,7 +597,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
 
       {/* Credits */}
       {post.projectMetadata?.credits && (
-        <div className="mt-16 border-t border-border pt-10 font-mono text-xs uppercase space-y-4">
+        <div className="mt-16 border-t border-border pt-10 font-display text-xs uppercase space-y-4">
           <h3 className="text-sm font-semibold mb-4 text-foreground/90">[ credits ]</h3>
           {post.projectMetadata.credits.performers && (
             <div className="grid grid-cols-[140px_1fr] gap-4">
@@ -648,7 +648,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
 
       {/* References */}
       {post.projectMetadata?.references && post.projectMetadata.references.length > 0 && (
-        <div className="mt-12 border-t border-border pt-8 font-mono text-xs uppercase space-y-3">
+        <div className="mt-12 border-t border-border pt-8 font-display text-xs uppercase space-y-3">
           <h3 className="text-sm font-semibold mb-4 text-foreground/90">[ references ]</h3>
           {post.projectMetadata.references.map((ref: { url?: string; title: string }, idx: number) => (
             <div key={idx} className="flex items-start gap-4">
@@ -684,7 +684,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
       {/* Related Works */}
       {relatedWorks.length > 0 && (
         <div className="mt-20 border-t border-border pt-10">
-          <h3 className="font-mono text-xs uppercase text-muted-foreground mb-6">[ related works ]</h3>
+          <h3 className="font-display text-xs uppercase text-muted-foreground mb-6">[ related works ]</h3>
           <div className="grid gap-6 md:grid-cols-3">
             {relatedWorks.map((work) => (
               <PostCard key={work.id} post={work} variant="compact" />
@@ -696,7 +696,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
       {/* Related Writings */}
       {relatedWritings.length > 0 && (
         <div className="mt-20 border-t border-border pt-10">
-          <h3 className="font-mono text-xs uppercase text-muted-foreground mb-6">[ related writings ]</h3>
+          <h3 className="font-display text-xs uppercase text-muted-foreground mb-6">[ related writings ]</h3>
           <div className="grid gap-6 md:grid-cols-2">
             {relatedWritings.map((writing) => (
               <PostCard key={writing.id} post={writing} variant="compact" />
@@ -706,7 +706,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
       )}
 
       {/* Prev / Next navigation */}
-      <div className="mt-16 border-t border-border pt-8 flex items-center justify-between font-mono text-xs uppercase">
+      <div className="mt-16 border-t border-border pt-8 flex items-center justify-between font-display text-xs uppercase">
         {prevPost ? (
           <Link href={`/post/${prevPost.id}`} className="text-primary hover:underline flex items-center gap-1">
             <span>←</span>
@@ -732,3 +732,4 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
     </article>
   );
 }
+

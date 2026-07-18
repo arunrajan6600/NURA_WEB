@@ -40,7 +40,7 @@ export function URLCopier({ url }: URLCopierProps) {
       <Input
         value={url}
         readOnly
-        className="text-xs font-mono bg-muted/50"
+        className="text-xs font-display bg-muted/50"
         onClick={(e) => e.currentTarget.select()}
       />
       <Button

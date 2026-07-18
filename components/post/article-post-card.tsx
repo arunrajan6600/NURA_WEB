@@ -21,7 +21,7 @@ export function ArticlePostCard({ post }: ArticlePostCardProps) {
         <h3 className="text-base font-medium uppercase leading-snug truncate">
           {post.title}
         </h3>
-        <p className="mt-1 font-mono text-xs uppercase text-muted-foreground">
+        <p className="mt-1 font-display text-xs uppercase text-muted-foreground">
           {formattedDate}
         </p>
       </div>

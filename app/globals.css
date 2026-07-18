@@ -9,10 +9,11 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-lato);
   --font-mono: var(--font-roboto-mono);
-  /* Complementary typography roles */
+  /* Single display typography system using JetBrains Mono */
+  --font-display: var(--font-jetbrains);
   --font-meta: var(--font-jetbrains);
-  --font-counter: var(--font-dotmatrix);
-  --font-heading: var(--font-cairopixel);
+  --font-counter: var(--font-jetbrains);
+  --font-heading: var(--font-jetbrains);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -176,6 +177,7 @@ html {
   h4,
   h5,
   h6 {
+    font-family: var(--font-display), monospace;
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: 0;
@@ -202,6 +204,7 @@ html {
   }
 
   p {
+    font-family: var(--font-sans), sans-serif;
     line-height: 1.7;
     margin-bottom: 0;
   }
@@ -220,11 +223,13 @@ html {
 
   /* Improve readability for body text */
   .prose {
+    font-family: var(--font-sans), sans-serif;
     line-height: 1.7;
     font-size: 1rem;
   }
 
   .prose p {
+    font-family: var(--font-sans), sans-serif;
     margin-bottom: 1.25rem;
   }
 
@@ -234,6 +239,7 @@ html {
   .prose h4,
   .prose h5,
   .prose h6 {
+    font-family: var(--font-display), monospace;
     margin-top: 2rem;
     margin-bottom: 1rem;
   }
@@ -384,7 +390,7 @@ html {
   }
 
   .section-heading {
-    @apply mb-8 grid gap-3 font-mono md:grid-cols-[4rem_1fr_auto] md:items-end;
+    @apply mb-8 grid gap-3 font-display md:grid-cols-[4rem_1fr_auto] md:items-end;
   }
 
   .section-heading p {
@@ -393,7 +399,7 @@ html {
 
   .section-heading h2 {
     @apply text-2xl font-medium uppercase md:text-3xl;
-    font-family: var(--font-heading), sans-serif;
+    font-family: var(--font-display), monospace;
     letter-spacing: -0.01em;
   }
 
@@ -403,7 +409,7 @@ html {
   }
 
   .empty-note {
-    @apply border border-dashed border-border px-4 py-6 font-mono text-sm text-muted-foreground;
+    @apply border border-dashed border-border px-4 py-6 font-display text-sm text-muted-foreground;
   }
 
   .nav-link {
@@ -468,30 +474,31 @@ html {
   }
 
   .skip-to-content {
-    @apply absolute left-4 top-4 z-50 -translate-y-20 border border-border bg-background px-4 py-2 font-mono text-xs uppercase text-primary transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-primary;
+    @apply absolute left-4 top-4 z-50 -translate-y-20 border border-border bg-background px-4 py-2 font-display text-xs uppercase text-primary transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-primary;
   }
 
   /* ─────────────────────────────────────────
      Typography utility classes
-     Use these instead of hardcoding font-family.
+     All display/accent typography consolidated to JetBrains Mono
   ──────────────────────────────────────────── */
 
-  /* JetBrains Mono — metadata, dates, labels, tags, admin panels, filenames */
+  .font-display {
+    font-family: var(--font-display), monospace;
+  }
+
   .font-meta {
-    font-family: var(--font-meta), monospace;
+    font-family: var(--font-display), monospace;
     letter-spacing: 0.04em;
   }
 
-  /* VT323 (dot-matrix) — decorative counters, hero stats, section identifiers */
   .font-counter {
-    font-family: var(--font-counter), monospace;
+    font-family: var(--font-display), monospace;
     letter-spacing: 0.02em;
     line-height: 1;
   }
 
-  /* Cairo — page headings, project titles, section headings, nav emphasis */
   .font-heading {
-    font-family: var(--font-heading), sans-serif;
+    font-family: var(--font-display), monospace;
     letter-spacing: -0.01em;
   }
 

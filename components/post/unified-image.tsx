@@ -54,7 +54,7 @@ export function UnifiedImage({
 
           {/* Zoom Overlay Hint */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[1px] pointer-events-none">
-            <div className="flex items-center gap-1.5 bg-background/90 border border-border px-3 py-1.5 font-mono text-[10px] uppercase text-muted-foreground tracking-wider rounded shadow-md pointer-events-auto">
+            <div className="flex items-center gap-1.5 bg-background/90 border border-border px-3 py-1.5 font-display text-[10px] uppercase text-muted-foreground tracking-wider rounded shadow-md pointer-events-auto">
               <ZoomIn className="h-3 w-3" />
               view fullscreen
             </div>
@@ -63,7 +63,7 @@ export function UnifiedImage({
 
         {/* Unified Caption */}
         {alt && (
-          <p className="text-xs text-muted-foreground italic font-mono lowercase mt-2 pl-0.5">
+          <p className="text-xs text-muted-foreground italic font-display lowercase mt-2 pl-0.5">
             fig. {alt}
           </p>
         )}
@@ -79,3 +79,4 @@ export function UnifiedImage({
     </>
   );
 }
+

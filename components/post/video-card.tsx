@@ -163,7 +163,7 @@ export function VideoCard({
         {onTheatreToggle && (
           <button
             onClick={onTheatreToggle}
-            className="absolute top-4 right-4 z-10 bg-black/60 hover:bg-black/85 text-white/90 px-3 py-1.5 font-mono text-[10px] rounded uppercase border border-white/10 transition-colors"
+            className="absolute top-4 right-4 z-10 bg-black/60 hover:bg-black/85 text-white/90 px-3 py-1.5 font-display text-[10px] rounded uppercase border border-white/10 transition-colors"
           >
             {isTheatreMode ? "Default" : "Theatre"}
           </button>
@@ -252,17 +252,18 @@ export function VideoCard({
 
       {/* Duration badge */}
       {duration !== null && (
-        <div className="absolute bottom-3 right-3 rounded bg-black/70 px-1.5 py-0.5 font-mono text-[10px] tracking-wider text-white select-none backdrop-blur-sm">
+        <div className="absolute bottom-3 right-3 rounded bg-black/70 px-1.5 py-0.5 font-display text-[10px] tracking-wider text-white select-none backdrop-blur-sm">
           {formatDuration(duration)}
         </div>
       )}
 
       {/* Title overlay */}
       {title && (
-        <div className="absolute bottom-3 left-3 max-w-[65%] truncate rounded bg-black/60 border border-white/10 backdrop-blur-sm px-2.5 py-1 font-mono text-[9px] uppercase tracking-wider text-white select-none">
+        <div className="absolute bottom-3 left-3 max-w-[65%] truncate rounded bg-black/60 border border-white/10 backdrop-blur-sm px-2.5 py-1 font-display text-[9px] uppercase tracking-wider text-white select-none">
           {title}
         </div>
       )}
     </div>
   );
 }
+

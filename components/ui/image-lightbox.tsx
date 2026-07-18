@@ -283,7 +283,7 @@ export function AdvancedImageLightbox({
       <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between">
         {/* Image counter */}
         {images.length > 1 && (
-          <span className="font-mono text-[10px] uppercase text-muted-foreground bg-background/80 border border-border px-2.5 py-1 backdrop-blur-sm">
+          <span className="font-display text-[10px] uppercase text-muted-foreground bg-background/80 border border-border px-2.5 py-1 backdrop-blur-sm">
             {currentIndex + 1} / {images.length}
           </span>
         )}
@@ -300,7 +300,7 @@ export function AdvancedImageLightbox({
           </button>
           <button
             onClick={() => { setScale(1); setPanOffset({ x: 0, y: 0 }); }}
-            className="flex h-8 items-center justify-center border border-border/80 bg-background/90 px-2 font-mono text-[10px] text-muted-foreground hover:text-foreground transition-colors backdrop-blur-sm rounded-sm min-w-[44px]"
+            className="flex h-8 items-center justify-center border border-border/80 bg-background/90 px-2 font-display text-[10px] text-muted-foreground hover:text-foreground transition-colors backdrop-blur-sm rounded-sm min-w-[44px]"
             aria-label="Reset zoom"
           >
             {Math.round(scale * 100)}%
@@ -414,13 +414,13 @@ export function AdvancedImageLightbox({
 
       {/* Caption */}
       {currentImage.alt && (
-        <div className="absolute bottom-12 left-0 right-0 text-center font-mono text-[10px] uppercase text-muted-foreground px-12 truncate pointer-events-none">
+        <div className="absolute bottom-12 left-0 right-0 text-center font-display text-[10px] uppercase text-muted-foreground px-12 truncate pointer-events-none">
           {currentImage.alt}
         </div>
       )}
 
       {/* Keyboard shortcuts hint */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[9px] uppercase text-muted-foreground/50 hidden sm:flex items-center gap-4 pointer-events-none whitespace-nowrap">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-display text-[9px] uppercase text-muted-foreground/50 hidden sm:flex items-center gap-4 pointer-events-none whitespace-nowrap">
         <span><kbd className="border border-border/50 px-1">Esc</kbd> close</span>
         {images.length > 1 && <span><kbd className="border border-border/50 px-1">←→</kbd> navigate</span>}
         <span><kbd className="border border-border/50 px-1">+/-</kbd> zoom</span>
@@ -430,7 +430,7 @@ export function AdvancedImageLightbox({
 
       {/* Copied toast */}
       {copied && (
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 z-30 bg-green-500/90 text-white font-mono text-[10px] uppercase px-4 py-2 rounded shadow-lg backdrop-blur-sm">
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 z-30 bg-green-500/90 text-white font-display text-[10px] uppercase px-4 py-2 rounded shadow-lg backdrop-blur-sm">
           URL Copied!
         </div>
       )}
