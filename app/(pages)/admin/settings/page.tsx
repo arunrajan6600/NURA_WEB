@@ -16,7 +16,10 @@ import {
   Mail, 
   Loader2, 
   Save, 
-  AlertCircle 
+  AlertCircle,
+  Upload,
+  FileDown,
+  CheckCircle2
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -325,7 +328,133 @@ function SettingsContent() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Resume/CV upload card */}
+        <ResumeUploadCard />
       </div>
     </form>
+  );
+}
+
+function ResumeUploadCard() {
+  const { token } = useAuth();
+  const [file, setFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [activeResume, setActiveResume] = useState<{ filename: string; url: string; createdAt: string } | null>(null);
+
+  const fetchActiveResume = async () => {
+    try {
+      const res = await postsApi.getResume();
+      if (res.success && res.data) {
+        setActiveResume(res.data as any);
+      }
+    } catch (err) {
+      console.error("Failed to load CV", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchActiveResume();
+  }, []);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const selected = e.target.files[0];
+      if (selected.type !== "application/pdf") {
+        toast.error("Only PDF files are allowed");
+        return;
+      }
+      setFile(selected);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!file) return;
+    setUploading(true);
+    const toastId = toast.loading("Uploading resume PDF…");
+    try {
+      if (token) {
+        postsApi.setAuthToken(token);
+      }
+      const res = await postsApi.uploadResume(file);
+      if (res.success) {
+        toast.success("Resume updated successfully", { id: toastId });
+        setFile(null);
+        fetchActiveResume();
+      } else {
+        toast.error(res.error || "Failed to upload resume", { id: toastId });
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Failed to upload resume", { id: toastId });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <Card className="border-border bg-background">
+      <CardHeader className="pb-3 border-b border-border/40">
+        <CardTitle className="text-sm font-semibold flex items-center gap-2">
+          <FileDown className="h-4 w-4 text-muted-foreground" />
+          Active Resume / CV
+        </CardTitle>
+        <CardDescription className="font-mono text-[9px] uppercase">Upload and manage active resume PDF</CardDescription>
+      </CardHeader>
+      <CardContent className="p-4 space-y-4">
+        {activeResume ? (
+          <div className="bg-muted/10 border border-border p-3 rounded flex flex-col gap-2">
+            <div className="flex items-center gap-2 text-xs">
+              <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
+              <span className="font-medium truncate font-mono text-[10px] uppercase">Active: {activeResume.filename}</span>
+            </div>
+            <div className="flex items-center justify-between gap-2 text-[10px] text-muted-foreground font-mono uppercase">
+              <span>Uploaded: {new Date(activeResume.createdAt).toLocaleDateString()}</span>
+              <a href={activeResume.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline lowercase">
+                [view pdf]
+              </a>
+            </div>
+          </div>
+        ) : (
+          <p className="text-xs text-muted-foreground font-mono uppercase">No active resume uploaded yet. Using default fallback.</p>
+        )}
+
+        <div className="space-y-2">
+          <label className="block font-mono text-[10px] uppercase text-muted-foreground">Select New Resume (PDF)</label>
+          <div className="flex items-center gap-3">
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={handleFileChange}
+              className="hidden"
+              id="cv-file-input"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => document.getElementById("cv-file-input")?.click()}
+              className="font-mono text-[10px] uppercase h-8"
+            >
+              Choose PDF
+            </Button>
+            <span className="text-xs text-muted-foreground truncate max-w-[200px]">
+              {file ? file.name : "No file chosen"}
+            </span>
+          </div>
+        </div>
+
+        {file && (
+          <Button
+            type="button"
+            onClick={handleUpload}
+            disabled={uploading}
+            className="w-full font-mono text-[10px] uppercase gap-1.5 h-8 bg-primary hover:bg-primary/95 text-primary-foreground"
+          >
+            {uploading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
+            Upload Resume
+          </Button>
+        )}
+      </CardContent>
+    </Card>
   );
 }

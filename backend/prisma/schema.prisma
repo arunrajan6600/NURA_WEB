@@ -101,3 +101,12 @@ model ProjectMetadata {
 
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
+
+model Resume {
+  id        String   @id @default(cuid())
+  url       String
+  filename  String
+  s3Key     String
+  createdAt DateTime @default(now())
+}
+

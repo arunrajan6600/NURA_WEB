@@ -312,6 +312,38 @@ class PostsApi {
     });
   }
 
+  // Get active CV/Resume (public)
+  async getResume(): Promise<PostsApiResponse> {
+    return this.makeRequest("/resume");
+  }
+
+  // Upload CV/Resume (requires authentication)
+  async uploadResume(file: File): Promise<PostsApiResponse> {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const headers = this.getHeaders();
+    // Fetch automatically sets the multipart boundary when we omit the Content-Type header
+    const { "Content-Type": _, ...restHeaders } = headers as any;
+
+    try {
+      const response = await fetch(`${this.baseUrl}/resume`, {
+        method: "POST",
+        headers: restHeaders,
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Upload failed");
+      }
+      return data;
+    } catch (error) {
+      console.error("Upload resume error:", error);
+      throw error;
+    }
+  }
+
   // Convenience methods for common operations
   async getPublishedPosts(limit?: number): Promise<PostsApiResponse> {
     return this.listPosts({

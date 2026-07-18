@@ -8,6 +8,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { InfoIcon, AlertTriangleIcon, CheckCircle } from "lucide-react";
 import { ImageLightbox } from "@/components/ui/image-lightbox";
 import { UnifiedImage } from "./unified-image";
+import { VideoCard } from "./video-card";
 
 interface MarkdownCellProps {
   content: string;
@@ -162,6 +163,29 @@ function CustomImage({ alt, src }: { alt?: string; src?: string }) {
   );
 }
 
+// Custom video component to render standard HTML <video> elements with our premium player
+function CustomVideo({ src, children, ...props }: any) {
+  let videoUrl = src;
+  if (!videoUrl && children) {
+    const sources = React.Children.toArray(children);
+    const source = sources.find(
+      (child: any) => child && child.type === "source"
+    );
+    if (source) {
+      videoUrl = (source as any).props?.src;
+    }
+  }
+  if (videoUrl) {
+    return (
+      <span className="block my-8">
+        <VideoCard url={videoUrl} />
+      </span>
+    );
+  }
+  return <video {...props}>{children}</video>;
+}
+
+
 // Custom callout components
 function InfoCallout({ children }: { children: React.ReactNode }) {
   return (
@@ -223,6 +247,7 @@ export function MarkdownCell({ content }: MarkdownCellProps) {
             // Link and media components
             a: CustomLink,
             img: CustomImage,
+            video: CustomVideo,
 
             // Table components
             table: Table,

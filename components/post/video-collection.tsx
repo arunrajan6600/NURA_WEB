@@ -83,6 +83,7 @@ export function VideoCollection({ videos }: VideoCollectionProps) {
         {/* Theatre player */}
         <div className="relative">
           <VideoCard
+            key={activeVideo.id}
             url={activeVideo.url}
             title={activeVideo.title}
             onTheatreToggle={() => setTheatreIndex(null)}

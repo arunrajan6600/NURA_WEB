@@ -128,6 +128,7 @@ export function VideoCard({
     if (provider === "direct") {
       return (
         <VideoPlayer
+          key={url}
           url={url}
           title={title}
           onTheatreToggle={onTheatreToggle}

@@ -23,4 +23,7 @@ router.use('/files', files_routes_1.default);
 // Settings endpoints
 const settings_routes_1 = __importDefault(require("./settings.routes"));
 router.use('/settings', settings_routes_1.default);
+// Resume endpoints
+const resume_routes_1 = __importDefault(require("./resume.routes"));
+router.use('/resume', resume_routes_1.default);
 exports.default = router;

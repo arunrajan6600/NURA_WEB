@@ -10,7 +10,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
+export const dynamic = "force-dynamic";
+
+async function getResumeUrl() {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001";
+  try {
+    const res = await fetch(`${baseUrl}/resume`, { cache: 'no-store' });
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && json.data?.url) {
+        return json.data.url;
+      }
+    }
+  } catch (err) {
+    console.error("Failed to fetch resume:", err);
+  }
+  return "https://drive.google.com/file/d/15wvnriDqfn0tJTHynQ5Hs7UaNQc0eu3Z/view?usp=drive_link";
+}
+
+export default async function AboutPage() {
+  const resumeUrl = await getResumeUrl();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://arunrajan6600.github.io/nuraweb";
   const personSchema = {
     "@context": "https://schema.org",
@@ -76,7 +95,7 @@ export default function AboutPage() {
                   CV
                 </p>
                 <Link
-                  href="https://drive.google.com/file/d/15wvnriDqfn0tJTHynQ5Hs7UaNQc0eu3Z/view?usp=drive_link"
+                  href={resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-link"

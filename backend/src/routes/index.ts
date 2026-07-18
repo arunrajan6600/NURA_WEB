@@ -25,4 +25,8 @@ router.use('/files', filesRoutes);
 import settingsRoutes from './settings.routes';
 router.use('/settings', settingsRoutes);
 
+// Resume endpoints
+import resumeRoutes from './resume.routes';
+router.use('/resume', resumeRoutes);
+
 export default router;
