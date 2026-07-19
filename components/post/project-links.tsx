@@ -40,6 +40,29 @@ const LINK_TYPE_LABELS: Record<ProjectLinkType, string> = {
   other: "link",
 };
 
+const CATEGORY_MAP: Record<ProjectLinkType, string> = {
+  publication: "Publications",
+  doi: "Publications",
+  repository: "Repositories",
+  documentation: "Documentation",
+  demo: "Demo",
+  website: "Demo",
+  video: "Videos",
+  presentation: "Videos",
+  dataset: "Datasets",
+  other: "Other Links"
+};
+
+const CATEGORY_ORDER = [
+  "Publications",
+  "Repositories",
+  "Documentation",
+  "Demo",
+  "Videos",
+  "Datasets",
+  "Other Links"
+];
+
 interface ProjectLinksProps {
   pm?: ProjectMetadata | null;
 }
@@ -100,32 +123,53 @@ export function ProjectLinks({ pm }: ProjectLinksProps) {
 
   if (links.length === 0) return null;
 
+  // Group links by category
+  const groups: Record<string, ProjectLink[]> = {};
+  links.forEach((link) => {
+    const category = CATEGORY_MAP[link.type] || "Other Links";
+    if (!groups[category]) {
+      groups[category] = [];
+    }
+    groups[category].push(link);
+  });
+
+  const sortedCategories = CATEGORY_ORDER.filter(
+    (cat) => groups[cat] && groups[cat].length > 0
+  );
+
   return (
-    <div className="flex flex-col gap-4 border-t border-border/60 pt-6 mt-6">
-      <h3 className="font-display text-xs uppercase tracking-wider text-muted-foreground font-bold">
-        [ project resources ]
-      </h3>
-      
-      <div className="flex flex-wrap gap-3">
-        {links.map((link) => {
-          const Icon = LINK_TYPE_ICONS[link.type] || Link;
-          const displayLabel = link.title || LINK_TYPE_LABELS[link.type] || "Resource";
-          
-          return (
-            <a
-              key={link.id}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-border bg-background/50 hover:bg-primary/5 hover:border-primary/50 hover:text-primary px-3.5 py-1.5 font-display text-[10px] uppercase rounded-sm transition-all duration-200 shadow-2xs group"
-              title={link.description || displayLabel}
-            >
-              <Icon className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
-              <span>{displayLabel}</span>
-            </a>
-          );
-        })}
-      </div>
+    <div className="flex flex-col gap-6 border-t border-border/60 pt-6 mt-6">
+      {sortedCategories.map((cat) => {
+        const catLinks = groups[cat];
+        return (
+          <div key={cat} className="flex flex-col gap-3">
+            <h4 className="font-display text-xs uppercase tracking-wider text-muted-foreground font-bold border-b border-border/40 pb-1">
+              {cat}
+            </h4>
+            
+            <div className="flex flex-wrap gap-3">
+              {catLinks.map((link) => {
+                const Icon = LINK_TYPE_ICONS[link.type] || Link;
+                const displayLabel = link.title || LINK_TYPE_LABELS[link.type] || "Resource";
+                
+                return (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 border border-border bg-background/50 hover:bg-primary/5 hover:border-primary/50 hover:text-primary px-3.5 py-1.5 font-display text-[10px] uppercase rounded-sm transition-all duration-200 shadow-2xs group"
+                    title={link.description || displayLabel}
+                  >
+                    <Icon className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                    <span>{displayLabel}</span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

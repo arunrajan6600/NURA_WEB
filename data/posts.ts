@@ -1,6 +1,6 @@
 // Auto-generated posts file
-// Version: v20260719-141121
-// Generated: 2026-07-19T08:41:23.463Z
+// Version: v20260719-172912
+// Generated: 2026-07-19T12:00:07.251Z
 // Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
@@ -20,20 +20,20 @@ export const posts: Post[] = [
       "g aravindan"
     ],
     "createdAt": "2026-07-19T07:52:52.234Z",
-    "updatedAt": "2026-07-19T08:27:47.785Z",
+    "updatedAt": "2026-07-19T10:01:52.303Z",
     "publishedAt": "2026-07-19T07:56:14.290Z",
-    "viewCount": 38,
+    "viewCount": 63,
     "likeCount": 0,
     "cells": [
       {
-        "id": "cmrrj8yxz0016gu1vyp3lpn7v",
+        "id": "cmrrk7a1t000wbm2ew873gu77",
         "type": "markdown",
         "content": "In G. Aravindan's *Kanchana Sita* (1977), Sita is never represented as a visible character; her presence is experienced through the responses of nature—trees, wind, water, light, and the living landscape. Taking this as a conceptual point of departure, this series of videos attempts to rediscover Sita and a constellation of associated texts from the pixels of the film itself. As pixel values shift over time, their dynamic accumulation gradually reveals words and forms within a single static frame. The work proposes that what remains unseen in the narrative may still persist as a latent presence within the moving image.\n\nOne video extends this exploration by incorporating the climactic scene from Aravindan's *Kummatty* (1979), in which Chindan, the dog, affectionately embraces the shaman, Kummatty, amidst the quiet serenity of the Kerala landscape. Through the continuous transformation of pixel values, fragments of this embrace become entangled with Lakshmana's face from Kanchana Sita, giving rise to \"Chindarekha.\"\n\nHow many Sitas, how many moments of becoming can inhabit a single unmoving frame? Beneath its apparent stillness, the pixels contains innumerable temporalities, affections, and transformations.\n\n*ജീവിതത്തിന്റെ പിക്സലുകൾ നിഗൂഢങ്ങൾ ആണ് യുവരാജൻ*",
         "order": 0,
         "orderIndex": 0
       },
       {
-        "id": "cmrrj8yxz0017gu1vp547kxpf",
+        "id": "cmrrk7a1t000xbm2ecxcjffsw",
         "type": "video",
         "content": {
           "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/10d359ae-600e-4a37-b5d8-d2de6a9f178b.mov",
@@ -44,7 +44,7 @@ export const posts: Post[] = [
         "orderIndex": 1
       },
       {
-        "id": "cmrrj8yxz0018gu1vvdp2vmkr",
+        "id": "cmrrk7a1t000ybm2emn6atvaa",
         "type": "video",
         "content": {
           "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/57d8c8a0-eb97-4678-8b5c-17a5572e3006.mp4",
@@ -55,7 +55,7 @@ export const posts: Post[] = [
         "orderIndex": 2
       },
       {
-        "id": "cmrrj8yxz0019gu1v9ipyqzo2",
+        "id": "cmrrk7a1t000zbm2eb5q3zykx",
         "type": "video",
         "content": {
           "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/89e6661c-de4b-483c-bf9a-9e7b1a680cfa.mp4",
@@ -66,7 +66,7 @@ export const posts: Post[] = [
         "orderIndex": 3
       },
       {
-        "id": "cmrrj8yxz001agu1vuki3na3c",
+        "id": "cmrrk7a1t0010bm2eg6ray8k9",
         "type": "video",
         "content": {
           "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/5702b4c2-6d23-4c96-995b-20dd290d4289.mp4",
@@ -77,7 +77,7 @@ export const posts: Post[] = [
         "orderIndex": 4
       },
       {
-        "id": "cmrrj8yxz001bgu1vn38jdjz6",
+        "id": "cmrrk7a1t0011bm2egfr0mksm",
         "type": "video",
         "content": {
           "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
@@ -110,10 +110,25 @@ export const posts: Post[] = [
       "publication": "https://homegrown.co.in/homegrown-creators/an-arun-nura-ai-video-series-deconstructs-notions-of-futurism-physical-reality",
       "researchArea": null,
       "projectCreationDate": "2024-04-13",
-      "credits": {
-        "music": "",
-        "acknowledgements": "Rajeev Taranath [Music from Kanchana Sita]"
-      },
+      "links": [
+        {
+          "id": "link-pub-0",
+          "url": "https://homegrown.co.in/homegrown-creators/an-arun-nura-ai-video-series-deconstructs-notions-of-futurism-physical-reality",
+          "type": "publication",
+          "order": 0,
+          "title": "Homegrown",
+          "description": "https://homegrown.co.in/homegrown-creators/an-arun-nura-ai-video-series-deconstructs-notions-of-futurism-physical-reality"
+        }
+      ],
+      "credits": [
+        {
+          "id": "credit-ack-0",
+          "name": "Acknowledgements",
+          "role": "other",
+          "order": 0,
+          "description": "Rajeev Taranath [Music from Kanchana Sita]"
+        }
+      ],
       "references": null,
       "sections": []
     }
@@ -133,9 +148,9 @@ export const posts: Post[] = [
       "vcv rack"
     ],
     "createdAt": "2026-07-17T17:52:50.732Z",
-    "updatedAt": "2026-07-19T08:27:41.790Z",
+    "updatedAt": "2026-07-19T09:15:04.697Z",
     "publishedAt": "2026-07-17T17:54:28.078Z",
-    "viewCount": 72,
+    "viewCount": 79,
     "likeCount": 0,
     "cells": [
       {
@@ -199,6 +214,7 @@ export const posts: Post[] = [
       "publication": null,
       "researchArea": null,
       "projectCreationDate": "2025-07-25",
+      "links": null,
       "credits": null,
       "references": null,
       "sections": null
@@ -216,9 +232,9 @@ export const posts: Post[] = [
       "ai"
     ],
     "createdAt": "2026-07-17T16:36:13.233Z",
-    "updatedAt": "2026-07-19T08:27:42.556Z",
+    "updatedAt": "2026-07-19T09:06:33.881Z",
     "publishedAt": "2026-07-17T16:36:12.952Z",
-    "viewCount": 66,
+    "viewCount": 69,
     "likeCount": 0,
     "cells": [
       {
@@ -274,6 +290,7 @@ export const posts: Post[] = [
       "publication": null,
       "researchArea": null,
       "projectCreationDate": "2025-01-20",
+      "links": null,
       "credits": null,
       "references": null,
       "sections": null
@@ -293,9 +310,9 @@ export const posts: Post[] = [
       "maythil radhakrishnan"
     ],
     "createdAt": "2026-07-17T16:01:41.719Z",
-    "updatedAt": "2026-07-19T08:27:48.004Z",
+    "updatedAt": "2026-07-19T09:06:31.792Z",
     "publishedAt": "2026-07-17T16:10:01.202Z",
-    "viewCount": 46,
+    "viewCount": 50,
     "likeCount": 0,
     "cells": [
       {
@@ -352,6 +369,7 @@ export const posts: Post[] = [
       "publication": null,
       "researchArea": null,
       "projectCreationDate": "2024-12-02",
+      "links": null,
       "credits": null,
       "references": null,
       "sections": null
@@ -371,9 +389,9 @@ export const posts: Post[] = [
       "puredata"
     ],
     "createdAt": "2026-07-17T15:40:07.424Z",
-    "updatedAt": "2026-07-19T08:27:42.977Z",
+    "updatedAt": "2026-07-19T09:06:30.254Z",
     "publishedAt": "2026-07-17T15:40:06.351Z",
-    "viewCount": 54,
+    "viewCount": 58,
     "likeCount": 0,
     "cells": [
       {
@@ -429,6 +447,7 @@ export const posts: Post[] = [
       "publication": null,
       "researchArea": null,
       "projectCreationDate": "2024-10-26",
+      "links": null,
       "credits": null,
       "references": null,
       "sections": null
@@ -448,9 +467,9 @@ export const posts: Post[] = [
       "touchdesigner"
     ],
     "createdAt": "2026-07-16T19:11:01.057Z",
-    "updatedAt": "2026-07-19T08:27:41.204Z",
+    "updatedAt": "2026-07-19T09:15:04.643Z",
     "publishedAt": "2026-07-16T19:14:50.140Z",
-    "viewCount": 175,
+    "viewCount": 182,
     "likeCount": 0,
     "cells": [
       {
@@ -492,6 +511,7 @@ export const posts: Post[] = [
       "publication": null,
       "researchArea": null,
       "projectCreationDate": "2025-09-01",
+      "links": null,
       "credits": null,
       "references": null,
       "sections": null
@@ -510,9 +530,9 @@ export const posts: Post[] = [
       "malayalam cinema"
     ],
     "createdAt": "2026-07-16T18:57:15.078Z",
-    "updatedAt": "2026-07-19T08:27:44.565Z",
+    "updatedAt": "2026-07-19T09:06:29.857Z",
     "publishedAt": "2026-07-16T19:07:07.097Z",
-    "viewCount": 102,
+    "viewCount": 106,
     "likeCount": 0,
     "cells": [
       {
@@ -554,6 +574,7 @@ export const posts: Post[] = [
       "publication": null,
       "researchArea": null,
       "projectCreationDate": "2024-04-24",
+      "links": null,
       "credits": null,
       "references": null,
       "sections": null
@@ -566,7 +587,7 @@ export const posts: Post[] = [
     "status": "published",
     "featured": false,
     "type": "project",
-    "excerpt": "A YOLO model identifies birds and cached frames arranged in reaction to sound from VCV Rack.",
+    "excerpt": "An audio interactive video where music from VCV rack is controlling the orientation of caches frames of a video",
     "tags": [
       "touchdesigner",
       "vcv rack",
@@ -575,28 +596,17 @@ export const posts: Post[] = [
       "audio reactive"
     ],
     "createdAt": "2025-09-01T02:13:14.993Z",
-    "updatedAt": "2026-07-19T08:27:41.784Z",
+    "updatedAt": "2026-07-19T09:09:36.904Z",
     "publishedAt": "2025-09-01T02:13:14.993Z",
-    "viewCount": 144,
+    "viewCount": 148,
     "likeCount": 0,
     "cells": [
       {
-        "id": "cmrp2a2h8000qec1vmad0tkbh",
+        "id": "cmrrkr43n001qbm2eu4pp0fgw",
         "type": "markdown",
-        "content": "A YOLO model identifies birds and frames are cached in reaction to sound from VCV Rack.\n\nSoftwares: Touchdesigner [Visual Manipulation & Text], VCV Rack [Audio Synthesis]",
+        "content": "An audio interactive video where music from VCV rack is controlling the orientation of caches frames of a video\n\nAI Model: YOLO [Detection]\nSoftwares: Touchdesigner [Visual Manipulation & Text], VCV Rack [Audio Synthesis]",
         "order": 0,
         "orderIndex": 0
-      },
-      {
-        "id": "cmrp2a2h8000rec1vvualpvb4",
-        "type": "video",
-        "content": {
-          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/76aec298-a86c-4c2d-856b-0768e0a24a5b.mp4",
-          "title": "",
-          "provider": "direct"
-        },
-        "order": 1,
-        "orderIndex": 1
       }
     ],
     "projectMetadata": {
@@ -623,19 +633,20 @@ export const posts: Post[] = [
       "publication": null,
       "researchArea": null,
       "projectCreationDate": "2025-07-18",
-      "credits": null,
+      "links": [],
+      "credits": [],
       "references": null,
       "sections": null
     }
   },
   {
     "id": "MF0H2T15OJYREBYNFR",
-    "title": "Bhashanaishadham Ambu | ഭാഷാനൈഷധം അമ്പു",
+    "title": "Bhashanaishadham Ambu",
     "slug": "bhashanaishadham-ambu",
     "status": "published",
     "featured": false,
     "type": "project",
-    "excerpt": "Bhasha Naishadha Ambu is an experiment to find and manipulate the numerical data from a vector embedding AI model and compare the vector values with the positions of 3D points from a masked video of Ambu (the child)",
+    "excerpt": "Bhasha Naishadha Ambu is an experiment to find and manipulate the numerical data from a vector embedding AI model and compare the vector values with the positions of 3D points from a masked video of Ambu (the child).",
     "tags": [
       "ai",
       "interactive",
@@ -643,20 +654,20 @@ export const posts: Post[] = [
       "python"
     ],
     "createdAt": "2025-09-01T02:00:29.561Z",
-    "updatedAt": "2026-07-19T08:27:44.058Z",
+    "updatedAt": "2026-07-19T09:07:54.677Z",
     "publishedAt": "2025-09-01T02:00:29.561Z",
-    "viewCount": 116,
+    "viewCount": 122,
     "likeCount": 0,
     "cells": [
       {
-        "id": "cmrp2hw0u000zec1vq0e6mq0j",
+        "id": "cmrrkox85001lbm2eddwxkcy1",
         "type": "markdown",
-        "content": "Bhasha Naishadha Ambu is an experiment to find and manipulate the numerical data from a vector embedding AI model and compare the vector values with the positions of 3D points from a masked video of Ambu (the child). Then the words corresponding to the positional values from video is selected and superimposed over the video. The fundamental intention of this experiment is to explore how language, pixels, vectors are all interconnected in a world of pseudo-futurism which might transformed to a \"future\".\n\nVideo Credits: Rajesh Karthy, Dr. Jaseera Majid'  \n",
+        "content": "Bhasha Naishadha Ambu is an experiment to find and manipulate the numerical data from a vector embedding AI model and compare the vector values with the positions of 3D points from a masked video of Ambu (the child). Then the words corresponding to the positional values from video is selected and superimposed over the video. The fundamental intention of this experiment is to explore how language, pixels, vectors are all interconnected in a world of pseudo-futurism which might transformed to a \"future\".\n\nVideo Credits: Rajesh Karthy, Dr. Jaseera Majid'  \n\n*10 October 2024*",
         "order": 0,
         "orderIndex": 0
       },
       {
-        "id": "cmrp2hw0u0010ec1vui309hvx",
+        "id": "cmrrkox85001mbm2e82nfbl90",
         "type": "video",
         "content": {
           "url": "https://nuraweb.s3.ap-south-1.amazonaws.com/2bd2eb1d-d012-48d3-b834-3bc32e8504de.mp4",
@@ -667,7 +678,7 @@ export const posts: Post[] = [
         "orderIndex": 1
       },
       {
-        "id": "cmrp2hw0u0011ec1vnvqqsujr",
+        "id": "cmrrkox85001nbm2em7rldnry",
         "type": "video",
         "content": {
           "url": "https://nuraweb.s3.ap-south-1.amazonaws.com/382795eb-63be-4d0e-b8d2-4ed926f220e1.mp4",
@@ -702,7 +713,78 @@ export const posts: Post[] = [
       "publication": null,
       "researchArea": null,
       "projectCreationDate": "2024-10-10",
-      "credits": null,
+      "links": [],
+      "credits": [],
+      "references": null,
+      "sections": null
+    }
+  },
+  {
+    "id": "MEPZ3BSMXOV2VNKISP",
+    "title": "Google Maps Street View + VCV in touchdesigner",
+    "slug": "google-maps-street-view-controlled-by-vcv-in-touchdesigner",
+    "status": "published",
+    "featured": false,
+    "type": "project",
+    "excerpt": "Using music data from VCV Rack processed through touchdesigner, google maps street view is controlled",
+    "tags": [
+      "interactive",
+      "google maps",
+      "vcv rack",
+      "touchdesigner"
+    ],
+    "createdAt": "2025-08-24T17:39:19.030Z",
+    "updatedAt": "2026-07-19T09:15:04.054Z",
+    "publishedAt": "2025-08-24T17:39:19.030Z",
+    "viewCount": 102,
+    "likeCount": 0,
+    "cells": [
+      {
+        "id": "cmrrkmrv3001hbm2e2ai0j10b",
+        "type": "markdown",
+        "content": "Street View: Kottarakkara\n\nGoogle Maps API + Touchdesigner + VCV Rack + Python + ChatGPT\n\n*25 july 2025*",
+        "order": 0,
+        "orderIndex": 0
+      },
+      {
+        "id": "cmrrkmrv3001ibm2ezjqtidyi",
+        "type": "video",
+        "content": {
+          "url": "https://nuraweb.s3.ap-south-1.amazonaws.com/4de83eb5-54f6-4259-9b3a-c6ffc2c02290.mp4",
+          "title": "",
+          "provider": "direct"
+        },
+        "order": 1,
+        "orderIndex": 1
+      }
+    ],
+    "projectMetadata": {
+      "subtitle": null,
+      "category": "Audio Reactive Video",
+      "role": null,
+      "client": null,
+      "teamMembers": null,
+      "year": "25 July 2025",
+      "duration": null,
+      "repoLink": null,
+      "demoLink": null,
+      "docLink": null,
+      "medium": "Video",
+      "collaborators": null,
+      "tools": [
+        "touchdesigner",
+        "google maps",
+        "vcv rack",
+        "mediapipe"
+      ],
+      "technologies": [],
+      "institution": null,
+      "exhibition": null,
+      "publication": null,
+      "researchArea": null,
+      "projectCreationDate": "2025-07-25",
+      "links": [],
+      "credits": [],
       "references": null,
       "sections": null
     }
@@ -710,8 +792,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260719-141121",
-  generatedAt: "2026-07-19T08:41:23.463Z",
+  version: "v20260719-172912",
+  generatedAt: "2026-07-19T12:00:07.251Z",
   source: "api",
-  count: 9
+  count: 10
 };
