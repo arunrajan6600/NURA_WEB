@@ -1,4 +1,4 @@
-export type PostType = 'project' | 'blog' | 'paper' | 'article' | 'story' | 'general';
+export type PostType = string;
 export type PostStatus = 'draft' | 'published';
 
 export interface PostCell {

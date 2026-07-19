@@ -11,13 +11,9 @@ interface CategoryItem {
   types: string[];
 }
 
-interface LiveCategoriesGridProps {
-  staticPosts?: Post[];
-  categories: CategoryItem[];
-}
-
-export function LiveCategoriesGrid({ categories }: LiveCategoriesGridProps) {
+export function LiveCategoriesGrid() {
   const [livePosts, setLivePosts] = useState<Post[]>([]);
+  const [categories, setCategories] = useState<CategoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const fetchedRef = useRef(false);
 
@@ -25,20 +21,78 @@ export function LiveCategoriesGrid({ categories }: LiveCategoriesGridProps) {
     if (fetchedRef.current) return;
     fetchedRef.current = true;
 
-    postsApi
-      .listPosts({ status: "published" })
-      .then((res) => {
-        if (res.success && Array.isArray(res.data)) {
-          setLivePosts(res.data as Post[]);
+    // Load both posts and active content types
+    Promise.all([
+      postsApi.listPosts({ status: "published" }),
+      postsApi.listContentTypes()
+    ])
+      .then(([postsRes, typesRes]) => {
+        if (postsRes.success && Array.isArray(postsRes.data)) {
+          setLivePosts(postsRes.data as Post[]);
+        }
+
+        if (typesRes.success && Array.isArray(typesRes.data)) {
+          // Construct categories based on backend content types order and status
+          const sortedTypes = [...typesRes.data].filter((t: any) => t.enabled);
+
+          const mappedCategories = sortedTypes.map((type: any) => {
+            if (type.slug === "project") {
+              // Projects are rendered in the /works section, not under /posts
+              return null;
+            }
+
+            if (type.slug === "blog") {
+              return {
+                href: "/posts/blog",
+                label: "Blog",
+                types: ["blog"],
+              };
+            }
+
+            if (type.slug === "paper") {
+              return {
+                href: "/posts/papers",
+                label: "Articles & Papers",
+                types: ["paper", "article"], // Include legacy article
+              };
+            }
+
+            if (type.slug === "story") {
+              return {
+                href: "/posts/stories",
+                label: "Stories",
+                types: ["story"],
+              };
+            }
+
+            // Custom dynamic content type or legacy general
+            return {
+              href: `/posts/${type.slug}`,
+              label: type.name,
+              types: [type.slug],
+            };
+          }).filter(Boolean) as CategoryItem[];
+
+          setCategories(mappedCategories);
         }
       })
       .catch((err) => {
-        console.error("Failed to load live categories count:", err);
+        console.error("Failed to load live categories:", err);
       })
       .finally(() => {
         setLoading(false);
       });
   }, []);
+
+  if (loading && categories.length === 0) {
+    return (
+      <div className="grid gap-3 md:grid-cols-2">
+        {[1, 2, 3, 4].map((i) => (
+          <div key={i} className="h-40 border border-border bg-card/40 animate-pulse rounded" />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="grid gap-3 md:grid-cols-2">

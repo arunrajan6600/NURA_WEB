@@ -9,28 +9,7 @@ export const metadata: Metadata = {
   },
 };
 
-const categories = [
-  {
-    href: "/posts/blog",
-    label: "Blog",
-    types: ["blog"],
-  },
-  {
-    href: "/posts/papers",
-    label: "Articles & Papers",
-    types: ["article", "paper"],
-  },
-  {
-    href: "/posts/stories",
-    label: "Stories",
-    types: ["story"],
-  },
-  {
-    href: "/posts/general",
-    label: "Other Writings",
-    types: ["general"],
-  },
-];
+
 
 export default function PostsPage() {
   return (
@@ -46,9 +25,7 @@ export default function PostsPage() {
           </span>
         </div>
 
-        <LiveCategoriesGrid
-          categories={categories}
-        />
+        <LiveCategoriesGrid />
       </section>
     </div>
   );

@@ -1,5 +1,25 @@
 import prisma from '../config/prisma';
 import { CreatePostInput, UpdatePostInput, PostFilters } from '../types/post.types';
+import { v4 as uuidv4 } from 'uuid';
+
+export function slugify(text: string): string {
+  if (!text || text.trim() === '') {
+    return 'post-' + uuidv4().substring(0, 8);
+  }
+  
+  // Convert to lowercase and replace all non-alphanumeric unicode characters with dashes
+  let slug = text
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, '-')
+    .replace(/(^-|-$)/g, '');
+    
+  // If the slug is empty or just dashes, fallback to uuid
+  if (!slug || slug === '-') {
+    slug = 'post-' + uuidv4().substring(0, 8);
+  }
+  
+  return slug;
+}
 
 export class PostsRepository {
   /**
@@ -82,7 +102,7 @@ export class PostsRepository {
    * Creates a post along with cells and optional metadata in a transaction.
    */
   public async create(data: CreatePostInput) {
-    const slug = data.slug || data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const slug = data.slug ? slugify(data.slug) : slugify(data.title);
     const now = new Date();
 
     return prisma.$transaction(async (tx) => {
@@ -167,9 +187,9 @@ export class PostsRepository {
       const existing = await tx.post.findUniqueOrThrow({ where: { id } });
 
       const slug = data.slug !== undefined
-        ? data.slug
+        ? (data.slug ? slugify(data.slug) : existing.slug)
         : data.title !== undefined
-          ? data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+          ? slugify(data.title)
           : existing.slug;
 
       const updateData: any = {};

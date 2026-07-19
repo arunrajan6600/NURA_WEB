@@ -29,4 +29,8 @@ router.use('/settings', settingsRoutes);
 import resumeRoutes from './resume.routes';
 router.use('/resume', resumeRoutes);
 
+// Content types endpoints
+import contentTypesRoutes from './content-types.routes';
+router.use('/content-types', contentTypesRoutes);
+
 export default router;

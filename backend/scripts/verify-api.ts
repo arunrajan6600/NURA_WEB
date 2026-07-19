@@ -167,7 +167,7 @@ async function verifyCreate(token: string): Promise<{ publishedId: string; draft
     title:  'Verify Draft Post',
     slug:   slug2,
     status: 'draft',
-    type:   'article',
+    type:   'paper',
   }, token);
 
   assert('POST /posts (draft) → 201',   s2 === 201,                `got ${s2}`);

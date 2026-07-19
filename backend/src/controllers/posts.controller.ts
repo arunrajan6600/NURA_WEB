@@ -128,7 +128,7 @@ const createPostSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   slug: z.string().optional(),
   status: z.enum(['draft', 'published']).default('draft'),
-  type: z.enum(['project', 'blog', 'paper', 'article', 'story', 'general']).default('blog'),
+  type: z.string().default('blog'),
   featured: z.boolean().default(false),
   pinned: z.boolean().default(false),
   archived: z.boolean().default(false),
@@ -145,7 +145,7 @@ const updatePostSchema = createPostSchema.partial();
 
 const querySchema = z.object({
   status: z.enum(['draft', 'published']).optional(),
-  type: z.enum(['project', 'blog', 'paper', 'article', 'story', 'general']).optional(),
+  type: z.string().optional(),
   featured: z.enum(['true', 'false']).transform(v => v === 'true').optional(),
   tags: z.string().optional(), // comma-separated list
   limit: z.coerce.number().int().positive().optional(),

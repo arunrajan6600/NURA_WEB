@@ -197,7 +197,7 @@ class PostsApi {
 
   // Get a single post by ID or slug
   async getPost(id: string): Promise<PostsApiResponse> {
-    const response = await this.makeRequest(`/posts/${id}`);
+    const response = await this.makeRequest(`/posts/${encodeURIComponent(id)}`);
 
     // Process the post to fix escaped newlines
     if (
@@ -266,7 +266,7 @@ class PostsApi {
         orderIndex: index
       }))
     };
-    const response = await this.makeRequest(`/posts/${id}`, {
+    const response = await this.makeRequest(`/posts/${encodeURIComponent(id)}`, {
       method: "PUT",
       body: JSON.stringify(sanitizedUpdateData),
     });
@@ -286,7 +286,7 @@ class PostsApi {
 
   // Delete a post (requires authentication)
   async deletePost(id: string): Promise<PostsApiResponse> {
-    return this.makeRequest(`/posts/${id}`, {
+    return this.makeRequest(`/posts/${encodeURIComponent(id)}`, {
       method: "DELETE",
     });
   }
@@ -374,6 +374,35 @@ class PostsApi {
   async getDraftPosts(): Promise<PostsApiResponse> {
     return this.listPosts({
       status: "draft",
+    });
+  }
+
+  // ─── Content Types ──────────────────────────────────────────────────────────
+
+  async listContentTypes(): Promise<PostsApiResponse> {
+    return this.makeRequest("/content-types");
+  }
+
+  async createContentType(name: string): Promise<PostsApiResponse> {
+    return this.makeRequest("/content-types", {
+      method: "POST",
+      body: JSON.stringify({ name }),
+    });
+  }
+
+  async updateContentType(
+    slug: string,
+    data: { name?: string; enabled?: boolean; order?: number }
+  ): Promise<PostsApiResponse> {
+    return this.makeRequest(`/content-types/${encodeURIComponent(slug)}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    });
+  }
+
+  async deleteContentType(slug: string): Promise<PostsApiResponse> {
+    return this.makeRequest(`/content-types/${encodeURIComponent(slug)}`, {
+      method: "DELETE",
     });
   }
 }

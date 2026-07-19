@@ -25,6 +25,18 @@ export class PostsService {
       post = await postsRepository.findBySlug(identifier);
     }
 
+    // Try decoding in case identifier was URL encoded in the request
+    if (!post) {
+      try {
+        const decoded = decodeURIComponent(identifier);
+        if (decoded !== identifier) {
+          post = await postsRepository.findBySlug(decoded);
+        }
+      } catch {
+        // Ignore malformed URI errors
+      }
+    }
+
     if (!post) {
       return null;
     }

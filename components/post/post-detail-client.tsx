@@ -23,15 +23,17 @@ function getBackLink(post: Post) {
     case "project":
       return { href: "/works", label: "Works" };
     case "paper":
-    case "article":
+    case "article": // legacy backward compatibility
       return { href: "/posts/papers", label: "Articles & Papers" };
     case "story":
       return { href: "/posts/stories", label: "Stories" };
     case "general":
       return { href: "/posts/general", label: "Other Writings" };
     case "blog":
-    default:
       return { href: "/posts/blog", label: "Blog" };
+    default:
+      // Custom content types link back to the posts hub
+      return { href: "/posts", label: "Posts" };
   }
 }
 

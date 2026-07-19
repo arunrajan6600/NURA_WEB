@@ -78,18 +78,18 @@ async function main() {
 
   console.log('  ✅  3 ordered cells created for verification published post');
 
-  // ── 2. Draft verification post (article) ───────────────────────────────────
+  // ── 2. Draft verification post (paper) ───────────────────────────────────
   const draftPost = await prisma.post.upsert({
     where: { slug: DRAFT_SLUG },
     update: {
       status:     'draft',
-      type:       'article',
+      type:       'paper',
     },
     create: {
       title:      'Draft Post (Seed)',
       slug:       DRAFT_SLUG,
       status:     'draft',
-      type:       'article',
+      type:       'paper',
       featured:   false,
       pinned:     false,
       archived:   false,

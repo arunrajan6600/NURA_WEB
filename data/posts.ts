@@ -1,6 +1,6 @@
 // Auto-generated posts file
-// Version: v20260719-172912
-// Generated: 2026-07-19T12:00:07.251Z
+// Version: v20260719-220318
+// Generated: 2026-07-19T16:33:42.583Z
 // Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
@@ -20,9 +20,9 @@ export const posts: Post[] = [
       "g aravindan"
     ],
     "createdAt": "2026-07-19T07:52:52.234Z",
-    "updatedAt": "2026-07-19T10:01:52.303Z",
+    "updatedAt": "2026-07-19T14:29:05.028Z",
     "publishedAt": "2026-07-19T07:56:14.290Z",
-    "viewCount": 63,
+    "viewCount": 64,
     "likeCount": 0,
     "cells": [
       {
@@ -148,9 +148,9 @@ export const posts: Post[] = [
       "vcv rack"
     ],
     "createdAt": "2026-07-17T17:52:50.732Z",
-    "updatedAt": "2026-07-19T09:15:04.697Z",
+    "updatedAt": "2026-07-19T14:33:40.361Z",
     "publishedAt": "2026-07-17T17:54:28.078Z",
-    "viewCount": 79,
+    "viewCount": 82,
     "likeCount": 0,
     "cells": [
       {
@@ -232,9 +232,9 @@ export const posts: Post[] = [
       "ai"
     ],
     "createdAt": "2026-07-17T16:36:13.233Z",
-    "updatedAt": "2026-07-19T09:06:33.881Z",
+    "updatedAt": "2026-07-19T14:28:51.499Z",
     "publishedAt": "2026-07-17T16:36:12.952Z",
-    "viewCount": 69,
+    "viewCount": 71,
     "likeCount": 0,
     "cells": [
       {
@@ -310,9 +310,9 @@ export const posts: Post[] = [
       "maythil radhakrishnan"
     ],
     "createdAt": "2026-07-17T16:01:41.719Z",
-    "updatedAt": "2026-07-19T09:06:31.792Z",
+    "updatedAt": "2026-07-19T14:28:35.297Z",
     "publishedAt": "2026-07-17T16:10:01.202Z",
-    "viewCount": 50,
+    "viewCount": 52,
     "likeCount": 0,
     "cells": [
       {
@@ -389,9 +389,9 @@ export const posts: Post[] = [
       "puredata"
     ],
     "createdAt": "2026-07-17T15:40:07.424Z",
-    "updatedAt": "2026-07-19T09:06:30.254Z",
+    "updatedAt": "2026-07-19T14:29:08.598Z",
     "publishedAt": "2026-07-17T15:40:06.351Z",
-    "viewCount": 58,
+    "viewCount": 61,
     "likeCount": 0,
     "cells": [
       {
@@ -467,9 +467,9 @@ export const posts: Post[] = [
       "touchdesigner"
     ],
     "createdAt": "2026-07-16T19:11:01.057Z",
-    "updatedAt": "2026-07-19T09:15:04.643Z",
+    "updatedAt": "2026-07-19T14:28:50.370Z",
     "publishedAt": "2026-07-16T19:14:50.140Z",
-    "viewCount": 182,
+    "viewCount": 186,
     "likeCount": 0,
     "cells": [
       {
@@ -530,9 +530,9 @@ export const posts: Post[] = [
       "malayalam cinema"
     ],
     "createdAt": "2026-07-16T18:57:15.078Z",
-    "updatedAt": "2026-07-19T09:06:29.857Z",
+    "updatedAt": "2026-07-19T14:28:37.394Z",
     "publishedAt": "2026-07-16T19:07:07.097Z",
-    "viewCount": 106,
+    "viewCount": 108,
     "likeCount": 0,
     "cells": [
       {
@@ -596,9 +596,9 @@ export const posts: Post[] = [
       "audio reactive"
     ],
     "createdAt": "2025-09-01T02:13:14.993Z",
-    "updatedAt": "2026-07-19T09:09:36.904Z",
+    "updatedAt": "2026-07-19T14:28:41.399Z",
     "publishedAt": "2025-09-01T02:13:14.993Z",
-    "viewCount": 148,
+    "viewCount": 154,
     "likeCount": 0,
     "cells": [
       {
@@ -654,9 +654,9 @@ export const posts: Post[] = [
       "python"
     ],
     "createdAt": "2025-09-01T02:00:29.561Z",
-    "updatedAt": "2026-07-19T09:07:54.677Z",
+    "updatedAt": "2026-07-19T14:28:37.248Z",
     "publishedAt": "2025-09-01T02:00:29.561Z",
-    "viewCount": 122,
+    "viewCount": 124,
     "likeCount": 0,
     "cells": [
       {
@@ -734,9 +734,9 @@ export const posts: Post[] = [
       "touchdesigner"
     ],
     "createdAt": "2025-08-24T17:39:19.030Z",
-    "updatedAt": "2026-07-19T09:15:04.054Z",
+    "updatedAt": "2026-07-19T14:28:41.224Z",
     "publishedAt": "2025-08-24T17:39:19.030Z",
-    "viewCount": 102,
+    "viewCount": 106,
     "likeCount": 0,
     "cells": [
       {
@@ -792,8 +792,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260719-172912",
-  generatedAt: "2026-07-19T12:00:07.251Z",
+  version: "v20260719-220318",
+  generatedAt: "2026-07-19T16:33:42.583Z",
   source: "api",
   count: 10
 };

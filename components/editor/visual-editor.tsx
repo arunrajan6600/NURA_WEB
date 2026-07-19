@@ -622,6 +622,23 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
     return migrated;
   });
   const [isUpdatingInternally, setIsUpdatingInternally] = useState(false);
+  const [contentTypes, setContentTypes] = useState<Array<{ value: string; label: string }>>(
+    POST_TYPES.map((t) => ({ value: t.value, label: t.label }))
+  );
+
+  // Load content types dynamically (includes custom types)
+  useEffect(() => {
+    import("@/lib/posts-api").then(({ postsApi }) => {
+      postsApi.listContentTypes().then((res) => {
+        if (res.success && Array.isArray(res.data)) {
+          const types = (res.data as Array<{ name: string; slug: string; enabled: boolean }>)
+            .filter((t) => t.enabled)
+            .map((t) => ({ value: t.slug, label: t.name }));
+          if (types.length > 0) setContentTypes(types);
+        }
+      }).catch(() => {/* keep defaults on error */});
+    });
+  }, []);
 
   // Sync with prop changes (for discard functionality)
   useEffect(() => {
@@ -805,7 +822,7 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {POST_TYPES.map((type) => (
+                {contentTypes.map((type) => (
                   <SelectItem key={type.value} value={type.value}>
                     {type.label}
                   </SelectItem>

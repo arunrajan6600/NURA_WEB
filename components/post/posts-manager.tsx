@@ -101,6 +101,29 @@ export function PostsManager({
     }
   }, [authToken]);
 
+  // Dynamic content types (system + custom)
+  const [contentTypes, setContentTypes] = useState<Array<{ value: string; label: string }>>(
+    POST_TYPES.map((t) => ({ value: t.value, label: t.label }))
+  );
+  const [filterTypes, setFilterTypes] = useState<Array<{ value: string; label: string }>>([
+    { value: "all", label: "All Types" },
+    ...POST_TYPES.map((t) => ({ value: t.value, label: t.label })),
+  ]);
+
+  useEffect(() => {
+    postsApi.listContentTypes().then((res) => {
+      if (res.success && Array.isArray(res.data)) {
+        const types = (res.data as Array<{ name: string; slug: string; enabled: boolean }>)
+          .filter((t) => t.enabled)
+          .map((t) => ({ value: t.slug, label: t.name }));
+        if (types.length > 0) {
+          setContentTypes(types);
+          setFilterTypes([{ value: "all", label: "All Types" }, ...types]);
+        }
+      }
+    }).catch(() => {/* keep defaults */});
+  }, []);
+
   // Handle filter changes
   const handleStatusFilter = useCallback((value: string) => {
     setFilters((prev) => ({ ...prev, status: value }));
@@ -395,7 +418,7 @@ export function PostsManager({
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            {POST_TYPES.map((type) => (
+                            {contentTypes.map((type) => (
                               <SelectItem key={type.value} value={type.value}>
                                 {type.label}
                               </SelectItem>
@@ -569,7 +592,7 @@ export function PostsManager({
                   <SelectValue placeholder="All types" />
                 </SelectTrigger>
                 <SelectContent>
-                  {POST_FILTER_TYPES.map((type) => (
+                  {filterTypes.map((type) => (
                     <SelectItem key={type.value} value={type.value}>
                       {type.label}
                     </SelectItem>

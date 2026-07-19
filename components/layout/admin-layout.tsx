@@ -8,7 +8,8 @@ import {
   FileText, 
   FolderOpen, 
   Settings as SettingsIcon, 
-  LogOut 
+  LogOut,
+  Layers
 } from "lucide-react";
 import { useAuth } from "@/components/auth/auth-provider";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Posts", href: "/admin/posts", icon: FileText },
     { name: "Files & Storage", href: "/admin/files", icon: FolderOpen },
+    { name: "Content Types", href: "/admin/content-types", icon: Layers },
     { name: "Settings", href: "/admin/settings", icon: SettingsIcon },
   ];
 
