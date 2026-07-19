@@ -96,6 +96,7 @@ model ProjectMetadata {
   technologies  String[]
   // Structured data
   credits       Json?
+  links         Json?    // Array of {id, type, title, url, description?, order}
   references    Json?
   sections      Json?    // Array of {id, title, content, order}
 

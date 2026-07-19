@@ -1,7 +1,99 @@
 "use client";
 
-import { Cell, ImageContent, Post, VideoContent, ProjectSection, ProjectMetadata } from "@/types/post";
+import { Cell, ImageContent, Post, VideoContent, ProjectSection, ProjectMetadata, ProjectLink, ProjectCredit } from "@/types/post";
 import { POST_TYPES, PostType } from "@/lib/constants";
+import { ProjectLinksEditor } from "@/components/editor/project-links-editor";
+import { ProjectCreditsEditor } from "@/components/editor/project-credits-editor";
+
+function migrateProjectMetadata(pm?: ProjectMetadata | null): ProjectMetadata | null {
+  if (!pm) return null;
+  const migrated = { ...pm };
+
+  // 1. Migrate Links
+  if (!migrated.links || migrated.links.length === 0) {
+    const linksArray: ProjectLink[] = [];
+    let orderIndex = 0;
+    if (pm.publication) {
+      linksArray.push({
+        id: `link-pub-${orderIndex}`,
+        type: "publication",
+        title: "Publication",
+        url: pm.publication,
+        order: orderIndex++,
+      });
+    }
+    if (pm.repoLink) {
+      linksArray.push({
+        id: `link-repo-${orderIndex}`,
+        type: "repository",
+        title: "Repository",
+        url: pm.repoLink,
+        order: orderIndex++,
+      });
+    }
+    if (pm.demoLink) {
+      linksArray.push({
+        id: `link-demo-${orderIndex}`,
+        type: "demo",
+        title: "Live Demo",
+        url: pm.demoLink,
+        order: orderIndex++,
+      });
+    }
+    if (pm.docLink) {
+      linksArray.push({
+        id: `link-doc-${orderIndex}`,
+        type: "documentation",
+        title: "Documentation",
+        url: pm.docLink,
+        order: orderIndex++,
+      });
+    }
+    migrated.links = linksArray;
+  }
+
+  // 2. Migrate Credits
+  if (migrated.credits && !Array.isArray(migrated.credits)) {
+    const creditsArray: ProjectCredit[] = [];
+    let orderIndex = 0;
+    const oldCredits = migrated.credits as any;
+    const roleMapping: Record<string, any> = {
+      performers: "developer",
+      cinematography: "designer",
+      music: "other",
+      sound: "other",
+      editing: "other",
+      institutions: "institution",
+    };
+
+    Object.keys(oldCredits).forEach((key) => {
+      if (key !== "acknowledgements" && oldCredits[key]) {
+        creditsArray.push({
+          id: `credit-${key}-${orderIndex}`,
+          role: roleMapping[key] || "other",
+          name: oldCredits[key],
+          description: `Legacy role: ${key}`,
+          order: orderIndex++,
+        });
+      }
+    });
+
+    if (oldCredits.acknowledgements) {
+      creditsArray.push({
+        id: `credit-ack-${orderIndex}`,
+        role: "other",
+        name: "Acknowledgements",
+        description: oldCredits.acknowledgements,
+        order: orderIndex++,
+      });
+    }
+    migrated.credits = creditsArray;
+  } else if (!migrated.credits) {
+    migrated.credits = [];
+  }
+
+  return migrated;
+}
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -522,13 +614,23 @@ function ProjectSectionsEditor({
 // ─── Visual Editor ────────────────────────────────────────────────────────────
 
 export function VisualEditor({ post, onChange }: VisualEditorProps) {
-  const [localPost, setLocalPost] = useState<Post>(post);
+  const [localPost, setLocalPost] = useState<Post>(() => {
+    const migrated = { ...post };
+    if (migrated.projectMetadata) {
+      migrated.projectMetadata = migrateProjectMetadata(migrated.projectMetadata);
+    }
+    return migrated;
+  });
   const [isUpdatingInternally, setIsUpdatingInternally] = useState(false);
 
   // Sync with prop changes (for discard functionality)
   useEffect(() => {
     if (!isUpdatingInternally) {
-      setLocalPost(post);
+      const migrated = { ...post };
+      if (migrated.projectMetadata) {
+        migrated.projectMetadata = migrateProjectMetadata(migrated.projectMetadata);
+      }
+      setLocalPost(migrated);
     }
   }, [post, isUpdatingInternally]);
 
@@ -987,76 +1089,17 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
           </CollapsiblePanel>
 
           <CollapsiblePanel title="Links" icon={Link2}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label>Repository Link</Label>
-                <Input
-                  value={pm.repoLink || ""}
-                  onChange={(e) => updateProjectMeta("repoLink", e.target.value)}
-                  placeholder="https://github.com/…"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Live Demo Link</Label>
-                <Input
-                  value={pm.demoLink || ""}
-                  onChange={(e) => updateProjectMeta("demoLink", e.target.value)}
-                  placeholder="https://…"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Documentation Link</Label>
-                <Input
-                  value={pm.docLink || ""}
-                  onChange={(e) => updateProjectMeta("docLink", e.target.value)}
-                  placeholder="https://…"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Publication</Label>
-                <Input
-                  value={pm.publication || ""}
-                  onChange={(e) => updateProjectMeta("publication", e.target.value)}
-                  placeholder="Published in…"
-                />
-              </div>
-            </div>
+            <ProjectLinksEditor
+              links={pm.links || []}
+              onChange={(links) => updateProjectMeta("links", links)}
+            />
           </CollapsiblePanel>
 
           <CollapsiblePanel title="Credits" icon={Users}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {["performers", "cinematography", "music", "sound", "editing", "institutions"].map(
-                (field) => (
-                  <div key={field} className="space-y-2">
-                    <Label className="capitalize">{field}</Label>
-                    <Input
-                      value={(pm.credits as Record<string, string> | undefined)?.[field] || ""}
-                      onChange={(e) =>
-                        updateProjectMeta("credits", {
-                          ...(pm.credits || {}),
-                          [field]: e.target.value,
-                        })
-                      }
-                      placeholder={field}
-                    />
-                  </div>
-                )
-              )}
-              <div className="space-y-2 md:col-span-2">
-                <Label>Acknowledgements</Label>
-                <Textarea
-                  value={(pm.credits as Record<string, string> | undefined)?.acknowledgements || ""}
-                  onChange={(e) =>
-                    updateProjectMeta("credits", {
-                      ...(pm.credits || {}),
-                      acknowledgements: e.target.value,
-                    })
-                  }
-                  placeholder="Acknowledgements…"
-                  rows={2}
-                />
-              </div>
-            </div>
+            <ProjectCreditsEditor
+              credits={(pm.credits as ProjectCredit[]) || []}
+              onChange={(credits) => updateProjectMeta("credits", credits)}
+            />
           </CollapsiblePanel>
 
           <CollapsiblePanel title="Project Sections" icon={Layers}>

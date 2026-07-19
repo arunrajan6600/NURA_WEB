@@ -13,6 +13,8 @@ import { CitationBlock } from "@/components/post/citation-block";
 import { ShareSection } from "@/components/post/share-section";
 import { groupCells } from "@/lib/media-grouper";
 import { MarkdownCell } from "@/components/post/markdown-cell";
+import { ProjectLinks } from "@/components/post/project-links";
+import { ProjectCredits } from "@/components/post/project-credits";
 
 // ─── Helpers (ported from [id]/page.tsx) ──────────────────────────────────────
 
@@ -516,33 +518,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
               <span className="lowercase text-foreground/90">{post.projectMetadata.technologies.join(", ")}</span>
             </div>
           )}
-          {(post.projectMetadata.repoLink ||
-            post.projectMetadata.demoLink ||
-            post.projectMetadata.docLink ||
-            post.projectMetadata.publication) && (
-            <div className="flex flex-wrap gap-4 pt-4 border-t border-border mt-4">
-              {post.projectMetadata.repoLink && (
-                <a href={post.projectMetadata.repoLink} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4 lowercase">
-                  [ repository ]
-                </a>
-              )}
-              {post.projectMetadata.demoLink && (
-                <a href={post.projectMetadata.demoLink} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4 lowercase">
-                  [ live demo ]
-                </a>
-              )}
-              {post.projectMetadata.docLink && (
-                <a href={post.projectMetadata.docLink} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4 lowercase">
-                  [ documentation ]
-                </a>
-              )}
-              {post.projectMetadata.publication && (
-                <div className="lowercase text-foreground/90">
-                  [ publication: {post.projectMetadata.publication} ]
-                </div>
-              )}
-            </div>
-          )}
+          <ProjectLinks pm={post.projectMetadata} />
         </div>
       )}
 
@@ -596,55 +572,7 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
       <ShareSection title={post.title} url={postUrl} />
 
       {/* Credits */}
-      {post.projectMetadata?.credits && (
-        <div className="mt-16 border-t border-border pt-10 font-display text-xs uppercase space-y-4">
-          <h3 className="text-sm font-semibold mb-4 text-foreground/90">[ credits ]</h3>
-          {post.projectMetadata.credits.performers && (
-            <div className="grid grid-cols-[140px_1fr] gap-4">
-              <span className="text-muted-foreground">performers:</span>
-              <span className="lowercase text-foreground/90">{post.projectMetadata.credits.performers}</span>
-            </div>
-          )}
-          {post.projectMetadata.credits.cinematography && (
-            <div className="grid grid-cols-[140px_1fr] gap-4">
-              <span className="text-muted-foreground">cinematography:</span>
-              <span className="lowercase text-foreground/90">{post.projectMetadata.credits.cinematography}</span>
-            </div>
-          )}
-          {post.projectMetadata.credits.music && (
-            <div className="grid grid-cols-[140px_1fr] gap-4">
-              <span className="text-muted-foreground">music:</span>
-              <span className="lowercase text-foreground/90">{post.projectMetadata.credits.music}</span>
-            </div>
-          )}
-          {post.projectMetadata.credits.sound && (
-            <div className="grid grid-cols-[140px_1fr] gap-4">
-              <span className="text-muted-foreground">sound design:</span>
-              <span className="lowercase text-foreground/90">{post.projectMetadata.credits.sound}</span>
-            </div>
-          )}
-          {post.projectMetadata.credits.editing && (
-            <div className="grid grid-cols-[140px_1fr] gap-4">
-              <span className="text-muted-foreground">editing:</span>
-              <span className="lowercase text-foreground/90">{post.projectMetadata.credits.editing}</span>
-            </div>
-          )}
-          {post.projectMetadata.credits.institutions && (
-            <div className="grid grid-cols-[140px_1fr] gap-4">
-              <span className="text-muted-foreground">institutions:</span>
-              <span className="lowercase text-foreground/90">{post.projectMetadata.credits.institutions}</span>
-            </div>
-          )}
-          {post.projectMetadata.credits.acknowledgements && (
-            <div className="border-t border-border/50 pt-4 mt-4">
-              <p className="text-muted-foreground mb-2">acknowledgements:</p>
-              <p className="text-foreground/80 normal-case leading-relaxed font-sans text-xs max-w-2xl">
-                {post.projectMetadata.credits.acknowledgements}
-              </p>
-            </div>
-          )}
-        </div>
-      )}
+      <ProjectCredits pm={post.projectMetadata} />
 
       {/* References */}
       {post.projectMetadata?.references && post.projectMetadata.references.length > 0 && (

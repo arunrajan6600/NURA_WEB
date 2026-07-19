@@ -130,14 +130,15 @@ export class PostsRepository {
         });
       }
 
-      // Insert project metadata
       if (data.projectMetadata) {
-        const { sections, ...restMeta } = data.projectMetadata;
+        const { sections, links, credits, ...restMeta } = data.projectMetadata;
         await tx.projectMetadata.create({
           data: {
             postId: post.id,
             ...restMeta,
             sections: sections ? (sections as any) : undefined,
+            links: links ? (links as any) : undefined,
+            credits: credits ? (credits as any) : undefined,
           },
         });
       }
@@ -231,16 +232,17 @@ export class PostsRepository {
         }
       }
 
-      // Handle project metadata updates
       if (data.projectMetadata !== undefined) {
         await tx.projectMetadata.deleteMany({ where: { postId: id } });
         if (data.projectMetadata) {
-          const { sections, ...restMeta } = data.projectMetadata;
+          const { sections, links, credits, ...restMeta } = data.projectMetadata;
           await tx.projectMetadata.create({
             data: {
               postId: id,
               ...restMeta,
               sections: sections ? (sections as any) : undefined,
+              links: links ? (links as any) : undefined,
+              credits: credits ? (credits as any) : undefined,
             },
           });
         }

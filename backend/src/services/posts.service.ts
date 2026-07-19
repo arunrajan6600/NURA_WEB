@@ -134,7 +134,7 @@ export class PostsService {
           // Timeline
           year: post.projectMetadata.year,
           duration: post.projectMetadata.duration,
-          // Links
+          // Links (legacy scalar fields kept for backward compat)
           repoLink: post.projectMetadata.repoLink,
           demoLink: post.projectMetadata.demoLink,
           docLink: post.projectMetadata.docLink,
@@ -148,7 +148,8 @@ export class PostsService {
           publication: post.projectMetadata.publication,
           researchArea: post.projectMetadata.researchArea,
           projectCreationDate: post.projectMetadata.projectCreationDate,
-          // Structured data
+          // Structured repeatable collections
+          links: post.projectMetadata.links,
           credits: post.projectMetadata.credits,
           references: post.projectMetadata.references,
           sections: post.projectMetadata.sections,

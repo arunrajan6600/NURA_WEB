@@ -1,11 +1,123 @@
 // Auto-generated posts file
-// Version: v20260718-232026
-// Generated: 2026-07-18T17:50:27.964Z
+// Version: v20260719-141121
+// Generated: 2026-07-19T08:41:23.463Z
 // Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
 
 export const posts: Post[] = [
+  {
+    "id": "cmrri0etm0000gu1vk72gf92f",
+    "title": "Hidden Sitas",
+    "slug": "hidden-sitas",
+    "status": "published",
+    "featured": false,
+    "type": "project",
+    "excerpt": "In G. Aravindan's Kanchana Sita (1977), Sita is never represented as a visible character; her presence is experienced through the responses of nature—trees, wind, water, light, and the living landscape. Taking this as a conceptual point of departure, this series of videos attempts to rediscover Sita and a constellation of associated texts from the pixels of the film itself.\n\nജീവിതത്തിന്റെ പിക്സലുകൾ നിഗൂഢങ്ങൾ ആണ് യുവരാജൻ",
+    "tags": [
+      "touchdesigner",
+      "kanchanasita",
+      "g aravindan"
+    ],
+    "createdAt": "2026-07-19T07:52:52.234Z",
+    "updatedAt": "2026-07-19T08:27:47.785Z",
+    "publishedAt": "2026-07-19T07:56:14.290Z",
+    "viewCount": 38,
+    "likeCount": 0,
+    "cells": [
+      {
+        "id": "cmrrj8yxz0016gu1vyp3lpn7v",
+        "type": "markdown",
+        "content": "In G. Aravindan's *Kanchana Sita* (1977), Sita is never represented as a visible character; her presence is experienced through the responses of nature—trees, wind, water, light, and the living landscape. Taking this as a conceptual point of departure, this series of videos attempts to rediscover Sita and a constellation of associated texts from the pixels of the film itself. As pixel values shift over time, their dynamic accumulation gradually reveals words and forms within a single static frame. The work proposes that what remains unseen in the narrative may still persist as a latent presence within the moving image.\n\nOne video extends this exploration by incorporating the climactic scene from Aravindan's *Kummatty* (1979), in which Chindan, the dog, affectionately embraces the shaman, Kummatty, amidst the quiet serenity of the Kerala landscape. Through the continuous transformation of pixel values, fragments of this embrace become entangled with Lakshmana's face from Kanchana Sita, giving rise to \"Chindarekha.\"\n\nHow many Sitas, how many moments of becoming can inhabit a single unmoving frame? Beneath its apparent stillness, the pixels contains innumerable temporalities, affections, and transformations.\n\n*ജീവിതത്തിന്റെ പിക്സലുകൾ നിഗൂഢങ്ങൾ ആണ് യുവരാജൻ*",
+        "order": 0,
+        "orderIndex": 0
+      },
+      {
+        "id": "cmrrj8yxz0017gu1vp547kxpf",
+        "type": "video",
+        "content": {
+          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/10d359ae-600e-4a37-b5d8-d2de6a9f178b.mov",
+          "title": "",
+          "provider": "direct"
+        },
+        "order": 1,
+        "orderIndex": 1
+      },
+      {
+        "id": "cmrrj8yxz0018gu1vvdp2vmkr",
+        "type": "video",
+        "content": {
+          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/57d8c8a0-eb97-4678-8b5c-17a5572e3006.mp4",
+          "title": "",
+          "provider": "direct"
+        },
+        "order": 2,
+        "orderIndex": 2
+      },
+      {
+        "id": "cmrrj8yxz0019gu1v9ipyqzo2",
+        "type": "video",
+        "content": {
+          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/89e6661c-de4b-483c-bf9a-9e7b1a680cfa.mp4",
+          "title": "",
+          "provider": "direct"
+        },
+        "order": 3,
+        "orderIndex": 3
+      },
+      {
+        "id": "cmrrj8yxz001agu1vuki3na3c",
+        "type": "video",
+        "content": {
+          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/5702b4c2-6d23-4c96-995b-20dd290d4289.mp4",
+          "title": "",
+          "provider": "direct"
+        },
+        "order": 4,
+        "orderIndex": 4
+      },
+      {
+        "id": "cmrrj8yxz001bgu1vn38jdjz6",
+        "type": "video",
+        "content": {
+          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/81480247-2ebe-4f76-8e37-77ef7c0fc3d4.mp4",
+          "title": "",
+          "provider": "direct"
+        },
+        "order": 5,
+        "orderIndex": 5
+      }
+    ],
+    "projectMetadata": {
+      "subtitle": null,
+      "category": "Video Art",
+      "role": null,
+      "client": null,
+      "teamMembers": null,
+      "year": "13 April 2024",
+      "duration": null,
+      "repoLink": null,
+      "demoLink": null,
+      "docLink": null,
+      "medium": "Video",
+      "collaborators": null,
+      "tools": [
+        "touchdesigner"
+      ],
+      "technologies": [],
+      "institution": null,
+      "exhibition": null,
+      "publication": "https://homegrown.co.in/homegrown-creators/an-arun-nura-ai-video-series-deconstructs-notions-of-futurism-physical-reality",
+      "researchArea": null,
+      "projectCreationDate": "2024-04-13",
+      "credits": {
+        "music": "",
+        "acknowledgements": "Rajeev Taranath [Music from Kanchana Sita]"
+      },
+      "references": null,
+      "sections": []
+    }
+  },
   {
     "id": "cmrp8ka3w0006cx2ejoegj6l5",
     "title": "Google Maps with VCV & Mediapipe in Touchdesigner",
@@ -21,9 +133,9 @@ export const posts: Post[] = [
       "vcv rack"
     ],
     "createdAt": "2026-07-17T17:52:50.732Z",
-    "updatedAt": "2026-07-18T17:45:37.908Z",
+    "updatedAt": "2026-07-19T08:27:41.790Z",
     "publishedAt": "2026-07-17T17:54:28.078Z",
-    "viewCount": 56,
+    "viewCount": 72,
     "likeCount": 0,
     "cells": [
       {
@@ -104,9 +216,9 @@ export const posts: Post[] = [
       "ai"
     ],
     "createdAt": "2026-07-17T16:36:13.233Z",
-    "updatedAt": "2026-07-18T17:45:38.020Z",
+    "updatedAt": "2026-07-19T08:27:42.556Z",
     "publishedAt": "2026-07-17T16:36:12.952Z",
-    "viewCount": 54,
+    "viewCount": 66,
     "likeCount": 0,
     "cells": [
       {
@@ -181,9 +293,9 @@ export const posts: Post[] = [
       "maythil radhakrishnan"
     ],
     "createdAt": "2026-07-17T16:01:41.719Z",
-    "updatedAt": "2026-07-18T17:45:40.106Z",
+    "updatedAt": "2026-07-19T08:27:48.004Z",
     "publishedAt": "2026-07-17T16:10:01.202Z",
-    "viewCount": 35,
+    "viewCount": 46,
     "likeCount": 0,
     "cells": [
       {
@@ -259,9 +371,9 @@ export const posts: Post[] = [
       "puredata"
     ],
     "createdAt": "2026-07-17T15:40:07.424Z",
-    "updatedAt": "2026-07-18T17:45:40.289Z",
+    "updatedAt": "2026-07-19T08:27:42.977Z",
     "publishedAt": "2026-07-17T15:40:06.351Z",
-    "viewCount": 44,
+    "viewCount": 54,
     "likeCount": 0,
     "cells": [
       {
@@ -336,9 +448,9 @@ export const posts: Post[] = [
       "touchdesigner"
     ],
     "createdAt": "2026-07-16T19:11:01.057Z",
-    "updatedAt": "2026-07-18T17:45:38.002Z",
+    "updatedAt": "2026-07-19T08:27:41.204Z",
     "publishedAt": "2026-07-16T19:14:50.140Z",
-    "viewCount": 159,
+    "viewCount": 175,
     "likeCount": 0,
     "cells": [
       {
@@ -398,9 +510,9 @@ export const posts: Post[] = [
       "malayalam cinema"
     ],
     "createdAt": "2026-07-16T18:57:15.078Z",
-    "updatedAt": "2026-07-18T17:43:58.829Z",
+    "updatedAt": "2026-07-19T08:27:44.565Z",
     "publishedAt": "2026-07-16T19:07:07.097Z",
-    "viewCount": 94,
+    "viewCount": 102,
     "likeCount": 0,
     "cells": [
       {
@@ -463,9 +575,9 @@ export const posts: Post[] = [
       "audio reactive"
     ],
     "createdAt": "2025-09-01T02:13:14.993Z",
-    "updatedAt": "2026-07-18T17:45:38.008Z",
+    "updatedAt": "2026-07-19T08:27:41.784Z",
     "publishedAt": "2025-09-01T02:13:14.993Z",
-    "viewCount": 131,
+    "viewCount": 144,
     "likeCount": 0,
     "cells": [
       {
@@ -531,9 +643,9 @@ export const posts: Post[] = [
       "python"
     ],
     "createdAt": "2025-09-01T02:00:29.561Z",
-    "updatedAt": "2026-07-18T17:45:40.278Z",
+    "updatedAt": "2026-07-19T08:27:44.058Z",
     "publishedAt": "2025-09-01T02:00:29.561Z",
-    "viewCount": 105,
+    "viewCount": 116,
     "likeCount": 0,
     "cells": [
       {
@@ -598,8 +710,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260718-232026",
-  generatedAt: "2026-07-18T17:50:27.964Z",
+  version: "v20260719-141121",
+  generatedAt: "2026-07-19T08:41:23.463Z",
   source: "api",
-  count: 8
+  count: 9
 };

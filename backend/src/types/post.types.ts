@@ -31,6 +31,34 @@ export interface ProjectSection {
   order: number;
 }
 
+export type ProjectLinkType =
+  | 'publication' | 'repository' | 'demo' | 'documentation'
+  | 'website' | 'dataset' | 'presentation' | 'video' | 'doi' | 'other';
+
+export interface ProjectLink {
+  id: string;
+  type: ProjectLinkType;
+  title: string;
+  url: string;
+  description?: string | null;
+  order: number;
+}
+
+export type ProjectCreditRole =
+  | 'developer' | 'contributor' | 'advisor' | 'supervisor' | 'mentor'
+  | 'institution' | 'organization' | 'client' | 'sponsor' | 'funding'
+  | 'research_lab' | 'designer' | 'tester' | 'reviewer' | 'other';
+
+export interface ProjectCredit {
+  id: string;
+  role: ProjectCreditRole;
+  name: string;
+  organization?: string | null;
+  url?: string | null;
+  description?: string | null;
+  order: number;
+}
+
 export interface ProjectMetadataInput {
   // Basic project info
   subtitle?: string | null;
@@ -41,7 +69,7 @@ export interface ProjectMetadataInput {
   // Timeline
   year?: string | null;
   duration?: string | null;
-  // Links
+  // Legacy single-value links (kept for backward compat)
   repoLink?: string | null;
   demoLink?: string | null;
   docLink?: string | null;
@@ -56,8 +84,9 @@ export interface ProjectMetadataInput {
   // Arrays
   tools?: string[];
   technologies?: string[];
-  // Structured data
-  credits?: any;
+  // Structured data (new repeatable collections)
+  links?: ProjectLink[] | null;
+  credits?: ProjectCredit[] | any; // any for backward compat with old flat object format
   references?: any;
   sections?: ProjectSection[] | null;
 }

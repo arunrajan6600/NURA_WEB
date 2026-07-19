@@ -61,6 +61,23 @@ const projectSectionSchema = zod_1.z.object({
     content: zod_1.z.string(),
     order: zod_1.z.number().int(),
 });
+const linkItemSchema = zod_1.z.object({
+    id: zod_1.z.string(),
+    type: zod_1.z.enum(['publication', 'repository', 'demo', 'documentation', 'website', 'dataset', 'presentation', 'video', 'doi', 'other']),
+    title: zod_1.z.string().min(1, 'Link title is required'),
+    url: zod_1.z.string().url('Link must be a valid URL'),
+    description: zod_1.z.string().nullable().optional(),
+    order: zod_1.z.number().int(),
+});
+const creditItemSchema = zod_1.z.object({
+    id: zod_1.z.string(),
+    role: zod_1.z.enum(['developer', 'contributor', 'advisor', 'supervisor', 'mentor', 'institution', 'organization', 'client', 'sponsor', 'funding', 'research_lab', 'designer', 'tester', 'reviewer', 'other']),
+    name: zod_1.z.string().min(1, 'Credit name is required'),
+    organization: zod_1.z.string().nullable().optional(),
+    url: zod_1.z.string().url('Credit URL must be valid').nullable().optional().or(zod_1.z.literal('')),
+    description: zod_1.z.string().nullable().optional(),
+    order: zod_1.z.number().int(),
+});
 const projectMetadataSchema = zod_1.z.object({
     // Basic project info
     subtitle: nullableString,
@@ -71,7 +88,7 @@ const projectMetadataSchema = zod_1.z.object({
     // Timeline
     year: nullableString,
     duration: nullableString,
-    // Links
+    // Legacy single-value links (backward compat)
     repoLink: nullableString,
     demoLink: nullableString,
     docLink: nullableString,
@@ -87,8 +104,17 @@ const projectMetadataSchema = zod_1.z.object({
     // Arrays
     tools: optionalArray,
     technologies: optionalArray,
-    // Structured data
-    credits: zod_1.z.any().nullable().optional(),
+    // Structured repeatable collections
+    links: zod_1.z.preprocess((val) => {
+        if (val === null || val === undefined)
+            return null;
+        return val;
+    }, zod_1.z.array(linkItemSchema).nullable().optional()),
+    credits: zod_1.z.preprocess((val) => {
+        if (val === null || val === undefined)
+            return null;
+        return val;
+    }, zod_1.z.union([zod_1.z.array(creditItemSchema), zod_1.z.record(zod_1.z.any())]).nullable().optional()),
     references: zod_1.z.any().nullable().optional(),
     sections: zod_1.z.preprocess((val) => {
         if (val === null || val === undefined)

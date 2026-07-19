@@ -62,6 +62,25 @@ const projectSectionSchema = z.object({
   order: z.number().int(),
 });
 
+const linkItemSchema = z.object({
+  id: z.string(),
+  type: z.enum(['publication', 'repository', 'demo', 'documentation', 'website', 'dataset', 'presentation', 'video', 'doi', 'other']),
+  title: z.string().min(1, 'Link title is required'),
+  url: z.string().url('Link must be a valid URL'),
+  description: z.string().nullable().optional(),
+  order: z.number().int(),
+});
+
+const creditItemSchema = z.object({
+  id: z.string(),
+  role: z.enum(['developer', 'contributor', 'advisor', 'supervisor', 'mentor', 'institution', 'organization', 'client', 'sponsor', 'funding', 'research_lab', 'designer', 'tester', 'reviewer', 'other']),
+  name: z.string().min(1, 'Credit name is required'),
+  organization: z.string().nullable().optional(),
+  url: z.string().url('Credit URL must be valid').nullable().optional().or(z.literal('')),
+  description: z.string().nullable().optional(),
+  order: z.number().int(),
+});
+
 const projectMetadataSchema = z.object({
   // Basic project info
   subtitle: nullableString,
@@ -72,7 +91,7 @@ const projectMetadataSchema = z.object({
   // Timeline
   year: nullableString,
   duration: nullableString,
-  // Links
+  // Legacy single-value links (backward compat)
   repoLink: nullableString,
   demoLink: nullableString,
   docLink: nullableString,
@@ -88,8 +107,15 @@ const projectMetadataSchema = z.object({
   // Arrays
   tools: optionalArray,
   technologies: optionalArray,
-  // Structured data
-  credits: z.any().nullable().optional(),
+  // Structured repeatable collections
+  links: z.preprocess((val: any) => {
+    if (val === null || val === undefined) return null;
+    return val;
+  }, z.array(linkItemSchema).nullable().optional()),
+  credits: z.preprocess((val: any) => {
+    if (val === null || val === undefined) return null;
+    return val;
+  }, z.union([z.array(creditItemSchema), z.record(z.any())]).nullable().optional()),
   references: z.any().nullable().optional(),
   sections: z.preprocess((val: any) => {
     if (val === null || val === undefined) return null;

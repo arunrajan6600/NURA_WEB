@@ -18,6 +18,44 @@ export interface ProjectSection {
   order: number;
 }
 
+export type ProjectLinkType =
+  | 'publication' | 'repository' | 'demo' | 'documentation'
+  | 'website' | 'dataset' | 'presentation' | 'video' | 'doi' | 'other';
+
+export interface ProjectLink {
+  id: string;
+  type: ProjectLinkType;
+  title: string;
+  url: string;
+  description?: string | null;
+  order: number;
+}
+
+export type ProjectCreditRole =
+  | 'developer' | 'contributor' | 'advisor' | 'supervisor' | 'mentor'
+  | 'institution' | 'organization' | 'client' | 'sponsor' | 'funding'
+  | 'research_lab' | 'designer' | 'tester' | 'reviewer' | 'other';
+
+export interface ProjectCredit {
+  id: string;
+  role: ProjectCreditRole;
+  name: string;
+  organization?: string | null;
+  url?: string | null;
+  description?: string | null;
+  order: number;
+}
+
+export interface LegacyCredits {
+  performers?: string | null;
+  cinematography?: string | null;
+  music?: string | null;
+  sound?: string | null;
+  editing?: string | null;
+  institutions?: string | null;
+  acknowledgements?: string | null;
+}
+
 export interface ProjectMetadata {
   // Basic project info
   subtitle?: string | null;
@@ -28,7 +66,7 @@ export interface ProjectMetadata {
   // Timeline
   year?: string | null;
   duration?: string | null;
-  // Links
+  // Legacy scalar links
   repoLink?: string | null;
   demoLink?: string | null;
   docLink?: string | null;
@@ -42,15 +80,9 @@ export interface ProjectMetadata {
   publication?: string | null;
   researchArea?: string | null;
   projectCreationDate?: string | null;
-  credits?: {
-    performers?: string | null;
-    cinematography?: string | null;
-    music?: string | null;
-    sound?: string | null;
-    editing?: string | null;
-    institutions?: string | null;
-    acknowledgements?: string | null;
-  } | null;
+  // Repeatable dynamic lists
+  links?: ProjectLink[] | null;
+  credits?: ProjectCredit[] | LegacyCredits | null;
   references?: { title: string; url?: string }[] | null;
   sections?: ProjectSection[] | null;
 }
