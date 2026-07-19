@@ -1,7 +1,7 @@
 "use client";
 
 import { Post } from "@/types/post";
-import { formatDistance } from "date-fns";
+import { PostCardDates } from "./post-dates";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ExternalLink } from "lucide-react";
@@ -34,9 +34,6 @@ export function LinkPostCard({
   post,
   variant = "default",
 }: LinkPostCardProps) {
-  const formattedDate = formatDistance(new Date(post.updatedAt), new Date(), {
-    addSuffix: true,
-  });
   const previewContent = getPreviewContent(post);
   const isCompact = variant === "compact";
   const externalUrl = extractUrl(post);
@@ -48,9 +45,9 @@ export function LinkPostCard({
           <h3 className="text-base font-medium uppercase leading-snug">
             {post.title}
           </h3>
-          <p className="font-display text-xs uppercase text-muted-foreground">
-            {formattedDate}
-          </p>
+          <div>
+            <PostCardDates post={post} className="font-display text-xs uppercase text-muted-foreground" />
+          </div>
         </div>
 
         <div className="flex flex-col gap-1 flex-shrink-0">

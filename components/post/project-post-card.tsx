@@ -3,7 +3,7 @@
 import { Post } from "@/types/post";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { ThumbnailCell } from "./thumbnail-cell";
-import { formatDistance } from "date-fns";
+import { PostCardDates } from "./post-dates";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -69,10 +69,7 @@ export function ProjectPostCard({
   const isHovering = useRef(false);
   const isCompact = variant === "compact";
 
-  const formattedDate = useMemo(
-    () => formatDistance(new Date(post.updatedAt), new Date(), { addSuffix: true }),
-    [post.updatedAt]
-  );
+
   const previewContent = useMemo(() => getPreviewContent(post), [post]);
   const tags = useMemo(() => getWorkTags(post), [post]);
   const pm = post.projectMetadata;
@@ -254,9 +251,9 @@ export function ProjectPostCard({
                   </span>
                 )}
               </div>
-              <p className="font-meta text-[10px] uppercase text-muted-foreground/75">
-                {formattedDate}
-              </p>
+              <div>
+                <PostCardDates post={post} className="font-meta text-[10px] uppercase text-muted-foreground/75" />
+              </div>
             </div>
             
             <Button

@@ -1,6 +1,6 @@
 // Auto-generated posts file
-// Version: v20260719-231849
-// Generated: 2026-07-19T17:48:51.552Z
+// Version: v20260720-000025
+// Generated: 2026-07-19T18:30:49.801Z
 // Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
@@ -18,19 +18,44 @@ export const posts: Post[] = [
       "story"
     ],
     "createdAt": "2026-07-19T17:27:34.275Z",
-    "updatedAt": "2026-07-19T17:36:45.982Z",
+    "updatedAt": "2026-07-19T18:01:17.808Z",
     "publishedAt": "2026-07-19T17:28:19.299Z",
-    "viewCount": 9,
+    "viewCount": 30,
     "likeCount": 0,
     "cells": [
       {
-        "id": "cmrs2mhyf0005gd2dl7wl16kw",
+        "id": "cmrs3lzil0000cn2dv3lk8ank",
         "type": "markdown",
-        "content": "അവൾ ജയിലിലെ ഇരുമ്പഴികൾക്കിടയിലൂടെ അവന്റെ വിരലുകളിൽ പിടിച്ചു മരിച്ച ഈറനണിഞ്ഞ കണ്ണുകളോടെ അവന്റെ മുഖത്തേക്ക് നോക്കി നിന്നു.\n\nപെട്ടെന്ന് എന്തോ ഓർത്ത് അവൻ പറഞ്ഞു \n\nഅയാൾ എനിക്ക്   \"ഒരു മരത്തിൽ കൂടിയിരിക്കും പറവൈ\" എന്ന പാട്ട് അയച്ചു തന്നു.\n\nഅവൾ ഞെട്ടിത്തരിച്ചു വായ കൈകൾ കൊണ്ട് പൊതി. കണ്ണുകളിൽ ഭയം തിളങ്ങി.\n\n\"സൗന്ദർരാജൻ -രാജേശ്വരി യോ അതോ പി സുശീലയോ ?\" വി���്കി വിക്കി അവൾ ചോദിച്ചു \n\nഅവളുടെ ഭാവമാറ്റം കണ്ടപ്പോൾ അവനും പകച്ചു.\n\n\"സൗന്ദർരാജൻ -രാജേശ്വരി\"\n\n\"ദൈവമേ...!!!\" - എങ്ങും ഭയം മാത്രം \n\n\n\n(തുടരും...)\n\n24 November 2021",
+        "content": "അവൾ ജയിലിലെ ഇരുമ്പഴികൾക്കിടയിലൂടെ അവന്റെ വിരലുകളിൽ പിടിച്ചു മരിച്ച ഈറനണിഞ്ഞ കണ്ണുകളോടെ അവന്റെ മുഖത്തേക്ക് നോക്കി നിന്നു.\n\nപെട്ടെന്ന് എന്തോ ഓർത്ത് അവൻ പറഞ്ഞു \n\nഅയാൾ എനിക്ക്   \"ഒരു മരത്തിൽ കൂടിയിരിക്കും പറവൈ\" എന്ന പാട്ട് അയച്ചു തന്നു.\n\nഅവൾ ഞെട്ടിത്തരിച്ചു വായ കൈകൾ കൊണ്ട് പൊതി. കണ്ണുകളിൽ ഭയം തിളങ്ങി.\n\n\"സൗന്ദർരാജൻ -രാജേശ്വരി യോ അതോ പി സുശീലയോ ?\" വിക്കി വിക്കി അവൾ ചോദിച്ചു \n\nഅവളുടെ ഭാവമാറ്റം കണ്ടപ്പോൾ അവനും പകച്ചു.\n\n\"സൗന്ദർരാജൻ -രാജേശ്വരി\"\n\n\"ദൈവമേ...!!!\" - എങ്ങും ഭയം മാത്രം \n\n\n\n(തുടരും...)",
         "order": 0,
         "orderIndex": 0
       }
-    ]
+    ],
+    "projectMetadata": {
+      "subtitle": null,
+      "category": null,
+      "role": null,
+      "client": null,
+      "teamMembers": null,
+      "year": null,
+      "duration": null,
+      "repoLink": null,
+      "demoLink": null,
+      "docLink": null,
+      "medium": null,
+      "collaborators": null,
+      "tools": [],
+      "technologies": [],
+      "institution": null,
+      "exhibition": null,
+      "publication": null,
+      "researchArea": null,
+      "projectCreationDate": "2021-11-24",
+      "links": [],
+      "credits": [],
+      "references": null,
+      "sections": null
+    }
   },
   {
     "id": "cmrri0etm0000gu1vk72gf92f",
@@ -39,16 +64,16 @@ export const posts: Post[] = [
     "status": "published",
     "featured": false,
     "type": "project",
-    "excerpt": "In G. Aravindan's Kanchana Sita (1977), Sita is never represented as a visible character; her presence is experienced through the responses of nature—trees, wind, water, light, and the living landscape. Taking this as a conceptual point of departure, this series of videos attempts to rediscover Sita and a constellation of associated texts from the pixels of the film itself.\n\nജീവിതത്തിന്റെ പിക്സലുകൾ നിഗൂഢങ്ങൾ ആണ് യുവരാജൻ",
+    "excerpt": "In G. Aravindan's Kanchana Sita (1977), Sita is never represented as a visible character; her presence is experienced through the responses of nature—trees, wind, water, light, and the living landscape. Taking this as a conceptual point of departure, this series of videos attempts to rediscover Sita and a constellation of associated texts from the pixels of the film itself.\n\nജീവിതത്തിന്റെ പിക്സലു��ൾ നിഗൂഢങ്ങൾ ആണ് യുവരാജൻ",
     "tags": [
       "touchdesigner",
       "kanchanasita",
       "g aravindan"
     ],
     "createdAt": "2026-07-19T07:52:52.234Z",
-    "updatedAt": "2026-07-19T17:35:59.253Z",
+    "updatedAt": "2026-07-19T17:55:04.451Z",
     "publishedAt": "2026-07-19T07:56:14.290Z",
-    "viewCount": 70,
+    "viewCount": 71,
     "likeCount": 0,
     "cells": [
       {
@@ -174,9 +199,9 @@ export const posts: Post[] = [
       "vcv rack"
     ],
     "createdAt": "2026-07-17T17:52:50.732Z",
-    "updatedAt": "2026-07-19T17:35:52.527Z",
+    "updatedAt": "2026-07-19T18:02:46.478Z",
     "publishedAt": "2026-07-17T17:54:28.078Z",
-    "viewCount": 91,
+    "viewCount": 99,
     "likeCount": 0,
     "cells": [
       {
@@ -258,9 +283,9 @@ export const posts: Post[] = [
       "ai"
     ],
     "createdAt": "2026-07-17T16:36:13.233Z",
-    "updatedAt": "2026-07-19T17:35:55.126Z",
+    "updatedAt": "2026-07-19T18:03:01.369Z",
     "publishedAt": "2026-07-17T16:36:12.952Z",
-    "viewCount": 74,
+    "viewCount": 76,
     "likeCount": 0,
     "cells": [
       {
@@ -324,7 +349,7 @@ export const posts: Post[] = [
   },
   {
     "id": "cmrp4lc9j000mit1v6kpmn4oh",
-    "title": "നരഭോജി ഉറുമ്പുകൾ - മേതിലിന്റെ വാക്പിപീലികകൾ",
+    "title": "നരഭോജി ഉറ���മ്പുകൾ - മേതിലിന്റെ വാക്പിപീലികകൾ",
     "slug": "",
     "status": "published",
     "featured": false,
@@ -336,9 +361,9 @@ export const posts: Post[] = [
       "maythil radhakrishnan"
     ],
     "createdAt": "2026-07-17T16:01:41.719Z",
-    "updatedAt": "2026-07-19T17:35:54.532Z",
+    "updatedAt": "2026-07-19T18:03:01.361Z",
     "publishedAt": "2026-07-17T16:10:01.202Z",
-    "viewCount": 56,
+    "viewCount": 58,
     "likeCount": 0,
     "cells": [
       {
@@ -403,7 +428,7 @@ export const posts: Post[] = [
   },
   {
     "id": "cmrp3tlkw0000it1vb3lf2kkg",
-    "title": "Surveillance Devi | നിരീക്ഷണേശ്വ��ി/മേൽനോട്ടക്കാരി",
+    "title": "Surveillance Devi | നിരീക്ഷണേശ്വരി/മേൽനോട്ടക്കാരി",
     "slug": "surveillance-devi",
     "status": "published",
     "featured": false,
@@ -415,9 +440,9 @@ export const posts: Post[] = [
       "puredata"
     ],
     "createdAt": "2026-07-17T15:40:07.424Z",
-    "updatedAt": "2026-07-19T17:35:54.320Z",
+    "updatedAt": "2026-07-19T17:55:06.293Z",
     "publishedAt": "2026-07-17T15:40:06.351Z",
-    "viewCount": 65,
+    "viewCount": 66,
     "likeCount": 0,
     "cells": [
       {
@@ -493,9 +518,9 @@ export const posts: Post[] = [
       "touchdesigner"
     ],
     "createdAt": "2026-07-16T19:11:01.057Z",
-    "updatedAt": "2026-07-19T17:35:52.530Z",
+    "updatedAt": "2026-07-19T18:02:58.645Z",
     "publishedAt": "2026-07-16T19:14:50.140Z",
-    "viewCount": 193,
+    "viewCount": 207,
     "likeCount": 0,
     "cells": [
       {
@@ -556,9 +581,9 @@ export const posts: Post[] = [
       "malayalam cinema"
     ],
     "createdAt": "2026-07-16T18:57:15.078Z",
-    "updatedAt": "2026-07-19T17:35:59.237Z",
+    "updatedAt": "2026-07-19T17:55:04.290Z",
     "publishedAt": "2026-07-16T19:07:07.097Z",
-    "viewCount": 112,
+    "viewCount": 113,
     "likeCount": 0,
     "cells": [
       {
@@ -622,9 +647,9 @@ export const posts: Post[] = [
       "audio reactive"
     ],
     "createdAt": "2025-09-01T02:13:14.993Z",
-    "updatedAt": "2026-07-19T17:36:01.067Z",
+    "updatedAt": "2026-07-19T18:02:46.469Z",
     "publishedAt": "2025-09-01T02:13:14.993Z",
-    "viewCount": 164,
+    "viewCount": 167,
     "likeCount": 0,
     "cells": [
       {
@@ -691,9 +716,9 @@ export const posts: Post[] = [
       "python"
     ],
     "createdAt": "2025-09-01T02:00:29.561Z",
-    "updatedAt": "2026-07-19T17:35:59.273Z",
+    "updatedAt": "2026-07-19T17:55:04.442Z",
     "publishedAt": "2025-09-01T02:00:29.561Z",
-    "viewCount": 130,
+    "viewCount": 131,
     "likeCount": 0,
     "cells": [
       {
@@ -771,9 +796,9 @@ export const posts: Post[] = [
       "touchdesigner"
     ],
     "createdAt": "2025-08-24T17:39:19.030Z",
-    "updatedAt": "2026-07-19T17:35:52.991Z",
+    "updatedAt": "2026-07-19T18:02:46.348Z",
     "publishedAt": "2025-08-24T17:39:19.030Z",
-    "viewCount": 113,
+    "viewCount": 121,
     "likeCount": 0,
     "cells": [
       {
@@ -829,8 +854,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260719-231849",
-  generatedAt: "2026-07-19T17:48:51.552Z",
+  version: "v20260720-000025",
+  generatedAt: "2026-07-19T18:30:49.801Z",
   source: "api",
   count: 11
 };

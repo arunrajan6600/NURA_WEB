@@ -2,7 +2,7 @@
 
 import { Post } from "@/types/post";
 import { ThumbnailCell } from "./thumbnail-cell";
-import { formatDistance } from "date-fns";
+import { PostCardDates } from "./post-dates";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -25,9 +25,6 @@ export function NewsPostCard({
   post,
   variant = "default",
 }: NewsPostCardProps) {
-  const formattedDate = formatDistance(new Date(post.updatedAt), new Date(), {
-    addSuffix: true,
-  });
   const previewContent = getPreviewContent(post);
   const isCompact = variant === "compact";
 
@@ -38,9 +35,9 @@ export function NewsPostCard({
           <h3 className="text-base font-medium uppercase leading-snug">
             {post.title}
           </h3>
-          <p className="font-display text-xs uppercase text-muted-foreground">
-            {formattedDate}
-          </p>
+          <div>
+            <PostCardDates post={post} className="font-display text-xs uppercase text-muted-foreground" />
+          </div>
         </div>
         <Link href={`/post/${post.id}`} className="flex-shrink-0">
           <Button variant="ghost" size="sm">

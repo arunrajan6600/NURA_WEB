@@ -5,7 +5,7 @@ import { Post } from "@/types/post";
 import { postsApi } from "@/lib/posts-api";
 import { PostCell } from "@/components/post/post-cell";
 import { PostCard } from "@/components/post/post-card";
-import { format } from "date-fns";
+import { PostDetailDates } from "./post-dates";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Clock } from "lucide-react";
@@ -236,7 +236,6 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
 
   // ── Derived values ─────────────────────────────────────────────────────────
 
-  const formattedDate = format(new Date(post.updatedAt), "MMMM d, yyyy");
   const backLink = getBackLink(post);
 
   const sameTypePosts = allPublishedPosts.filter((p) => p.type === post.type);
@@ -360,39 +359,48 @@ export function PostDetailClient({ postId }: PostDetailClientProps) {
               ))}
             </div>
           )}
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-display uppercase">
-            <span suppressHydrationWarning>Updated {formattedDate}</span>
-            {post.type !== "project" && (
-              <>
-                <span>/</span>
-                <span className="flex items-center gap-1">
+          {(() => {
+            const metaParts = [];
+            if (post.type !== "project") {
+              metaParts.push(
+                <span key="reading-time" className="flex items-center gap-1">
                   <Clock className="h-3 w-3" />
                   {readingMinutes} min read
                 </span>
-              </>
-            )}
-            {post.projectMetadata?.year && (
-              <>
-                <span>/</span>
-                <span className="text-foreground/80">{post.projectMetadata.year}</span>
-              </>
-            )}
-            {post.projectMetadata?.medium && (
-              <>
-                <span>/</span>
-                <span className="text-foreground/80">{post.projectMetadata.medium}</span>
-              </>
-            )}
-            {post.projectMetadata?.duration && (
-              <>
-                <span>/</span>
-                <span className="text-foreground/80">{post.projectMetadata.duration}</span>
-              </>
-            )}
-          </div>
+              );
+            }
+            if (post.projectMetadata?.year) {
+              metaParts.push(
+                <span key="year" className="text-foreground/80">{post.projectMetadata.year}</span>
+              );
+            }
+            if (post.projectMetadata?.medium) {
+              metaParts.push(
+                <span key="medium" className="text-foreground/80">{post.projectMetadata.medium}</span>
+              );
+            }
+            if (post.projectMetadata?.duration) {
+              metaParts.push(
+                <span key="duration" className="text-foreground/80">{post.projectMetadata.duration}</span>
+              );
+            }
+
+            if (metaParts.length === 0) return null;
+
+            return (
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-display uppercase">
+                {metaParts.reduce((acc, part, index) => {
+                  if (index === 0) return [part];
+                  return [...acc, <span key={`sep-${index}`}>/</span>, part];
+                }, [] as React.ReactNode[])}
+              </div>
+            );
+          })()}
 
         </div>
       )}
+
+      <PostDetailDates post={post} />
 
       {/* Research Metadata */}
       {post.researchMetadata && (
