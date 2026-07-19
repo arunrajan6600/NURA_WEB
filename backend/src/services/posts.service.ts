@@ -120,6 +120,7 @@ export class PostsService {
       createdAt: post.createdAt.toISOString(),
       updatedAt: post.updatedAt.toISOString(),
       publishedAt: post.publishedAt ? post.publishedAt.toISOString() : null,
+      contentCreationDate: post.contentCreationDate ?? null,
       viewCount: post.viewCount,
       likeCount: post.likeCount,
       cells,

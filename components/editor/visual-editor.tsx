@@ -914,15 +914,18 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
             <Label>Creation Date</Label>
             <Input
               type="date"
-              value={pm.projectCreationDate || ""}
+              value={localPost.contentCreationDate || ""}
               onChange={(e) =>
-                updateProjectMeta("projectCreationDate", e.target.value || null)
+                updatePostInternally((prev) => ({
+                  ...prev,
+                  contentCreationDate: e.target.value || null,
+                }))
               }
               placeholder="YYYY-MM-DD"
             />
             <p className="text-[10px] text-muted-foreground font-display">
               Actual date the work was created — used for Newest / Oldest sorting.
-              Overrides the CMS publish date for ordering.
+              Works for all post types: project, blog, paper, story, etc.
             </p>
           </div>
         </div>

@@ -29,6 +29,7 @@ export interface CreatePostData {
     content: unknown;
     orderIndex?: number;
   }>;
+  contentCreationDate?: string | null;
   projectMetadata?: ProjectMetadata | null;
   researchMetadata?: ResearchMetadata | null;
 }

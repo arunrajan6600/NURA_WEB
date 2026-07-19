@@ -105,6 +105,7 @@ export interface CreatePostInput {
   authorId?: string;
   tags?: string[];
   cells?: PostCell[];
+  contentCreationDate?: string | null;
   researchMetadata?: ResearchMetadataInput | null;
   projectMetadata?: ProjectMetadataInput | null;
 }
@@ -142,6 +143,7 @@ export interface PostApiResponse {
   createdAt: string;
   updatedAt: string;
   publishedAt: string | null;
+  contentCreationDate?: string | null;
   viewCount: number;
   likeCount: number;
   cells: CellApiResponse[];

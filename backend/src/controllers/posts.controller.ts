@@ -137,6 +137,7 @@ const createPostSchema = z.object({
   authorId: z.string().optional(),
   tags: optionalArray,
   cells: z.array(cellSchema).optional(),
+  contentCreationDate: nullableString,
   researchMetadata: researchMetadataSchema.nullable().optional(),
   projectMetadata: projectMetadataSchema.nullable().optional(),
 });

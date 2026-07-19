@@ -122,6 +122,7 @@ export class PostsRepository {
           authorId: data.authorId || '00000000-0000-0000-0000-000000000001',
           tags: data.tags || [],
           publishedAt: data.status === 'published' ? now : null,
+          contentCreationDate: data.contentCreationDate ?? null,
           viewCount: 0,
           likeCount: 0,
         },
@@ -212,6 +213,7 @@ export class PostsRepository {
       }
       if (data.authorId !== undefined) updateData.authorId = data.authorId;
       if (data.tags !== undefined) updateData.tags = data.tags;
+      if (data.contentCreationDate !== undefined) updateData.contentCreationDate = data.contentCreationDate ?? null;
 
       await tx.post.update({
         where: { id },

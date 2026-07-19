@@ -2,6 +2,7 @@
 
 import { Post } from "@/types/post";
 import { formatCardDate, formatDetailDate, hasBeenUpdated } from "@/lib/dates";
+import { getEffectiveCreationDate } from "@/lib/sorting";
 
 interface PostDatesProps {
   post: Post;
@@ -9,12 +10,26 @@ interface PostDatesProps {
 }
 
 /**
+ * Resolves the canonical "Created" date for a post.
+ *
+ * Priority:
+ *   1. post.contentCreationDate   — unified field (all types, post-migration)
+ *   2. projectMetadata.projectCreationDate — legacy projects (pre-migration)
+ *   3. post.createdAt             — DB creation fallback (always available)
+ */
+function getDisplayCreatedDate(post: Post): string {
+  const effective = getEffectiveCreationDate(post);
+  return effective || post.createdAt;
+}
+
+/**
  * Renders Created and optionally Updated dates for collection cards.
  * Compact format: 19 Jul 2026
  */
 export function PostCardDates({ post, className = "font-meta text-xs uppercase text-muted-foreground" }: PostDatesProps) {
+  const createdDate = getDisplayCreatedDate(post);
   const isUpdated = hasBeenUpdated(post.createdAt, post.updatedAt);
-  const createdStr = formatCardDate(post.createdAt);
+  const createdStr = formatCardDate(createdDate);
   const updatedStr = formatCardDate(post.updatedAt);
 
   return (
@@ -36,8 +51,9 @@ export function PostCardDates({ post, className = "font-meta text-xs uppercase t
  * Detail format: 19 July 2026
  */
 export function PostDetailDates({ post }: PostDatesProps) {
+  const createdDate = getDisplayCreatedDate(post);
   const isUpdated = hasBeenUpdated(post.createdAt, post.updatedAt);
-  const createdStr = formatDetailDate(post.createdAt);
+  const createdStr = formatDetailDate(createdDate);
   const updatedStr = formatDetailDate(post.updatedAt);
 
   return (

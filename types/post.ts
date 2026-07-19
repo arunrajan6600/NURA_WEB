@@ -104,6 +104,7 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
   publishedAt?: string | null;
+  contentCreationDate?: string | null;
   excerpt?: string | null;
   viewCount?: number;
   likeCount?: number;
