@@ -1,11 +1,37 @@
 // Auto-generated posts file
-// Version: v20260719-220318
-// Generated: 2026-07-19T16:33:42.583Z
+// Version: v20260719-231849
+// Generated: 2026-07-19T17:48:51.552Z
 // Source: API (https://nuraweb-backend.onrender.com/posts)
 
 import { Post } from "@/types/post";
 
 export const posts: Post[] = [
+  {
+    "id": "cmrs2jhc30002gd2d6mkcv06q",
+    "title": "ഹത്യ",
+    "slug": "ഹത-യ",
+    "status": "published",
+    "featured": false,
+    "type": "story",
+    "excerpt": "അവൾ ജയിലിലെ ഇരുമ്പഴികൾക്കിടയിലൂടെ അവന്റെ വിരലു��ളിൽ പിടിച്ചു മരിച്ച ഈറനണിഞ്ഞ കണ്ണുകളോടെ അവന്റെ മുഖത്തേക്ക് നോക്കി നിന്നു.",
+    "tags": [
+      "story"
+    ],
+    "createdAt": "2026-07-19T17:27:34.275Z",
+    "updatedAt": "2026-07-19T17:36:45.982Z",
+    "publishedAt": "2026-07-19T17:28:19.299Z",
+    "viewCount": 9,
+    "likeCount": 0,
+    "cells": [
+      {
+        "id": "cmrs2mhyf0005gd2dl7wl16kw",
+        "type": "markdown",
+        "content": "അവൾ ജയിലിലെ ഇരുമ്പഴികൾക്കിടയിലൂടെ അവന്റെ വിരലുകളിൽ പിടിച്ചു മരിച്ച ഈറനണിഞ്ഞ കണ്ണുകളോടെ അവന്റെ മുഖത്തേക്ക് നോക്കി നിന്നു.\n\nപെട്ടെന്ന് എന്തോ ഓർത്ത് അവൻ പറഞ്ഞു \n\nഅയാൾ എനിക്ക്   \"ഒരു മരത്തിൽ കൂടിയിരിക്കും പറവൈ\" എന്ന പാട്ട് അയച്ചു തന്നു.\n\nഅവൾ ഞെട്ടിത്തരിച്ചു വായ കൈകൾ കൊണ്ട് പൊതി. കണ്ണുകളിൽ ഭയം തിളങ്ങി.\n\n\"സൗന്ദർരാജൻ -രാജേശ്വരി യോ അതോ പി സുശീലയോ ?\" വി���്കി വിക്കി അവൾ ചോദിച്ചു \n\nഅവളുടെ ഭാവമാറ്റം കണ്ടപ്പോൾ അവനും പകച്ചു.\n\n\"സൗന്ദർരാജൻ -രാജേശ്വരി\"\n\n\"ദൈവമേ...!!!\" - എങ്ങും ഭയം മാത്രം \n\n\n\n(തുടരും...)\n\n24 November 2021",
+        "order": 0,
+        "orderIndex": 0
+      }
+    ]
+  },
   {
     "id": "cmrri0etm0000gu1vk72gf92f",
     "title": "Hidden Sitas",
@@ -20,9 +46,9 @@ export const posts: Post[] = [
       "g aravindan"
     ],
     "createdAt": "2026-07-19T07:52:52.234Z",
-    "updatedAt": "2026-07-19T14:29:05.028Z",
+    "updatedAt": "2026-07-19T17:35:59.253Z",
     "publishedAt": "2026-07-19T07:56:14.290Z",
-    "viewCount": 64,
+    "viewCount": 70,
     "likeCount": 0,
     "cells": [
       {
@@ -148,9 +174,9 @@ export const posts: Post[] = [
       "vcv rack"
     ],
     "createdAt": "2026-07-17T17:52:50.732Z",
-    "updatedAt": "2026-07-19T14:33:40.361Z",
+    "updatedAt": "2026-07-19T17:35:52.527Z",
     "publishedAt": "2026-07-17T17:54:28.078Z",
-    "viewCount": 82,
+    "viewCount": 91,
     "likeCount": 0,
     "cells": [
       {
@@ -232,9 +258,9 @@ export const posts: Post[] = [
       "ai"
     ],
     "createdAt": "2026-07-17T16:36:13.233Z",
-    "updatedAt": "2026-07-19T14:28:51.499Z",
+    "updatedAt": "2026-07-19T17:35:55.126Z",
     "publishedAt": "2026-07-17T16:36:12.952Z",
-    "viewCount": 71,
+    "viewCount": 74,
     "likeCount": 0,
     "cells": [
       {
@@ -310,9 +336,9 @@ export const posts: Post[] = [
       "maythil radhakrishnan"
     ],
     "createdAt": "2026-07-17T16:01:41.719Z",
-    "updatedAt": "2026-07-19T14:28:35.297Z",
+    "updatedAt": "2026-07-19T17:35:54.532Z",
     "publishedAt": "2026-07-17T16:10:01.202Z",
-    "viewCount": 52,
+    "viewCount": 56,
     "likeCount": 0,
     "cells": [
       {
@@ -377,7 +403,7 @@ export const posts: Post[] = [
   },
   {
     "id": "cmrp3tlkw0000it1vb3lf2kkg",
-    "title": "Surveillance Devi | നിരീക്ഷണേശ്വരി/മേൽനോട്ടക്കാരി",
+    "title": "Surveillance Devi | നിരീക്ഷണേശ്വ��ി/മേൽനോട്ടക്കാരി",
     "slug": "surveillance-devi",
     "status": "published",
     "featured": false,
@@ -389,9 +415,9 @@ export const posts: Post[] = [
       "puredata"
     ],
     "createdAt": "2026-07-17T15:40:07.424Z",
-    "updatedAt": "2026-07-19T14:29:08.598Z",
+    "updatedAt": "2026-07-19T17:35:54.320Z",
     "publishedAt": "2026-07-17T15:40:06.351Z",
-    "viewCount": 61,
+    "viewCount": 65,
     "likeCount": 0,
     "cells": [
       {
@@ -467,9 +493,9 @@ export const posts: Post[] = [
       "touchdesigner"
     ],
     "createdAt": "2026-07-16T19:11:01.057Z",
-    "updatedAt": "2026-07-19T14:28:50.370Z",
+    "updatedAt": "2026-07-19T17:35:52.530Z",
     "publishedAt": "2026-07-16T19:14:50.140Z",
-    "viewCount": 186,
+    "viewCount": 193,
     "likeCount": 0,
     "cells": [
       {
@@ -530,9 +556,9 @@ export const posts: Post[] = [
       "malayalam cinema"
     ],
     "createdAt": "2026-07-16T18:57:15.078Z",
-    "updatedAt": "2026-07-19T14:28:37.394Z",
+    "updatedAt": "2026-07-19T17:35:59.237Z",
     "publishedAt": "2026-07-16T19:07:07.097Z",
-    "viewCount": 108,
+    "viewCount": 112,
     "likeCount": 0,
     "cells": [
       {
@@ -596,17 +622,28 @@ export const posts: Post[] = [
       "audio reactive"
     ],
     "createdAt": "2025-09-01T02:13:14.993Z",
-    "updatedAt": "2026-07-19T14:28:41.399Z",
+    "updatedAt": "2026-07-19T17:36:01.067Z",
     "publishedAt": "2025-09-01T02:13:14.993Z",
-    "viewCount": 154,
+    "viewCount": 164,
     "likeCount": 0,
     "cells": [
       {
-        "id": "cmrrkr43n001qbm2eu4pp0fgw",
+        "id": "cmrs2rn5z0006gd2dp9lqiarf",
         "type": "markdown",
         "content": "An audio interactive video where music from VCV rack is controlling the orientation of caches frames of a video\n\nAI Model: YOLO [Detection]\nSoftwares: Touchdesigner [Visual Manipulation & Text], VCV Rack [Audio Synthesis]",
         "order": 0,
         "orderIndex": 0
+      },
+      {
+        "id": "cmrs2rn5z0007gd2dvlpjg966",
+        "type": "video",
+        "content": {
+          "url": "https://ytjlpfdapslscoecjsed.supabase.co/storage/v1/object/public/nuraweb-files/76aec298-a86c-4c2d-856b-0768e0a24a5b.mp4",
+          "title": "",
+          "provider": "direct"
+        },
+        "order": 1,
+        "orderIndex": 1
       }
     ],
     "projectMetadata": {
@@ -654,9 +691,9 @@ export const posts: Post[] = [
       "python"
     ],
     "createdAt": "2025-09-01T02:00:29.561Z",
-    "updatedAt": "2026-07-19T14:28:37.248Z",
+    "updatedAt": "2026-07-19T17:35:59.273Z",
     "publishedAt": "2025-09-01T02:00:29.561Z",
-    "viewCount": 124,
+    "viewCount": 130,
     "likeCount": 0,
     "cells": [
       {
@@ -734,9 +771,9 @@ export const posts: Post[] = [
       "touchdesigner"
     ],
     "createdAt": "2025-08-24T17:39:19.030Z",
-    "updatedAt": "2026-07-19T14:28:41.224Z",
+    "updatedAt": "2026-07-19T17:35:52.991Z",
     "publishedAt": "2025-08-24T17:39:19.030Z",
-    "viewCount": 106,
+    "viewCount": 113,
     "likeCount": 0,
     "cells": [
       {
@@ -792,8 +829,8 @@ export const posts: Post[] = [
 ];
 
 export const postsMetadata = {
-  version: "v20260719-220318",
-  generatedAt: "2026-07-19T16:33:42.583Z",
+  version: "v20260719-231849",
+  generatedAt: "2026-07-19T17:48:51.552Z",
   source: "api",
-  count: 10
+  count: 11
 };

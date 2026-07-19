@@ -17,8 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-type SortMode = "curated" | "newest" | "oldest" | "alphabetical";
+import { type SortMode, sortPosts } from "@/lib/sorting";
 
 function ProjectCardSkeleton() {
   return (
@@ -193,37 +192,11 @@ export function ProjectsList() {
     searchQuery,
   ]);
 
-  // Sorting logic
-  // Uses projectCreationDate (actual work date) when available, falls back to createdAt.
-  const getProjectDate = (post: Post): number => {
-    const pcd = post.projectMetadata?.projectCreationDate;
-    if (pcd) {
-      const d = new Date(pcd).getTime();
-      if (!isNaN(d)) return d;
-    }
-    return new Date(post.createdAt).getTime();
-  };
-
-  const sortedPosts = useMemo(() => {
-    const postsCopy = [...filteredPosts];
-    return postsCopy.sort((a, b) => {
-      if (sortMode === "curated") {
-        // Featured first, then pinned, then newest project creation date
-        if (a.featured && !b.featured) return -1;
-        if (!a.featured && b.featured) return 1;
-        if (a.pinned && !b.pinned) return -1;
-        if (!a.pinned && b.pinned) return 1;
-        return getProjectDate(b) - getProjectDate(a);
-      } else if (sortMode === "newest") {
-        return getProjectDate(b) - getProjectDate(a);
-      } else if (sortMode === "oldest") {
-        return getProjectDate(a) - getProjectDate(b);
-      } else if (sortMode === "alphabetical") {
-        return a.title.localeCompare(b.title);
-      }
-      return getProjectDate(b) - getProjectDate(a);
-    });
-  }, [filteredPosts, sortMode]);
+  // Sorting — delegates to shared lib/sorting.ts (same logic used by all content types)
+  const sortedPosts = useMemo(
+    () => sortPosts(filteredPosts, sortMode),
+    [filteredPosts, sortMode]
+  );
 
   const handleResetFilters = () => {
     setSearchQuery("");

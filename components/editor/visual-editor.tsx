@@ -909,6 +909,22 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
               <Label htmlFor="archived">Archived</Label>
             </div>
           </div>
+          {/* Creation Date — shown for all post types, used for chronological sorting */}
+          <div className="space-y-2">
+            <Label>Creation Date</Label>
+            <Input
+              type="date"
+              value={pm.projectCreationDate || ""}
+              onChange={(e) =>
+                updateProjectMeta("projectCreationDate", e.target.value || null)
+              }
+              placeholder="YYYY-MM-DD"
+            />
+            <p className="text-[10px] text-muted-foreground font-display">
+              Actual date the work was created — used for Newest / Oldest sorting.
+              Overrides the CMS publish date for ordering.
+            </p>
+          </div>
         </div>
       </CollapsiblePanel>
 
@@ -1040,18 +1056,6 @@ export function VisualEditor({ post, onChange }: VisualEditorProps) {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label>Project Creation Date</Label>
-                <Input
-                  type="date"
-                  value={pm.projectCreationDate || ""}
-                  onChange={(e) => updateProjectMeta("projectCreationDate", e.target.value || null)}
-                  placeholder="YYYY-MM-DD"
-                />
-                <p className="text-[10px] text-muted-foreground font-display">
-                  Actual date the work was created (used for chronological sorting). Not the CMS publish date.
-                </p>
-              </div>
 
               <div className="space-y-2">
                 <Label>Institution</Label>
